@@ -23,6 +23,10 @@ Finally, PVS was used to prove that the real valued specifications of the core f
 The [`PVS`](PVS) directory contains these proofs.
 For details on the verification process for the floating-point implementation, see [2].
 
+### Version
+
+Current version is 1.0.1
+
 ### License
 
 The code in this repository is released under NASA's Open Source Agreement.  See the directory [`LICENSES`](LICENSES); see also the copyright notice at the end of this file. 
