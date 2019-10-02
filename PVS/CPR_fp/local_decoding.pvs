@@ -1,0 +1,94 @@
+local_decoding: THEORY
+BEGIN
+
+  IMPORTING cpr_defs
+
+  Nb: VAR NB
+  i : VAR CPRFormat
+  lat_s: VAR Latitude
+  lon_s: VAR Longitude
+  
+  % For local decoding "The first zone north of the equator has an index number
+  % of zero. Latitude Zone Index numbers south of the equator start at -1 and
+  % increase in magnitude toward the South Pole. Note that southern hemisphere
+  % latitude zone indices for local decoding are numbered differently than the
+  % zone indices for global decoding".
+
+  % Eq 35
+  % Zone Index of the reference position
+  ZI_RP(i)(lat_s): int =
+   LET f01 = dlat(i),
+       f0 = cpr_div(lat_s,f01)
+   IN cpr_floor(f0)
+
+  % Eq 36
+  % Latitude zone fraction of the reference position
+  f_RP(i)(lat_s): {x:real| 0 <= x AND x < 1} =
+   LET f01 = dlat(i),
+       f0 = cpr_mod(lat_s,f01)
+   IN cpr_div(f0, f01)
+
+  % Eq 37
+  % Latitude zone fraction of the encoded position
+  f_EP(Nb)(YZi: BinIndex(Nb)): {x:real| 0 <= x AND x < 1} =
+   LET f1 = F2pNb(Nb) IN cpr_div(YZi,f1)
+
+  % Eq 38
+  dZI(Nb)(lat_s)(i,(YZi: BinIndex(Nb))): {dzi:int|abs(dzi) <= 1} =
+   LET f001 = f_RP(i)(lat_s),
+       f00 = cpr_add(F1d2, f001),
+       f01 = f_EP(Nb)(YZi),
+       f0 = cpr_sub(f00, f01)
+   IN cpr_floor(f0)
+    
+  % Eq 39 
+  % (j) Latitude zone index of the encoded position.
+
+  % j= floor( lats/dlati - Yzi/2^17 + 1/2).
+  latZI_EP(Nb)(lat_s)(i,(YZi: BinIndex(Nb))): int =
+   LET f0 = ZI_RP(i)(lat_s),
+       f1 = dZI(Nb)(lat_s)(i,YZi)
+   IN cpr_add(f0, f1)
+
+  % Eq 40
+  % Latitude of the encoded position
+  Rlati(Nb)(lat_s)(i,(YZi: BinIndex(Nb))) : real =
+   LET f0 = dlat(i),
+       f10 = latZI_EP(Nb)(lat_s)(i,YZi),
+       f11 = f_EP(Nb)(YZi),
+       f1 = cpr_add(f10,f11)
+   IN cpr_mul(f0,f1)
+
+  % Eq 41
+  % Longitude zone index of the encoded position.
+  % "Longitude zone indices start at zero on the east side of the prime meridian
+  % and increase with increasing east longitude. If RP longitude is between 0°
+  % and 360°, the longitude zone indices will range from 0 to 59 and the recove-
+  % red longitude Rloni will be in the range of 0° to 360°. If RP longitude is
+  % between -180° and +180°, the longitude zone indices will range from -30 to
+  % +29 and the recovered longitude Rloni will be in the range of -180° to
+  % +180°".
+  lonZI_EP(Nb)(lat_s,lon_s)(i,(XZi,YZi: BinIndex(Nb))): int =
+   LET Dlon = dlon(Nb,i)(Rlati(Nb)(lat_s)(i,YZi)),
+       f00 = cpr_div(lon_s,Dlon),
+       f0 = cpr_floor(f00),
+       f10100 = cpr_mod(lon_s,Dlon),
+       f1010 = cpr_div(f10100,Dlon),
+       f1011 = cpr_div(XZi,F2pNb(Nb)),
+       f101 = cpr_sub(f1010,f1011),
+       f10 = cpr_add(F1d2,f101),
+       f1 = cpr_floor(f10)
+   IN cpr_add(f0,f1)
+
+  % Eq 42
+  % Longitude of the encoded position.
+  Rloni(Nb)(lat_s,lon_s)(i,(XZi,YZi: BinIndex(Nb))) : Longitude =
+   LET f00 = Rlati(Nb)(lat_s)(i,YZi),
+       f0 = dlon(Nb,i)(f00),
+       f10 = lonZI_EP(Nb)(lat_s,lon_s)(i,XZi,YZi),
+       f111 = F2pNb(Nb),
+       f11 = cpr_div(XZi,f111),
+       f1 = cpr_add(f10, f11)
+   IN cpr_mul(f0,f1)
+    
+END local_decoding

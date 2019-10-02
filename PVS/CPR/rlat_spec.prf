@@ -1,0 +1,1967 @@
+(rlat_spec
+ (RLAT_TCC1 0
+  (RLAT_TCC1-1 nil 3719656749 ("" (subtype-tcc) nil nil) nil nil))
+ (rlat_idem_TCC1 0
+  (rlat_idem_TCC1-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (^ const-decl "real" exponentiation nil)
+    (dl const-decl "posreal" abstract_cpr nil))
+   nil))
+ (rlat_idem 0
+  (rlat_idem-1 nil 3719681602
+   ("" (skeep)
+    (("" (expand "RLAT")
+      (("" (skeep)
+        (("" (lemma "alt_rec_pos")
+          (("" (inst?)
+            (("" (skoletin)
+              (("" (replace -2 :dir rl)
+                (("" (replace -1)
+                  (("" (replace -3 1)
+                    (("" (simplify 1)
+                      ((""
+                        (case "NOT ((dll / 2 ^ (1 + nb) + dll * (m / 2 ^ nb) + k * dll) / dll) = (1 / 2 ^ (1 + nb) +(m / 2 ^ nb) + k ) ")
+                        (("1" (assert) nil nil)
+                         ("2" (replaces -1)
+                          (("2" (rewrite "expt_plus")
+                            (("2" (rewrite "expt_x1")
+                              (("2"
+                                (case
+                                 "NOT 2 ^ nb * (1 / (2 ^ nb * 2) + (m / 2 ^ nb) + k) = 1/2 + m + 2^nb*k")
+                                (("1" (assert) nil nil)
+                                 ("2"
+                                  (replaces -1)
+                                  (("2"
+                                    (lemma "floor_plus_int")
+                                    (("2"
+                                      (inst -1 "m+2^nb*k" " 1/2")
+                                      (("2"
+                                        (replaces -1)
+                                        (("2"
+                                          (eval-expr "floor(1/2)")
+                                          (("2"
+                                            (replace -1)
+                                            (("2" (assert) nil nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (alt_rec_pos formula-decl nil abstract_cpr nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (recovered_position const-decl "real" abstract_cpr nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (posrat_times_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
+    (floor_plus_int formula-decl nil floor_ceil nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (expt_x1 formula-decl nil exponentiation nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (expt_plus formula-decl nil exponentiation nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posrat_plus_nnrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil))
+   shostak))
+ (rlat_pre_TCC1 0
+  (rlat_pre_TCC1-1 nil 3719656749 ("" (subtype-tcc) nil nil) nil nil))
+ (rlat_pre 0
+  (rlat_pre-1 nil 3719682611
+   ("" (skeep)
+    (("" (expand "RLAT")
+      (("" (expand "recovered_position")
+        ((""
+          (inst 1 "floor(lat_real / dl(60 - i, range))" "floor(1/2 +
+                  2 ^ nb * mod(lat_real, dl(60 - i, range)) /
+                   dl(60 - i, range))")
+          (("" (name "dll" "dl(60 - i, range)")
+            (("" (replace -1)
+              ((""
+                (case "NOT 2^nb*mod(lat_real, dll) / dll = 2^nb*fractional(lat_real/dll)")
+                (("1" (expand "mod")
+                  (("1" (expand "fractional") (("1" (assert) nil nil))
+                    nil))
+                  nil)
+                 ("2" (replaces -1)
+                  (("2" (typepred "fractional(lat_real / dll)")
+                    (("2" (mult-by -1 "2^nb")
+                      (("2" (mult-by -2 "2^nb")
+                        (("2" (assert)
+                          (("2" (split 1)
+                            (("1" (assert) nil nil)
+                             ("2" (assert)
+                              (("2"
+                                (both-sides "+" "1/2" -2)
+                                (("2"
+                                  (case
+                                   "NOT floor(fractional(lat_real / dll) * 2 ^ nb + 1 / 2) <= floor(1 * 2 ^ nb + 1 / 2)")
+                                  (("1" (assert) nil nil)
+                                   ("2"
+                                    (lemma "floor_plus_int")
+                                    (("2"
+                                      (inst -1 "2^nb" " 1/2")
+                                      (("2"
+                                        (replaces -1)
+                                        (("2"
+                                          (eval-expr "floor(1/2)")
+                                          (("2" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil) (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (subrange type-eq-decl nil integers nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (range skolem-const-decl "posreal" rlat_spec nil)
+    (i skolem-const-decl "subrange(0, 1)" rlat_spec nil)
+    (lat_real skolem-const-decl "real" rlat_spec nil)
+    (nb skolem-const-decl "posnat" rlat_spec nil)
+    (TRUE const-decl "bool" booleans nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (floor_plus_int formula-decl nil floor_ceil nil)
+    (both_sides_div_pos_le2 formula-decl nil real_props nil)
+    (both_sides_times_pos_le1 formula-decl nil real_props nil)
+    (both_sides_div_pos_lt2 formula-decl nil real_props nil)
+    (both_sides_plus_lt1 formula-decl nil real_props nil)
+    (posrat_plus_nnrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (recovered_position const-decl "real" abstract_cpr nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil))
+   shostak))
+ (rlat_sub 0
+  (rlat_sub-1 nil 3719738329
+   ("" (skeep)
+    (("" (expand "RLAT")
+      (("" (skeep)
+        (("" (inst 1 "k" "m*(2^(nbb-nb))")
+          (("1" (case "(m * (2 ^ (nbb - nb)) / 2 ^ nbb) = m/2^nb")
+            (("1" (assert) nil nil)
+             ("2" (hide-all-but 1)
+              (("2" (cross-mult)
+                (("2" (lemma "expt_div")
+                  (("2" (inst?)
+                    (("2" (replaces -1 :dir rl)
+                      (("2" (cross-mult) nil nil)) nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (typepred "nb")
+            (("2" (typepred "m")
+              (("2" (move-terms -3 r 1)
+                (("2" (mult-by -1 "2^(nbb-nb)")
+                  (("2" (case "NOT 2 ^ nb * 2 ^ (nbb - nb) = 2^nbb")
+                    (("1" (assert)
+                      (("1" (rewrite "expt_div" 1 :dir rl)
+                        (("1" (assert) nil nil)) nil))
+                      nil)
+                     ("2" (replace -1)
+                      (("2" (assert)
+                        (("2" (lemma "integers.closed_times")
+                          (("2" (inst -1 "m" "2^(nbb-nb)")
+                            (("2" (lemma "int_exp")
+                              (("2" (inst -1 "nbb-nb" "2") nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nnrat_exp application-judgement "nnrat" exponentiation nil)
+    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nbb skolem-const-decl "posnat" rlat_spec nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (m skolem-const-decl "{m: nat | m <= 2 ^ nb}" rlat_spec nil)
+    (nb skolem-const-decl "posnat" rlat_spec nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (^ const-decl "real" exponentiation nil)
+    (/= const-decl "boolean" notequal nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (expt_div formula-decl nil exponentiation nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (TRUE const-decl "bool" booleans nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (nzreal_exp application-judgement "nzreal" exponentiation nil)
+    (posrat_times_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (div_cancel4 formula-decl nil real_props nil)
+    (times_div2 formula-decl nil real_props nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (div_cancel3 formula-decl nil real_props nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (closed_times formula-decl nil integers nil)
+    (int_exp judgement-tcc nil exponentiation nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil))
+   nil))
+ (rlat_sub_pred 0
+  (rlat_sub_pred-1 nil 3719739786
+   ("" (skeep)
+    (("" (skeep)
+      (("" (inst -1 "i" "lato")
+        (("" (lemma "rlat_sub")
+          (("" (inst -1 "i" "lato" "nb" "19" "range")
+            (("" (assert) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((rlat_sub formula-decl nil rlat_spec nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (range skolem-const-decl "posreal" rlat_spec nil)
+    (i skolem-const-decl "subrange(0, 1)" rlat_spec nil)
+    (nb skolem-const-decl "{nb: posnat | nb <= 19}" rlat_spec nil)
+    (lato skolem-const-decl "{lato | RLAT(range, nb, i)(lato)}"
+     rlat_spec nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (Latitude type-eq-decl nil rlat_spec nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil))
+   shostak))
+ (trans_comp_TCC1 0
+  (trans_comp_TCC1-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil))
+   nil))
+ (trans_comp_TCC2 0
+  (trans_comp_TCC2-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (<= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (subrange type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (^ const-decl "real" exponentiation nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil))
+   nil))
+ (trans_comp_TCC3 0
+  (trans_comp_TCC3-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (<= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (subrange type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil))
+   nil))
+ (trans_comp_TCC4 0
+  (trans_comp_TCC4-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil))
+   nil))
+ (trans_comp_TCC5 0
+  (trans_comp_TCC5-1 nil 3719656749
+   ("" (skeep :preds? t)
+    (("" (assert)
+      (("" (case "not 8192/(60-i)>=0")
+        (("1" (assert) (("1" (cross-mult 1) nil nil)) nil)
+         ("2" (assert)
+          (("2" (expand "dl")
+            (("2" (replace -7 2)
+              (("2" (assert)
+                (("2" (eval-expr "2^32")
+                  (("2" (eval-expr "2^19") (("2" (assert) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((posreal_plus_nnreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (div_mult_pos_ge1 formula-decl nil real_props nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (>= const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (subrange type-eq-decl nil integers nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil))
+   nil))
+ (trans_comp_TCC6 0
+  (trans_comp_TCC6-1 nil 3719656749 ("" (termination-tcc) nil nil)
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (int_minus_int_is_int application-judgement "int" integers nil))
+   nil))
+ (trans_comp_rlat_it_TCC1 0
+  (trans_comp_rlat_it_TCC1-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (<= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (subrange type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (^ const-decl "real" exponentiation nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil))
+   nil))
+ (trans_comp_rlat_it_TCC2 0
+  (trans_comp_rlat_it_TCC2-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (<= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (subrange type-eq-decl nil integers nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (^ const-decl "real" exponentiation nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil))
+   nil))
+ (trans_comp_rlat_it 0
+  (trans_comp_rlat_it-1 nil 3719748059
+   ("" (skolem 1 ("P" "i" "n" "_" "_"))
+    ((""
+      (case "FORALL (nn, it: below(1 + n),
+                                   (lat: nnreal
+                                        | lat = it * dl(60-i, 360) * (2 ^ 32 / 360) / 2 ^ 19)):
+                           nn=n-it AND   trans_comp(P, i, n, it, lat) IMPLIES
+                              (FORALL ((lat1: nnreal
+                                            | RLAT(360,19, i)(lat1) AND
+                                               lat1 <= dl(60-i, 360) * n / 2 ^ 19 AND
+                                                lat1 >= dl(60-i, 360) * it / 2 ^ 19)):
+                                P(2^32/360*lat1))")
+      (("1" (skeep)
+        (("1" (inst -1 "n-it" "it" "awblat") (("1" (assert) nil nil))
+          nil))
+        nil)
+       ("2" (hide 2)
+        (("2" (induct "nn")
+          (("1" (flatten)
+            (("1" (skeep)
+              (("1" (move-terms -2 r 2)
+                (("1" (skeep :preds? 1)
+                  (("1" (simplify -6)
+                    (("1" (replace -6)
+                      (("1"
+                        (case "NOT lat1 = dl(60-i, 360) * n / 2 ^ 19")
+                        (("1" (assert) nil nil)
+                         ("2" (expand "trans_comp")
+                          (("2" (split -8)
+                            (("1" (propax) nil nil)
+                             ("2" (typepred "lat")
+                              (("2"
+                                (replace -10)
+                                (("2"
+                                  (replace -4 :dir rl)
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (skeep)
+            (("2" (skeep)
+              (("2" (inst -2 "it+1" "lat + 2^13/(60-i)")
+                (("1" (expand "trans_comp" -4)
+                  (("1" (eval-expr "2^13")
+                    (("1" (replaces -1)
+                      (("1" (skeep :preds? t)
+                        (("1" (case "lat1 = dl(60-i, 360)*it/2^19")
+                          (("1" (typepred "lat")
+                            (("1"
+                              (case "NOT lat = 2 ^ 32 / 360 * lat1")
+                              (("1"
+                                (assert)
+                                (("1"
+                                  (replace -3 1)
+                                  (("1"
+                                    (replace -2 1)
+                                    (("1" (assert) nil nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (replace -1 :dir rl)
+                                (("2" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil)
+                           ("2" (split -8)
+                            (("1" (propax) nil nil)
+                             ("2" (flatten)
+                              (("2"
+                                (split -2)
+                                (("1" (assert) nil nil)
+                                 ("2"
+                                  (flatten)
+                                  (("2"
+                                    (split -8)
+                                    (("1"
+                                      (case
+                                       "NOT lat1>= (dl(60-i, 360) + dl(60-i, 360) * it) / 2 ^ 19")
+                                      (("1"
+                                        (case
+                                         "NOT forall (mm, kk:int): mm > kk IMPLIES mm>= 1+kk")
+                                        (("1"
+                                          (hide-all-but 1)
+                                          (("1" (grind) nil nil))
+                                          nil)
+                                         ("2"
+                                          (expand "RLAT")
+                                          (("2"
+                                            (skeep)
+                                            (("2"
+                                              (case
+                                               "NOT lat1 = dl(60-i, 360)*(k*2^19+m)/2^19")
+                                              (("1" (assert) nil nil)
+                                               ("2"
+                                                (replace -1)
+                                                (("2"
+                                                  (inst
+                                                   -2
+                                                   "(k * 2 ^ 19 + m) "
+                                                   "it")
+                                                  (("2"
+                                                    (case
+                                                     "NOT dl(60-i, 360)/2^19 >0")
+                                                    (("1"
+                                                      (hide-all-but 1)
+                                                      (("1"
+                                                        (expand "dl")
+                                                        (("1"
+                                                          (eval-expr
+                                                           "2^19")
+                                                          (("1"
+                                                            (assert)
+                                                            (("1"
+                                                              (cross-mult
+                                                               1)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (split -3)
+                                                      (("1"
+                                                        (eval-expr
+                                                         "2^19")
+                                                        (("1"
+                                                          (assert)
+                                                          (("1"
+                                                            (case
+                                                             "NOT dl(60-i, 360) / 2 ^ 19 >= dl(60-i, 360) / 2 ^ 19 ")
+                                                            (("1"
+                                                              (assert)
+                                                              nil
+                                                              nil)
+                                                             ("2"
+                                                              (mult-ineq
+                                                               -1
+                                                               -3)
+                                                              (("2"
+                                                                (assert)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil)
+                                                       ("2"
+                                                        (replace
+                                                         -2
+                                                         -8
+                                                         :dir
+                                                         rl)
+                                                        (("2"
+                                                          (replace
+                                                           -2
+                                                           -9
+                                                           :dir
+                                                           rl)
+                                                          (("2"
+                                                            (assert)
+                                                            (("2"
+                                                              (replace
+                                                               -2
+                                                               :dir
+                                                               rl)
+                                                              (("2"
+                                                                (replace
+                                                                 -2
+                                                                 -8)
+                                                                (("2"
+                                                                  (flip-ineq
+                                                                   1)
+                                                                  (("2"
+                                                                    (case
+                                                                     "NOT dl(60-i, 360) / 2 ^ 19 <= dl(60-i, 360) / 2 ^ 19 ")
+                                                                    (("1"
+                                                                      (assert)
+                                                                      nil
+                                                                      nil)
+                                                                     ("2"
+                                                                      (mult-ineq
+                                                                       -1
+                                                                       -2)
+                                                                      (("1"
+                                                                        (assert)
+                                                                        nil
+                                                                        nil)
+                                                                       ("2"
+                                                                        (flatten)
+                                                                        (("2"
+                                                                          (expand
+                                                                           "abs")
+                                                                          (("2"
+                                                                            (assert)
+                                                                            nil
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("2" (inst -2 "lat1") nil nil))
+                                      nil)
+                                     ("2" (assert) nil nil)
+                                     ("3" (assert) nil nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (typepred "lat")
+                  (("2" (assert)
+                    (("2" (eval-expr "2^13")
+                      (("2" (hide 2)
+                        (("2" (expand "dl")
+                          (("2" (eval-expr "(2 ^ 32 / 360)")
+                            (("2" (eval-expr "2 ^ 13 ")
+                              (("2"
+                                (eval-expr "2 ^ 19 ")
+                                (("2"
+                                  (assert)
+                                  (("2"
+                                    (replace -6)
+                                    (("2"
+                                      (assert)
+                                      (("2"
+                                        (case "NOT 2^13/(60-i) >=0")
+                                        (("1"
+                                          (hide-all-but 1)
+                                          (("1"
+                                            (typepred i)
+                                            (("1"
+                                              (cross-mult 1)
+                                              nil
+                                              nil))
+                                            nil))
+                                          nil)
+                                         ("2" (assert) nil nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("3" (typepred "i") (("3" (assert) nil nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((RLAT const-decl "bool" rlat_spec nil)
+    (trans_comp def-decl "bool" rlat_spec nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (^ const-decl "real" exponentiation nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (< const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (pred type-eq-decl nil defined_types nil)
+    (below_induction formula-decl nil bounded_nat_inductions nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (div_mult_pos_ge1 formula-decl nil real_props nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (ge_times_ge_any1 formula-decl nil extra_real_props nil)
+    (le_times_le_any1 formula-decl nil extra_real_props nil)
+    (minus_int_is_int application-judgement "int" integers nil)
+    (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (lat1 skolem-const-decl "{lat1: nnreal |
+         RLAT(360, 19, i)(lat1) AND
+          lat1 <= dl(60 - i, 360) * n / 2 ^ 19 AND
+           lat1 >= dl(60 - i, 360) * it / 2 ^ 19}" rlat_spec nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (TRUE const-decl "bool" booleans nil)
+    (lat skolem-const-decl
+     "{lat: nnreal | lat = dl(60 - i, 360) * (2 ^ 32 / 360) * it / 2 ^ 19}"
+     rlat_spec nil)
+    (it skolem-const-decl "below(1 + n)" rlat_spec nil)
+    (n skolem-const-decl
+     "{n: nat | n * dl(60 - i, 360) * (2 ^ 32 / 360) / 2 ^ 19 < 2 ^ 32}"
+     rlat_spec nil)
+    (i skolem-const-decl "subrange(0, 1)" rlat_spec nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posint_exp application-judgement "posint" exponentiation nil))
+   nil))
+ (trans_comp_rlat_TCC1 0
+  (trans_comp_rlat_TCC1-1 nil 3719656749 ("" (eval-formula 1) nil nil)
+   ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   nil))
+ (trans_comp_rlat_TCC2 0
+  (trans_comp_rlat_TCC2-1 nil 3719656749 ("" (eval-formula 1) nil nil)
+   ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil))
+   nil))
+ (trans_comp_rlat_TCC3 0
+  (trans_comp_rlat_TCC3-1 nil 3719656749 ("" (subtype-tcc) nil nil)
+   ((^ const-decl "real" exponentiation nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil))
+   nil))
+ (trans_comp_rlat_TCC4 0
+  (trans_comp_rlat_TCC4-1 nil 3719656749
+   ("" (skeep)
+    (("" (skeep)
+      (("" (assert)
+        (("" (eval-expr "2^32")
+          (("" (assert)
+            (("" (typepred "lat")
+              (("" (assert)
+                (("" (lemma "mod_pos")
+                  (("" (inst?) (("" (assert) nil nil)) nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (>= const-decl "bool" reals nil)
+    (/= const-decl "boolean" notequal nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (<= const-decl "bool" reals nil)
+    (Latitude type-eq-decl nil rlat_spec nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (subrange type-eq-decl nil integers nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (mod_pos formula-decl nil reals_mod "reals/")
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil))
+   nil))
+ (trans_comp_rlat 0
+  (trans_comp_rlat-1 nil 3719746118
+   ("" (skeep)
+    (("" (lemma "trans_comp_rlat_it")
+      (("" (inst -1 "P" "i" "(60 - i) * 2 ^ 19 - 1" "0" "0")
+        (("1" (assert)
+          (("1" (skeep)
+            (("1" (inst -1 "reals@reals_mod.mod(lat, 360)")
+              (("1" (typepred "lat")
+                (("1" (case "lat>=0")
+                  (("1"
+                    (case "NOT reals@reals_mod.mod(lat, 360) = lat")
+                    (("1" (hide-all-but (-1 -2 -3 1))
+                      (("1" (expand "mod") (("1" (assert) nil nil))
+                        nil))
+                      nil)
+                     ("2" (replaces -1)
+                      (("2" (assert)
+                        (("2" (expand "dl")
+                          (("2" (case "i=0")
+                            (("1" (replace -1)
+                              (("1"
+                                (eval-expr (! 1 r 1))
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil)
+                             ("2" (case "not i=1")
+                              (("1"
+                                (typepred "i")
+                                (("1" (assert) nil nil))
+                                nil)
+                               ("2"
+                                (replace -1)
+                                (("2"
+                                  (eval-expr (! 2 r 1))
+                                  (("2" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (assert)
+                    (("2"
+                      (case "NOT reals@reals_mod.mod(lat, 360) = 360 + lat")
+                      (("1" (hide-all-but (-1 -2 1 2))
+                        (("1" (expand "mod")
+                          (("1" (lemma "floor_0" ("x" "1+lat/360"))
+                            (("1" (flatten)
+                              (("1"
+                                (hide -1)
+                                (("1"
+                                  (split -1)
+                                  (("1"
+                                    (lemma
+                                     "floor_plus_int"
+                                     ("i" "1" "x" "lat/360"))
+                                    (("1"
+                                      (replaces -1)
+                                      (("1" (assert) nil nil))
+                                      nil))
+                                    nil)
+                                   ("2" (assert) nil nil)
+                                   ("3" (assert) nil nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (replaces -1)
+                        (("2" (assert)
+                          (("2" (expand "RLAT")
+                            (("2" (skeep)
+                              (("2"
+                                (split 2)
+                                (("1"
+                                  (inst 1 "60-i+k" "m")
+                                  (("1"
+                                    (expand "dl")
+                                    (("1" (assert) nil nil))
+                                    nil))
+                                  nil)
+                                 ("2"
+                                  (case "NOT lat<=-dl(60-i,360)/2^19")
+                                  (("1"
+                                    (flip-ineq 1)
+                                    (("1"
+                                      (hide (1 3))
+                                      (("1"
+                                        (flip-ineq 1)
+                                        (("1"
+                                          (hide (-4 -6))
+                                          (("1"
+                                            (typepred "m")
+                                            (("1"
+                                              (case "m=2^19")
+                                              (("1"
+                                                (replace -1)
+                                                (("1"
+                                                  (rewrite "div_simp")
+                                                  (("1"
+                                                    (case "k>=-1")
+                                                    (("1"
+                                                      (move-terms
+                                                       -1
+                                                       r
+                                                       1)
+                                                      (("1"
+                                                        (simplify -1)
+                                                        (("1"
+                                                          (case
+                                                           "dl(60-i,360)>=dl(60-i,360)")
+                                                          (("1"
+                                                            (mult-ineq
+                                                             -1
+                                                             -2)
+                                                            (("1"
+                                                              (assert)
+                                                              nil
+                                                              nil))
+                                                            nil)
+                                                           ("2"
+                                                            (assert)
+                                                            nil
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (flip-ineq 1)
+                                                      (("2"
+                                                        (case
+                                                         "NOT k<=-2")
+                                                        (("1"
+                                                          (assert)
+                                                          nil
+                                                          nil)
+                                                         ("2"
+                                                          (move-terms
+                                                           -1
+                                                           r
+                                                           1)
+                                                          (("2"
+                                                            (assert)
+                                                            (("2"
+                                                              (case
+                                                               "dl(60-i,360)<=dl(60-i,360)")
+                                                              (("1"
+                                                                (mult-ineq
+                                                                 -1
+                                                                 -2)
+                                                                (("1"
+                                                                  (simplify
+                                                                   -1)
+                                                                  (("1"
+                                                                    (case
+                                                                     "NOT lat<= -dl(60-i,360)")
+                                                                    (("1"
+                                                                      (assert)
+                                                                      nil
+                                                                      nil)
+                                                                     ("2"
+                                                                      (case
+                                                                       "dl(60-i,360)>dl(60-i,360)/2^19")
+                                                                      (("1"
+                                                                        (move-terms
+                                                                         -1
+                                                                         l
+                                                                         1)
+                                                                        (("1"
+                                                                          (move-terms
+                                                                           -1
+                                                                           r
+                                                                           1)
+                                                                          (("1"
+                                                                            (assert)
+                                                                            nil
+                                                                            nil))
+                                                                          nil))
+                                                                        nil)
+                                                                       ("2"
+                                                                        (assert)
+                                                                        (("2"
+                                                                          (cross-mult
+                                                                           1)
+                                                                          (("2"
+                                                                            (eval-expr
+                                                                             "1<2^19")
+                                                                            (("2"
+                                                                              (assert)
+                                                                              (("2"
+                                                                                (mult-ineq
+                                                                                 -1
+                                                                                 -4)
+                                                                                (("2"
+                                                                                  (assert)
+                                                                                  nil
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil)
+                                                               ("2"
+                                                                (assert)
+                                                                nil
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil)
+                                               ("2"
+                                                (flip-ineq -3)
+                                                (("2"
+                                                  (case
+                                                   "NOT (m+1)/2^19<=1")
+                                                  (("1"
+                                                    (assert)
+                                                    (("1"
+                                                      (cross-mult 1)
+                                                      (("1"
+                                                        (eval-expr
+                                                         "2^19")
+                                                        (("1"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil)
+                                                   ("2"
+                                                    (case "k>=0")
+                                                    (("1"
+                                                      (case
+                                                       "NOT m/2^19 +k>=0")
+                                                      (("1"
+                                                        (assert)
+                                                        nil
+                                                        nil)
+                                                       ("2"
+                                                        (case
+                                                         "dl(60-i,360)>= 0")
+                                                        (("1"
+                                                          (mult-ineq
+                                                           -1
+                                                           -2)
+                                                          (("1"
+                                                            (assert)
+                                                            nil
+                                                            nil))
+                                                          nil)
+                                                         ("2"
+                                                          (assert)
+                                                          nil
+                                                          nil))
+                                                        nil))
+                                                      nil)
+                                                     ("2"
+                                                      (flip-ineq 1)
+                                                      (("2"
+                                                        (case
+                                                         "NOT k<= -1")
+                                                        (("1"
+                                                          (assert)
+                                                          nil
+                                                          nil)
+                                                         ("2"
+                                                          (case
+                                                           "NOT (m + 1) / 2 ^ 19 +k <=0")
+                                                          (("1"
+                                                            (assert)
+                                                            nil
+                                                            nil)
+                                                           ("2"
+                                                            (case
+                                                             "dl(60-i,360)<=dl(60-i,360)")
+                                                            (("1"
+                                                              (mult-ineq
+                                                               -1
+                                                               -2)
+                                                              (("1"
+                                                                (assert)
+                                                                nil
+                                                                nil))
+                                                              nil)
+                                                             ("2"
+                                                              (assert)
+                                                              nil
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil)
+                                   ("2"
+                                    (case
+                                     "NOT 360+lat <= 360 - dl(60-i,360) / 2 ^ 19")
+                                    (("1" (assert) nil nil)
+                                     ("2"
+                                      (case
+                                       "NOT 360 - dl(60-i,360) / 2 ^ 19<= (60 * (dl(60-i,360) * 2 ^ 19) - dl(60-i,360) - dl(60-i,360) * 2 ^ 19 * i) / 2 ^ 19")
+                                      (("1"
+                                        (hide-all-but 1)
+                                        (("1"
+                                          (typepred "i")
+                                          (("1"
+                                            (case "i=0")
+                                            (("1"
+                                              (replace -1)
+                                              (("1"
+                                                (eval-formula 1)
+                                                nil
+                                                nil))
+                                              nil)
+                                             ("2"
+                                              (case "not i=1")
+                                              (("1" (assert) nil nil)
+                                               ("2"
+                                                (replace -1)
+                                                (("2"
+                                                  (eval-formula 2)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil)
+                                       ("2" (assert) nil nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (hide-all-but 1)
+          (("2" (case "i=0")
+            (("1" (replace -1) (("1" (eval-formula 1) nil nil)) nil)
+             ("2" (case "not i=1")
+              (("1" (assert) nil nil)
+               ("2" (replace -1) (("2" (eval-formula 2) nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((trans_comp_rlat_it formula-decl nil rlat_spec nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (Latitude type-eq-decl nil rlat_spec nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (lat skolem-const-decl "{lat: Latitude | RLAT(360, 19, i)(lat)}"
+     rlat_spec nil)
+    (TRUE const-decl "bool" booleans nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (even_minus_even_is_even application-judgement "even_int" integers
+     nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (integer nonempty-type-from-decl nil integers nil)
+    (floor_plus_int formula-decl nil floor_ceil nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (floor_0 formula-decl nil floor_ceil nil)
+    (posrat_times_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (div_simp formula-decl nil real_props nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (div_mult_pos_gt2 formula-decl nil extra_real_props nil)
+    (lt_times_lt_any1 formula-decl nil extra_real_props nil)
+    (le_times_le_any1 formula-decl nil extra_real_props nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (ge_times_ge_any1 formula-decl nil extra_real_props nil)
+    (minus_odd_is_odd application-judgement "odd_int" integers nil)
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (below type-eq-decl nil naturalnumbers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (< const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (nnreal type-eq-decl nil real_types nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (^ const-decl "real" exponentiation nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (subrange type-eq-decl nil integers nil)
+    (i skolem-const-decl "subrange(0, 1)" rlat_spec nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
+     integers nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil))
+   nil))
+ (awb_lat_tcc 0
+  (awb_lat_tcc-1 nil 3719745775
+   ("" (skeep)
+    (("" (typepred "lat")
+      (("" (expand "mod")
+        (("" (eval-expr "2 ^ 32 / 360")
+          (("" (assert)
+            (("" (replace -1)
+              (("" (eval-expr "2^32") (("" (assert) nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((Latitude type-eq-decl nil rlat_spec nil)
+    (<= const-decl "bool" reals nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (>= const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (even_times_int_is_even application-judgement "even_int" integers
+     nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (minus_nzint_is_nzint application-judgement "nzint" integers nil)
+    (minus_even_is_even application-judgement "even_int" integers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (posint_exp application-judgement "posint" exponentiation nil))
+   nil))
+ (awb_fllat_tcc 0
+  (awb_fllat_tcc-1 nil 3719745811
+   ("" (skeep)
+    (("" (lemma "awb_lat_tcc" ("lat" "lat"))
+      (("" (flatten)
+        (("" (assert)
+          (("" (eval-expr "2^32/360") (("" (assert) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((Latitude type-eq-decl nil rlat_spec nil)
+    (<= const-decl "bool" reals nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (awb_lat_tcc formula-decl nil rlat_spec nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (^ const-decl "real" exponentiation nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (TRUE const-decl "bool" booleans nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (real_times_real_is_real application-judgement "real" reals nil))
+   nil)))
+

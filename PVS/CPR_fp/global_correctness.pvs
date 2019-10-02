@@ -1,0 +1,69 @@
+global_correctness: THEORY
+BEGIN
+
+    IMPORTING local_correctness, alt_encoding, rlat_spec
+    
+    ZO: posreal = dlat(1) - dlat(0) 
+    
+    mod_sub: LEMMA FORALL ((a:posnat | a>1), x, y:real, i:CPRFormat): 
+       LET z = IF i=0 THEN y ELSE x ENDIF IN
+       -1<=z AND z<1 IMPLIES 
+      mod( (a)*floor(x*(a-1))- (a-1)*floor(y*(a)), a-i) = 
+       floor(z*(a-i)) + IF z<0 THEN a-i ELSE 0 ENDIF 
+    
+    global_decode_correct_lat: LEMMA
+        FORALL (late, lato: Latitude, lone, lono:Longitude, nb: NB, i:CPRFormat): 
+        nb = 17 AND
+        abs(late-lato) < ZO/2 - dlat(1)/2^17
+        IMPLIES
+        LET lat = IF i=0 THEN late ELSE lato ENDIF,
+            ence = encode(nb,0)(late,lone),
+        	enco = encode(nb,1)(lato, lono), 
+    	rlat = rlat_g(nb, i)(ence`elat,enco`elat)	 
+        IN
+        abs(lat-rlat)<=dlat(i)/2^18
+    
+    global_rlat_eq: LEMMA 
+      FORALL (late, lato: Latitude, lone, lono:Longitude, nb: NB, i:CPRFormat): 
+        nb = 17 AND
+        abs(late-lato) < ZO/2 - dlat(1)/2^17
+        IMPLIES
+        LET lat = IF i=0 THEN late ELSE lato ENDIF,
+            ence = encode(nb,0)(late,lone),
+        	enco = encode(nb,1)(lato, lono), 
+    	rlat = rlat_g(nb, i)(ence`elat,enco`elat)	 
+        IN  
+         rlat = rlat(nb, i)(lat)
+    
+    leq_mod(M: posreal)(eps:nnreal)(a, b: real): bool = 
+        EXISTS (N:int): 
+        abs(N*M + a-b)<= eps
+    
+    close_lon(eps:nnreal)(a,b:Longitude): bool =
+       leq_mod(360)(eps)(a,b) 
+    
+    global_decode_correct_lon: LEMMA	
+        FORALL (late, lato : Latitude,
+	        lone, lono : Longitude,
+		nl         : subrange(1,59),
+		nb         : NB,
+		i          : CPRFormat):
+         LET ence  = encode(nb,0)(late,lone),
+             enco  = encode(nb,1)(lato, lono), 
+    	     rlate = rlat0(nb)(ence`elat,enco`elat),
+    	     rlato = rlat1(nb)(ence`elat,enco`elat), 
+    	     rlons = rlons(nb, NL)(ence`elat, enco`elat)(ence`elon,enco`elon),
+    	     dle   = dlon(nb,0)(rlate), 
+    	     dlo   = dlon(nb,1)(rlato), 
+    	     LZO   = dlo-dle, 
+    	     dl    = IF i=0 THEN dle ELSE dlo ENDIF,
+    	     lon   = IF i=0 THEN lone ELSE lono ENDIF
+    	 IN
+             nb = 17 AND nl = NL(rlate) AND nl = NL(rlato) AND 
+    	 abs(late-lato) < ZO/2-dlat(1)/2^nb AND 
+    	 abs(lone-lono)< LZO/2-dlo/2^nb
+     	 IMPLIES 
+      	 LET rlon = IF i=0 THEN val(rlons)`rl0 ELSE val(rlons)`rl1 ENDIF IN
+    	 close_lon(dl/2^(nb+1))(lon, rlon)
+          
+END global_correctness

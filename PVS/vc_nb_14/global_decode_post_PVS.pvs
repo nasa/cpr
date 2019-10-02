@@ -1,0 +1,54 @@
+global_decode_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 191) in 'global_decode' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_global_decoding
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    LET x = min(16384, 131072) IN
+    FORALL (i_6, i_5, i_4, i_3, i_2, i_1, i:int):
+    LET x_1 = L_global_zone(i, i_4, i_3, IF (0 = i_5) THEN 0 ELSE 1 ENDIF) IN
+    LET x_2 = to_uint32(i - i_5) IN
+    LET x_3 = to_uint32(i_2 + (to_uint32(16384 * x_1))) IN
+    ((0 < i) IMPLIES
+    ((0 <= i_5) IMPLIES
+    ((i_3 < x) IMPLIES
+    ((i_4 < x) IMPLIES
+    ((i_5 <= 1) IMPLIES
+    ((i <= 63) IMPLIES
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(i_2)) IMPLIES
+    ((is_uint32(i_3)) IMPLIES
+    ((is_uint32(i_4)) IMPLIES
+    ((is_uint32(i_5)) IMPLIES
+    ((is_uint32(i_6)) IMPLIES
+    ((is_uint32(x_1)) IMPLIES
+    ((IF (0 = i_5) THEN (i_2 = i_4) ELSE (i_2 = i_3) ENDIF) IMPLIES
+    ((IF (0 < x_2) THEN (i_1 = x_2) ELSE (1 = i_1) ENDIF) IMPLIES
+    ((IF (1 = i_1) THEN (i_6 = (to_uint32(262144 * x_3)))
+      ELSE (i_6
+              = (to_uint32((to_uint32(262144 * (to_uint32(div(x_3, i_1)))))
+                   + (to_uint32(div(to_uint32(1
+                                      + (to_uint32(div(to_uint32(524288
+                                                         * (to_uint32(
+                                                              mod(x_3, i_1)))),
+                                                     i_1)))), 2)))))) ENDIF) IMPLIES
+    (i_6 = (L_global_decode(i, i_4, i_3, i_5))))))))))))))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END global_decode_post

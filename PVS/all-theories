@@ -1,0 +1,8 @@
+: --log --dir summaries
+CPR_fp
+CPR
+framac_wp
+vc_nb_12 # NB = 12
+vc_nb_14 # NB = 14
+vc_nb_17 # NB = 17
+vc_nb_19 # NB = 19

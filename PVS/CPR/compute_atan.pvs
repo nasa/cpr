@@ -1,0 +1,24 @@
+compute_atan: THEORY
+BEGIN
+
+  IMPORTING 
+     exact_real_arith@top
+
+  RInterval: TYPE = {I : Interval | rational_pred(I`lb) and rational_pred(I`ub)}
+  x: VAR real	
+  a, b: VAR rat
+  n: VAR nat
+
+  atan_comp: LEMMA 
+   x ## [|a, b|]  IMPLIES
+   (cauchy_atan(computable_rat.cauchy_rat(a))(n) - 1)/2^n < atan(x)
+   AND 
+   atan(x) < (cauchy_atan(computable_rat.cauchy_rat(b))(n) + 1)/2^n
+
+  atan_int(x:real, (ab: RInterval | x ## ab ), n:nat): 
+    {AB: Interval | atan(x) ## AB}  = 
+    LET den = 2^n IN 
+      (# lb:= (cauchy_atan(computable_rat.cauchy_rat(ab`lb))(n) - 1)/den, 
+       ub := (cauchy_atan(computable_rat.cauchy_rat(ab`ub))(n) + 1)/den #)
+
+END compute_atan

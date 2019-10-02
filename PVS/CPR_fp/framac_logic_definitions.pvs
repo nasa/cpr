@@ -1,0 +1,453 @@
+framac_logic_definitions: THEORY
+%
+%   The definitions stated in this theory mimic the axiomatic definitions used
+% in the Frama-C analysis of a C version of the CPR algorithms. The theory is
+% divided into three sections: encoding, local decoding, and global decoding.
+% For every function presented in each section, a lemma assuring the equiva-
+% lence between such definition and the corresponding original real-valued def-
+% inition is also included.
+% 
+%
+BEGIN
+
+  eq_0: LEMMA FORALL( awb_lat: int , x: nzint):
+    floor(2 ^ 17 * fractional(((360 / x) / 2 ^ 18 + awb_lat * (360 / 2 ^ 32)) / (360 / x))) =
+     floor(((awb_lat * x + 2 ^ 14) / 2 ^ 15)) - floor((awb_lat * x + 2 ^ 14) / 2 ^ 32) * 2 ^ 17
+
+  IMPORTING basic_defs,
+  	    AWB[32]
+	    
+%
+% Encoding
+%
+
+  IMPORTING alt_encoding
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real yzr(int i, int awb_lat) =
+  %     \let xr = 60.0 - i;
+  %     \let tmp1r = (awb_lat * xr + 0x1.0p+14) * 0x1.0p-15;
+  %     \let tmp2r = (awb_lat * xr + 0x1.0p+14) * 0x1.0p-32;
+  %     \let tmp3r = 0x1.0p+17 * \floor(tmp2r);
+  %     \floor(tmp1r) - tmp3r;
+  % }
+  % @*/
+
+  yzr(i: int, awb_lat: int): int =
+    LET xr = 60.0 - i IN
+    LET tmp1r = (awb_lat * xr + 2^(14) ) * 2^(-15)  IN
+    LET tmp2r = (awb_lat * xr + 2^(14)) * 2^(-32) IN
+    LET tmp3r = 2^(17) * floor(tmp2r) IN
+    floor(tmp1r) - tmp3r;
+
+  yzr_gt_2_30(i: int, awb_lat: int): int =
+    LET xr = 60.0 - i IN
+    LET tmp1r = ((awb_lat - 2^32) * xr + 2^(14)) * 2^(-15)  IN
+    LET tmp2r = ((awb_lat - 2^32) * xr + 2^(14)) * 2^(-32) IN
+    LET tmp3r = 2^(17) * floor(tmp2r) IN
+    floor(tmp1r) - tmp3r;
+
+  yzr_is_YZ_alt : LEMMA
+    FORALL(i: CPRFormat, awb_lat: LatAWB | awb_lat <= 2 ^ 30):
+      LET lat = AWB2lat(awb_lat) IN
+        yzr(i,awb_lat) = YZ_alt(i)(lat)
+
+  yzr_gt_2_30_is_YZ_alt : LEMMA
+    FORALL(i: CPRFormat, awb_lat: LatAWB | awb_lat > 2 ^ 30):
+      LET lat = AWB2lat(awb_lat) IN
+        yzr_gt_2_30(i,awb_lat) = YZ_alt(i)(lat)
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real xzr(int i, int nl, int awb_lon) =
+  %     \let nlir = nl - i;
+  %     \let tmp1r = (awb_lon * nlir + 0x1.0p+14) * 0x1.0p-15;
+  %     \let tmp2r = (awb_lon * nlir + 0x1.0p+14) * 0x1.0p-32;
+  %     \let tmp3r = 0x1.0p+17 * \floor(tmp2r);
+  %     \floor(tmp1r) - tmp3r;
+  % }
+  % @*/
+
+  xzr(i: int, nl: int, awb_lon: int): int =
+    LET nlir = nl - i IN
+    LET tmp1r = (awb_lon * nlir + 2^14) * 2^(-15) IN
+    LET tmp2r = (awb_lon * nlir + 2^14) * 2^(-32) IN
+    LET tmp3r = 2^17 * floor(tmp2r) IN
+    floor(tmp1r) - tmp3r;
+ 
+  xzr_equivalence : LEMMA
+    FORALL(i: CPRFormat, nl: subrange(2,59), awb_lon: LonAWB):
+      LET lon = AWB2lon(awb_lon) IN
+        xzr(i,nl,awb_lon) = XZ_alt(nl,i)(lon)
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real xzr(int awb_lon) =
+  %     \let tmp1r = (awb_lon + 0x1.0p+14) * 0x1.0p-15;
+  %     \let tmp2r = (awb_lon + 0x1.0p+14) * 0x1.0p-32;
+  %     \let tmp3r = 0x1.0p+17 * \floor(tmp2r);
+  %     \floor(tmp1r) - tmp3r;
+  % }
+  % @*/
+
+  xzr_NL1(awb_lon: int): int =
+    LET tmp1r = (awb_lon + 2^(14)) * 2^(-15) IN
+    LET tmp2r = (awb_lon + 2^(14)) * 2^(-32) IN
+    LET tmp3r = 2^(17) * floor(tmp2r) IN
+    floor(tmp1r) - tmp3r;
+
+  xzr_NL1_equivalence : LEMMA
+    FORALL(i: CPRFormat, awb_lon: LonAWB):
+      LET lon = AWB2lon(awb_lon) IN
+        xzr_NL1(awb_lon) = XZ_alt(1,i)(lon)
+
+%
+% Local Decoding
+%
+
+  IMPORTING local_decoding
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLatr (int i, int awb_lats, int yz) =
+  %     \let dLatr  = 360. / (60. - i);
+  %     \let j1r    = ((awb_lats * (60 - i) - (yz - 0x1.0p+16)*0x1.0p+15)) * 0x1.0p-32;
+  %     \let jr     = \floor(j1r);
+  %     dLatr * (yz*0x1.0p-17 + jr);
+  % }
+  % @*/
+
+  rLatr (i: CPRFormat, awb_lats: int, yz: int): real =
+    LET dLatr  = 360 / (60 - i) IN
+    LET j1r    = ((awb_lats * (60 - i) - (yz - 2^(16))*2^(15))) * 2^(-32) IN
+    LET jr     = floor(j1r) IN
+    dLatr * (yz*2^(-17) + jr);
+
+
+  rLatr_equivalence: LEMMA
+    FORALL(i: CPRFormat, awb_lats: LatAWB | awb_lats <= 2^30, yz: BinIndex(17)):
+      LET lat_s = AWB2lat(awb_lats) IN
+        rLatr (i,awb_lats, yz) = Rlati(17)(lat_s)(i,yz)
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLatr (int i, int awb_lats, int yz) =
+  %     \let dLatr  = 360.0 / (60.0 - i);
+  %     \let j1r    = ((awb_lats - 0x1.0p+32) * (60 - i)
+  %                   - (yz - 0x1.0p+16)*0x1.0p+15) * 0x1.0p-32;
+  %     \let jr     = \floor(j1r);
+  %     dLatr * (yz*0x1.0p-17 + jr);
+  % }
+  % @*/
+
+  rLatr_gt_2_30 (i: CPRFormat, awb_lats: int, yz: int): real =
+    LET dLatr  = 360 / (60 - i) IN
+    LET j1r    = ((awb_lats - 2^(32)) * (60 - i) - (yz - 2^(16))*2^15) * 2^(-32) IN
+    LET jr     = floor(j1r) IN
+    dLatr * (yz*2^(-17) + jr);
+
+  rLatr_gt_2_30_equivalence: LEMMA
+    FORALL(i: CPRFormat, awb_lats: LatAWB | awb_lats > 2^30, yz: BinIndex(17)):
+      LET lat_s = AWB2lat(awb_lats) IN
+        rLatr_gt_2_30(i,awb_lats, yz) = Rlati(17)(lat_s)(i,yz)
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLonr (int i, int nl, int awb_lons, int xz) =
+  %      \let dLonr = 360.0 / (nl - i);
+  %      \let m1r   = ((awb_lons * (nl - i) - (xz + 0x1.0p+16)*0x1.0p+15)) * 0x1.0p-32;
+  %      \let mr    = \floor (m1r);
+  %      dLonr * (mr + xz*0x1.0p-17);
+  % }
+  % @*/
+
+  rLonr (i:subrange(0,1),nl:subrange(2,59),awb_lons,xz: int): real =
+     LET dLonr = 360.0 / (nl - i) IN
+     LET m1r   = ((awb_lons * (nl - i) - (xz - 2^16)*2^15)) * 2^-32 IN
+     LET mr    = floor (m1r) IN
+     dLonr * (mr + xz*2^-17);
+
+  rLonr_equivalence: LEMMA
+    FORALL( i: CPRFormat,
+    	    awb_lons: LonAWB,
+	    awb_lats: LatAWB,
+	    yz,xz: BinIndex(17),
+	    nl: subrange(2,59)):
+      LET  lats = AWB2lat(awb_lats),
+	   lons = AWB2lon(awb_lons)
+      IN
+        nl =  NL(Rlati(17)(lats)(i, yz))
+        IMPLIES rLonr (i,nl,awb_lons,xz) = Rloni(17)(lats,lons)(i,xz,yz)
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLonr (int awb_lons, int xz) =
+  %     \let m1r = ((awb_lons - (xz + 0x1.0p+16)*0x1.0p+15)) * 0x1.0p-32;
+  %     \let mr  = \floor (m1r);
+  %     360.0 * (mr + xz*0x1.0p-17);
+  % }
+  % @*/
+
+  rLonr_nl_1 (i,awb_lons,xz: int): real =
+    LET m1r = ((awb_lons - (xz - 2^16)*2^15)) * 2^-32 IN
+    LET mr  = floor (m1r) IN
+    360 * (mr + xz*2^-17);
+
+  rLonr_nl_1_equivalence: LEMMA
+    FORALL( i: CPRFormat,
+    	    awb_lons: LonAWB,
+	    awb_lats: LatAWB,
+	    yz,xz: BinIndex(17)):
+      LET  lats = AWB2lat(awb_lats),
+	   lons = AWB2lon(awb_lons)
+      IN
+        1 =  NL(Rlati(17)(lats)(i, yz))
+        IMPLIES rLonr_nl_1 (i,awb_lons,xz) = Rloni(17)(lats,lons)(i,xz,yz)
+
+%
+% Global Decoding
+%
+
+  IMPORTING global_decoding,
+  	    global_correctness
+
+  % global_decoding.rlat0 function before shifting
+  rlat0_17(yz0,yz1: BinIndex(17)): real =
+    LET f0 = cpr_div(yz0,F2pNb(17)),
+    	f1 = cpr_mod(j(17)(yz0,yz1),60),
+	f2 = cpr_add(f1, f0)
+    IN cpr_mul(dlat(0), f2)
+
+  rlat0_before_shifting_correctness: LEMMA
+    FORALL(yz0,yz1: BinIndex(17)):
+     rlat0(17)(yz0,yz1) = mod(rlat0_17(yz0,yz1)+180,360)-180
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLatr (int yz0,int yz1) =
+  %     \let dLatr    = 360.0 / 60.0;
+  %     \let jar      = (59.0 * yz0 - 60.0 * yz1 + 0x1.0p+16) * 0x1.0p-17;
+  %     \let jr       = \floor(jar);
+  %     \let j_60_i_r = jr/60.0;
+  %     dLatr * ((jr - 60.0*(\floor (j_60_i_r))) + yz0 * 0x1.0p-17);
+  % }
+  % @*/
+
+  rLatr_i_0 (yz0,yz1:int): real =
+    LET dLatr    = 360 / 60 IN
+    LET jar      = (59 * yz0 - 60 * yz1 + 2^16) * 2^-17 IN
+    LET jr       = floor(jar) IN
+    LET j_60_i_r = jr/60 IN
+    dLatr * ((jr - 60*(floor (j_60_i_r))) + yz0 * 2^-17) 
+
+  rLatr_i_0_equivalence: LEMMA
+    FORALL (yz0,yz1: BinIndex(17)):
+      rLatr_i_0 (yz0,yz1) = rlat0_17(yz0,yz1)
+
+  % global_decoding.rlat1 function before shifting
+  rlat1_17(yz0,yz1: BinIndex(17)): real =
+    LET f0 = cpr_div(yz1,F2pNb(17)),
+    	f1 = cpr_mod(j(17)(yz0,yz1),59),
+	f2 = cpr_add(f1, f0)
+    IN cpr_mul(dlat(1), f2)
+
+  rlat1_before_shifting_correctness: LEMMA
+    FORALL(yz0,yz1: BinIndex(17)):
+     rlat0(17)(yz0,yz1) = mod(rlat0_17(yz0,yz1)+180,360)-180
+
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLatr (int yz0,int yz1) =
+  %     \let dLatr    = 360.0 / 59.0;
+  %     \let jar      = (59.0 * yz0 - 60.0 * yz1 + 0x1.0p+16) * 0x1.0p-17;
+  %     \let jr       = \floor(jar);
+  %     \let j_60_i_r = jr/59.0;
+  %     dLatr * ((jr - 59.0 *(\floor (j_60_i_r))) + yz1 * 0x1.0p-17);
+  % }
+  % @*/
+
+  rLatr_i_1 (yz0,yz1:int): real =
+    LET dLatr    = 360 / 59 IN
+    LET jar      = (59 * yz0 - 60 * yz1 + 2^16) * 2^-17 IN
+    LET jr       = floor(jar) IN
+    LET j_60_i_r = jr/59 IN
+    dLatr * ((jr - 59*(floor (j_60_i_r))) + yz1 * 2^-17) 
+
+  rLatr_i_1_equivalence: LEMMA
+    FORALL (yz0,yz1: BinIndex(17)):
+      rLatr_i_1 (yz0,yz1) = rlat1_17(yz0,yz1)
+
+  % Slight modification w.r.t. global_decoding.rlons definition: 
+  % the result is expected to be between 0 and 360, instead of 0 and 359.
+  rlons_360 (Nb: NB)
+       (yz0,yz1: BinIndex(Nb))
+       (xz0,xz1: BinIndex(Nb)): Maybe[[# rl0,rl1: Longitude #]] =
+    LET f0 = rlat0(Nb)(yz0,yz1),
+    	f1 = rlat1(Nb)(yz0,yz1),
+    	nl0 = NL(f0),
+        nl1 = NL(f1),
+	f5 = cpr_sub(nl0,1),
+        f3 = cpr_div(xz0,F2pNb(Nb)),
+	f7 = cpr_div(xz1,F2pNb(Nb))
+    IN IF nl0 = nl1
+       THEN IF nl0 > 1
+            THEN LET dlon0 = dlon(Nb,0)(f0),
+  	     	     dlon1 = dlon(Nb,1)(f1),
+  		     % Eq 27
+		     f2 = cpr_mod(m(Nb)(nl0)(xz0,xz1),nl0),
+		     f4 = cpr_add(f2, f3),
+  		     rlon0 = cpr_mul(dlon0,f4),
+		     f6 = cpr_mod(m(Nb)(nl0)(xz0,xz1),f5),
+		     f8 = cpr_add(f6, f7),
+  		     rlon1 = cpr_mul(dlon1, f8)
+  		 IN Some( (# rl0 := rlon0, 
+  		      	       rl1 := rlon1 #) )
+  	    ELSE LET n0     = max(nl0,1),
+  	     	     n1     = max(f5,1),
+  		     dlon0  = cpr_div(360,n0),
+  		     dlon1  = cpr_div(360,n1),
+		     f9  = cpr_mod(m(Nb)(nl0)(xz0,xz1),n0),
+		     f10 = cpr_add(f9, f3),
+		     f11 = cpr_mod(m(Nb)(nl0)(xz0,xz1),n1),
+		     f12 = cpr_add(f11, f7)
+  		 IN Some((# rl0 := cpr_mul(dlon0, f10),
+  		            rl1 := cpr_mul(dlon1, f12) #))
+  	     ENDIF
+     	ELSE None ENDIF
+	
+  rlons_360_rlons: LEMMA
+   FORALL (Nb: NB, yz0,yz1,xz0,xz1: BinIndex(Nb)):
+    LET r360_result = rlons_360 (Nb)(yz0,yz1)(xz0,xz1),
+    	rlon_result = rlons     (Nb,NL)(yz0,yz1)(xz0,xz1)
+    IN 
+    LET f0 = rlat0(Nb)(yz0,yz1),
+    	f1 = rlat1(Nb)(yz0,yz1),
+    	nl0 = NL(f0),
+        nl1 = NL(f1),
+	f5 = cpr_sub(nl0,1),
+        f3 = cpr_div(xz0,F2pNb(Nb)),
+	f7 = cpr_div(xz1,F2pNb(Nb))
+    IN nl0 = nl1 IMPLIES
+          IF nl0 > 1
+            THEN
+               val(rlon_result)`rl0 = mod(val(r360_result)`rl0, 360) AND
+               val(rlon_result)`rl1 = mod(val(r360_result)`rl1, 360)
+       	    ELSE
+	       some?(r360_result) AND
+               val(rlon_result)`rl0 = val(r360_result)`rl0 AND
+               val(rlon_result)`rl1 = val(r360_result)`rl1
+            ENDIF
+
+  % The following corollary states that rlons_360 fulfills the same correctness
+  % property than global_decoding.rlons.
+  global_decode_correct_lon: COROLLARY	
+    FORALL (late, lato: Latitude, lone ,lono: Longitude, nl:subrange(1,59), nb:NB, i: CPRFormat):
+     LET ZO: posreal = dlat(1) - dlat(0),
+     	 ence = encode(nb,0)(late,lone),
+    	 enco = encode(nb,1)(lato, lono), 
+	 rlate = rlat0(nb)(ence`elat,enco`elat),
+	 rlato = rlat1(nb)(ence`elat,enco`elat), 
+	 rlons = rlons_360 (nb)(ence`elat, enco`elat)(ence`elon,enco`elon),
+	 dle = dlon(nb,0)(rlate), 
+	 dlo = dlon(nb,1)(rlato), 
+	 LZO = dlo-dle, 
+	 dl  = IF i=0 THEN dle ELSE dlo ENDIF,
+	 lon = IF i=0 THEN lone ELSE lono ENDIF
+	 IN
+         nb =17 AND nl = NL(rlate) AND nl = NL(rlato) AND 
+	 abs(late-lato) < ZO/2-dlat(1)/2^nb AND 
+	 abs(lone-lono)< LZO/2-dlo/2^nb
+ 	 IMPLIES 
+  	 LET rlon = IF i=0 THEN val(rlons)`rl0 ELSE val(rlons)`rl1 ENDIF IN
+	 close_lon(dl/2^(nb+1))(lon, rlon)
+
+  % CASE: 2 <= nl <= 59, i = 0
+  
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLonr (int xz0, int xz1, int nl) =
+  %     \let dLonr   = 360 / nl;
+  %     \let m1r     = ((nl - 1) * xz0 - nl * xz1 + 0x1.0p+16)*0x1.0p-17;
+  %     \let mr      = \floor(m1r);
+  %     \let m_nli_r = mr/nl;
+  %     dLonr * ((mr - nl * \floor(m_nli_r)) + xz0 * 0x1.0p-17);
+  % }
+  % @*/
+
+  rLonr_nl_2_59_i_0 (xz0, xz1: int, nl: subrange(2,59)): real =
+    LET dLonr   = 360 / nl IN
+    LET m1r     = ((nl - 1) * xz0 - nl * xz1 + 2^16)*2^-17 IN
+    LET mr      = floor(m1r) IN
+    LET m_nli_r = mr/nl IN
+    dLonr * ((mr - nl * floor(m_nli_r)) + xz0 * 2^-17);
+
+  rLonr_nl_2_59_i_0_equivalence: LEMMA
+    LET Nb: NB = 17 IN
+    FORALL (yz0,yz1,xz0,xz1: BinIndex(Nb), nl: subrange(2,59)):
+      LET f0 = rlat0(Nb)(yz0,yz1),
+    	  f1 = rlat1(Nb)(yz0,yz1)
+      IN nl = NL(f0) AND
+      	 nl = NL(f1) AND
+	 nl > 1
+	 IMPLIES LET rlons_360_res = rlons_360(Nb)(yz0,yz1)(xz0,xz1)
+	 	 IN some?(rlons_360_res) AND
+		    rLonr_nl_2_59_i_0 (xz0,xz1,nl) = val(rlons_360_res)`rl0
+  % CASE: 2 <= nl <= 59, i = 1
+  
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLonr (int xz0, int xz1, int nl) =
+  %     \let nl1r = nl - 1.0;
+  %     \let dLonr   = 360 / nl1r;
+  %     \let m1r     = (nl1r * xz0 - nl * xz1 + 0x1.0p+16)*0x1.0p-17;
+  %     \let mr      = \floor(m1r);
+  %     \let m_nli_r = mr/ nl1r;
+  %     dLonr * ((mr - nl1r * (\floor(m_nli_r))) + xz1 * 0x1.0p-17);
+  % }
+  % @*/
+
+  rLonr_nl_2_59_i_1 (xz0, xz1: int, nl: subrange(2,59)): real =
+    LET nl1r = nl - 1 IN
+    LET dLonr   = 360 / nl1r IN
+    LET m1r     = (nl1r * xz0 - nl * xz1 + 2^16)*2^-17 IN
+    LET mr      = floor(m1r) IN
+    LET m_nli_r = mr/ nl1r IN
+    dLonr * ((mr - nl1r * (floor(m_nli_r))) + xz1 * 2^-17);
+
+  rLonr_nl_2_59_i_1_equivalence: LEMMA
+    LET Nb: NB = 17 IN
+    FORALL (yz0,yz1,xz0,xz1: BinIndex(Nb), nl: subrange(2,59)):
+      LET f0 = rlat0(Nb)(yz0,yz1),
+    	  f1 = rlat1(Nb)(yz0,yz1)
+      IN nl = NL(f0) AND
+      	 nl = NL(f1) AND
+	 nl > 1
+	 IMPLIES LET rlons_360_res = rlons_360(Nb)(yz0,yz1)(xz0,xz1)
+	 	 IN some?(rlons_360_res) AND
+		    rLonr_nl_2_59_i_1 (xz0,xz1,nl) = val(rlons_360_res)`rl1
+
+  % CASE: nl = 1
+  
+  % /*@
+  % axiomatic real_function {
+  %   logic real rLonr (int xz) = 360 * (xz/0x1.0p+17);
+  % }
+  % @*/
+
+  rLonr_nl_1 (xz: int): real = 360 * (xz/2^17);
+
+  grLonr_nl_1_equivalence: LEMMA
+    LET Nb: NB = 17 IN
+    FORALL (yz0,yz1,xz0,xz1: BinIndex(Nb), nl: int):
+      LET f0 = rlat0(Nb)(yz0,yz1),
+    	  f1 = rlat1(Nb)(yz0,yz1)
+      IN nl = NL(f0) AND
+      	 nl = NL(f1) AND
+	 nl = 1
+	 IMPLIES LET rlons_360_res = rlons_360(Nb)(yz0,yz1)(xz0,xz1)
+      	 	 IN some?(rlons_360_res) AND
+         	    rLonr_nl_1 (xz0) = val(rlons_360_res)`rl0 AND
+	 	    rLonr_nl_1 (xz1) = val(rlons_360_res)`rl1
+
+END framac_logic_definitions

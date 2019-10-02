@@ -1,0 +1,15 @@
+% -------------------------------------------------- 
+% Axiomatic 'utils'                                  
+% -------------------------------------------------- 
+
+A_utils: THEORY
+BEGIN
+IMPORTING A_uint32_operations
+IMPORTING framac_wp@cint
+
+L_closest_mult_div_shift(a : int, x : int) : int =
+    L_add_u32(L_mul_u32(x, lsr(a, 13)),
+      lsr(L_add_u32(lsr(L_mul_u32(L_mul_u32(2, x), L_mod_u32(a, 8192)), 13),
+            1), 1))
+END A_utils
+

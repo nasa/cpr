@@ -1,0 +1,1391 @@
+(trans_eval
+ (trans_calc_TCC1 0
+  (trans_calc_TCC1-2 nil 3719676160
+   ("" (skeep)
+    (("" (lemma "sin_increasing")
+      (("" (inst -1 "pi/n" "0")
+        (("" (assert)
+          (("" (rewrite "sin_0")
+            (("" (assert)
+              (("" (cross-mult 1 "pi")
+                (("" (cancel-by 1 "pi") nil nil)) nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((sin_increasing formula-decl nil trig_ineq "trig/")
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (sin_range application-judgement "real_abs_le1" sincos "trig/")
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (both_sides_times_pos_le1 formula-decl nil real_props nil)
+    (TRUE const-decl "bool" booleans nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (times_div2 formula-decl nil real_props nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (>= const-decl "bool" reals nil)
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (sin_0 formula-decl nil sincos_def "trig/")
+    (subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}"
+     pi_def "trig/")
+    (cos const-decl "real" sincos_def "trig/")
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil))
+   nil)
+  (trans_calc_TCC1-1 nil 3718461005 ("" (subtype-tcc) nil nil) nil
+   nil))
+ (trans_calc_TCC2 0
+  (trans_calc_TCC2-2 nil 3719676209
+   ("" (skeep)
+    ((""
+      (case "NOT (input>0 AND
+                                            input<1)")
+      (("1" (ground)
+        (("1" (replace -1)
+          (("1" (hide 2)
+            (("1" (lemma "sin_increasing")
+              (("1" (inst -1 "pi/n" "0")
+                (("1" (assert)
+                  (("1" (rewrite "sin_0")
+                    (("1" (split -1)
+                      (("1" (cross-mult 1)
+                        (("1" (lemma "sin_increasing")
+                          (("1" (inst -1 "pi/60" "0")
+                            (("1" (assert)
+                              (("1"
+                                (rewrite "sin_0")
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (assert)
+                        (("2" (cross-mult 1)
+                          (("2" (cancel-by 1 "pi") nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (replaces -1)
+          (("2" (hide 2)
+            (("2" (lemma "sin_increasing")
+              (("2" (inst -1 "pi/n" "0")
+                (("2" (assert)
+                  (("2" (rewrite "sin_0")
+                    (("2" (split -1)
+                      (("1" (cross-mult 1)
+                        (("1" (lemma "sin_increasing")
+                          (("1" (inst -1 "pi/n" "pi/60")
+                            (("1" (split -1)
+                              (("1"
+                                (flatten)
+                                (("1"
+                                  (hide -1)
+                                  (("1"
+                                    (split -1)
+                                    (("1" (assert) nil nil)
+                                     ("2"
+                                      (cross-mult 1)
+                                      (("2"
+                                        (cancel-by 1 "pi")
+                                        nil
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (cross-mult 1)
+                                (("2" (cancel-by 1 "pi") nil nil))
+                                nil)
+                               ("3" (assert) nil nil)
+                               ("4" (assert) nil nil)
+                               ("5" (assert) nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (assert)
+                        (("2" (cross-mult 1)
+                          (("2" (cancel-by 1 "pi") nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (flatten)
+        (("2" (mult-ineq -2 -2)
+          (("2" (move-terms -1 r 1) (("2" (assert) nil nil)) nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (div_mult_pos_gt2 formula-decl nil extra_real_props nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (sin_increasing formula-decl nil trig_ineq "trig/")
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (>= const-decl "bool" reals nil)
+    (sin const-decl "real" sincos_def "trig/")
+    (n skolem-const-decl "subrange(2, 59)" trans_eval nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (times_div2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (TRUE const-decl "bool" booleans nil)
+    (both_sides_times_pos_le1 formula-decl nil real_props nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (sin_0 formula-decl nil sincos_def "trig/")
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (cos const-decl "real" sincos_def "trig/")
+    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}"
+     pi_def "trig/")
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (subrange type-eq-decl nil integers nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (sin_range application-judgement "real_abs_le1" sincos "trig/")
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (lt_times_lt_any1 formula-decl nil extra_real_props nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields
+       nil))
+   nil)
+  (trans_calc_TCC2-1 nil 3718461005 ("" (subtype-tcc) nil nil) nil
+   nil))
+ (trans_calc_TCC3 0
+  (trans_calc_TCC3-2 nil 3719676263
+   ("" (skeep)
+    ((""
+      (case "NOT (input>0 AND
+                                                   input<1)")
+      (("1" (ground)
+        (("1" (replace -1)
+          (("1" (hide -2)
+            (("1" (lemma "sin_increasing")
+              (("1" (inst -1 "pi/n" "0")
+                (("1" (assert)
+                  (("1" (rewrite "sin_0")
+                    (("1" (split -1)
+                      (("1" (cross-mult 1)
+                        (("1" (lemma "sin_increasing")
+                          (("1" (inst -1 "pi/60" "0")
+                            (("1" (assert)
+                              (("1"
+                                (rewrite "sin_0")
+                                (("1" (assert) nil nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (assert)
+                        (("2" (cross-mult 1)
+                          (("2" (cancel-by 1 "pi") nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (replaces -1)
+          (("2" (hide -1)
+            (("2" (lemma "sin_increasing")
+              (("2" (inst -1 "pi/n" "0")
+                (("2" (assert)
+                  (("2" (rewrite "sin_0")
+                    (("2" (split -1)
+                      (("1" (cross-mult 1)
+                        (("1" (lemma "sin_increasing")
+                          (("1" (inst -1 "pi/n" "pi/60")
+                            (("1" (split -1)
+                              (("1"
+                                (flatten)
+                                (("1"
+                                  (hide -1)
+                                  (("1"
+                                    (split -1)
+                                    (("1" (assert) nil nil)
+                                     ("2"
+                                      (cross-mult 1)
+                                      (("2"
+                                        (cancel-by 1 "pi")
+                                        nil
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil)
+                               ("2"
+                                (cross-mult 1)
+                                (("2" (cancel-by 1 "pi") nil nil))
+                                nil)
+                               ("3" (assert) nil nil)
+                               ("4" (assert) nil nil)
+                               ("5" (assert) nil nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil)
+                       ("2" (assert)
+                        (("2" (cross-mult 1)
+                          (("2" (cancel-by 1 "pi") nil nil)) nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil)
+       ("2" (flatten)
+        (("2" (mult-ineq -2 -2)
+          (("2" (move-terms -1 l 1)
+            (("2" (lemma "sqrt_pos")
+              (("2" (inst -1 "1-input*input")
+                (("1" (assert) (("1" (ground) nil nil)) nil)
+                 ("2" (assert) nil nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number nonempty-type-decl nil numbers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (div_mult_pos_gt2 formula-decl nil extra_real_props nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (sin_increasing formula-decl nil trig_ineq "trig/")
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (>= const-decl "bool" reals nil)
+    (sin const-decl "real" sincos_def "trig/")
+    (n skolem-const-decl "subrange(2, 59)" trans_eval nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (times_div2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (TRUE const-decl "bool" booleans nil)
+    (both_sides_times_pos_le1 formula-decl nil real_props nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (sin_0 formula-decl nil sincos_def "trig/")
+    (subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}"
+     pi_def "trig/")
+    (cos const-decl "real" sincos_def "trig/")
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/= const-decl "boolean" notequal nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (sin_range application-judgement "real_abs_le1" sincos "trig/")
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (lt_times_lt_any1 formula-decl nil extra_real_props nil)
+    (sqrt_pos judgement-tcc nil sqrt "reals/")
+    (input skolem-const-decl "real" trans_eval nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (real_times_real_is_real application-judgement "real" reals nil))
+   nil)
+  (trans_calc_TCC3-1 nil 3718461005 ("" (subtype-tcc) nil nil) nil
+   nil))
+ (trans_calc 0
+  (trans_calc-1 nil 3719676413
+   ("" (skeep)
+    (("" (skoletin)
+      (("" (skoletin)
+        (("" (skoletin)
+          ((""
+            (case "NOT (input_1>0 AND
+                                                   input_1<1 AND
+                                             	1-input_1*input_1>0 AND
+                                           	reals@sqrt.sqrt(1-input_1*input_1) > 0 AND
+                                           	sin(pi/n) /= 0)")
+            (("1" (hide 2)
+              (("1" (splash)
+                (("1" (lemma "sin_increasing")
+                  (("1" (inst -1 "pi/n" "0")
+                    (("1" (typepred (n))
+                      (("1" (assert)
+                        (("1" (rewrite "sin_0")
+                          (("1" (assert)
+                            (("1" (cross-mult 1)
+                              (("1" (cancel-by 1 "pi") nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("2" (rewrite "sqrt_pos") nil nil)
+                 ("3" (mult-ineq -1 -1)
+                  (("3" (move-terms -1 l 1) (("3" (assert) nil nil))
+                    nil))
+                  nil)
+                 ("4" (replaces -4)
+                  (("4" (lemma "sin_increasing")
+                    (("4" (inst -1 "pi/n" "0")
+                      (("4" (assert)
+                        (("4" (rewrite "sin_0")
+                          (("4" (split -1)
+                            (("1" (cross-mult 1)
+                              (("1"
+                                (lemma "sin_increasing")
+                                (("1"
+                                  (inst -1 "pi/n" "pi/60")
+                                  (("1"
+                                    (assert)
+                                    (("1"
+                                      (ground)
+                                      (("1"
+                                        (cross-mult 1)
+                                        (("1"
+                                          (cancel-by 1 "pi")
+                                          nil
+                                          nil))
+                                        nil)
+                                       ("2"
+                                        (cross-mult 1)
+                                        (("2"
+                                          (cancel-by 1 "pi")
+                                          nil
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (cross-mult 1)
+                              (("2" (cancel-by 1 "pi") nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil)
+                 ("5" (case "not sin(pi/n)>0")
+                  (("1" (lemma "sin_increasing")
+                    (("1" (inst -1 "pi/n" "0")
+                      (("1" (assert)
+                        (("1" (rewrite "sin_0")
+                          (("1" (assert)
+                            (("1" (cross-mult 1)
+                              (("1" (cancel-by 1 "pi") nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil)
+                   ("2" (replace -4)
+                    (("2" (cross-mult 1)
+                      (("2" (lemma "sin_increasing")
+                        (("2" (inst -1 "pi/60" "0")
+                          (("2" (assert)
+                            (("2" (rewrite "sin_0")
+                              (("2" (assert) nil nil)) nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("2" (flatten)
+              (("2" (label "tcseq" 2)
+                (("2" (name "sin60" "sin(pi/60)")
+                  (("2" (numerical (! -1 1) 17)
+                    (("2" (expand "trans_calc")
+                      (("2" (replace -9 :dir rl)
+                        (("2" (replaces -2)
+                          (("2"
+                            (deftactic numNL (n)
+                             (let ((casestr (format nil "n=~a" n)))
+                               (branch
+                                (case casestr)
+                                ((then
+                                  (replaces -1)
+                                  (assert)
+                                  (numerical (! -8 2) :precision 15)
+                                  (replace -9 :dir rl)
+                                  (numerical (! -8 2) :precision 15)
+                                  (replace -9 :dir rl)
+                                  (invoke
+                                   (typepred "atan_int(%1, %2, 40)")
+                                   (! -1 1)
+                                   (! -1 2))
+                                  (expand "atan_int")
+                                  (eval-expr (! -1 2))
+                                  (replaces -1)
+                                  (replace -9 :dir rl)
+                                  (numerical (! tcseq 1) :precision 5)
+                                  (expand "##")
+                                  (flatten)
+                                  (assert))
+                                 (skip)))))
+                            (("2" (numNL 59)
+                              (("2"
+                                (numNL 58)
+                                (("2"
+                                  (numNL 57)
+                                  (("2"
+                                    (numNL 56)
+                                    (("2"
+                                      (numNL 55)
+                                      (("2"
+                                        (numNL 54)
+                                        (("2"
+                                          (numNL 53)
+                                          (("2"
+                                            (numNL 52)
+                                            (("2"
+                                              (numNL 51)
+                                              (("2"
+                                                (numNL 50)
+                                                (("2"
+                                                  (numNL 49)
+                                                  (("2"
+                                                    (numNL 48)
+                                                    (("2"
+                                                      (numNL 47)
+                                                      (("2"
+                                                        (numNL 46)
+                                                        (("2"
+                                                          (numNL 45)
+                                                          (("2"
+                                                            (numNL 44)
+                                                            (("2"
+                                                              (numNL
+                                                               43)
+                                                              (("2"
+                                                                (numNL
+                                                                 42)
+                                                                (("2"
+                                                                  (numNL
+                                                                   41)
+                                                                  (("2"
+                                                                    (numNL
+                                                                     40)
+                                                                    (("2"
+                                                                      (numNL
+                                                                       39)
+                                                                      (("2"
+                                                                        (numNL
+                                                                         38)
+                                                                        (("2"
+                                                                          (numNL
+                                                                           37)
+                                                                          (("2"
+                                                                            (numNL
+                                                                             36)
+                                                                            (("2"
+                                                                              (numNL
+                                                                               35)
+                                                                              (("2"
+                                                                                (numNL
+                                                                                 34)
+                                                                                (("2"
+                                                                                  (numNL
+                                                                                   33)
+                                                                                  (("2"
+                                                                                    (numNL
+                                                                                     32)
+                                                                                    (("2"
+                                                                                      (numNL
+                                                                                       31)
+                                                                                      (("2"
+                                                                                        (numNL
+                                                                                         30)
+                                                                                        (("2"
+                                                                                          (numNL
+                                                                                           29)
+                                                                                          (("2"
+                                                                                            (numNL
+                                                                                             28)
+                                                                                            (("2"
+                                                                                              (numNL
+                                                                                               27)
+                                                                                              (("2"
+                                                                                                (numNL
+                                                                                                 26)
+                                                                                                (("2"
+                                                                                                  (numNL
+                                                                                                   25)
+                                                                                                  (("2"
+                                                                                                    (numNL
+                                                                                                     24)
+                                                                                                    (("2"
+                                                                                                      (numNL
+                                                                                                       23)
+                                                                                                      (("2"
+                                                                                                        (numNL
+                                                                                                         22)
+                                                                                                        (("2"
+                                                                                                          (numNL
+                                                                                                           21)
+                                                                                                          (("2"
+                                                                                                            (numNL
+                                                                                                             20)
+                                                                                                            (("2"
+                                                                                                              (numNL
+                                                                                                               19)
+                                                                                                              (("2"
+                                                                                                                (numNL
+                                                                                                                 18)
+                                                                                                                (("2"
+                                                                                                                  (numNL
+                                                                                                                   17)
+                                                                                                                  (("2"
+                                                                                                                    (numNL
+                                                                                                                     16)
+                                                                                                                    (("2"
+                                                                                                                      (numNL
+                                                                                                                       15)
+                                                                                                                      (("2"
+                                                                                                                        (numNL
+                                                                                                                         14)
+                                                                                                                        (("2"
+                                                                                                                          (numNL
+                                                                                                                           13)
+                                                                                                                          (("2"
+                                                                                                                            (numNL
+                                                                                                                             12)
+                                                                                                                            (("2"
+                                                                                                                              (numNL
+                                                                                                                               11)
+                                                                                                                              (("2"
+                                                                                                                                (numNL
+                                                                                                                                 10)
+                                                                                                                                (("2"
+                                                                                                                                  (numNL
+                                                                                                                                   9)
+                                                                                                                                  (("2"
+                                                                                                                                    (numNL
+                                                                                                                                     8)
+                                                                                                                                    (("2"
+                                                                                                                                      (numNL
+                                                                                                                                       7)
+                                                                                                                                      (("2"
+                                                                                                                                        (numNL
+                                                                                                                                         6)
+                                                                                                                                        (("2"
+                                                                                                                                          (numNL
+                                                                                                                                           5)
+                                                                                                                                          (("2"
+                                                                                                                                            (numNL
+                                                                                                                                             4)
+                                                                                                                                            (("2"
+                                                                                                                                              (numNL
+                                                                                                                                               3)
+                                                                                                                                              (("2"
+                                                                                                                                                (case
+                                                                                                                                                 "NOT n=2")
+                                                                                                                                                (("1"
+                                                                                                                                                  (hide
+                                                                                                                                                   60)
+                                                                                                                                                  (("1"
+                                                                                                                                                    (typepred
+                                                                                                                                                     "n")
+                                                                                                                                                    (("1"
+                                                                                                                                                      (assert)
+                                                                                                                                                      nil
+                                                                                                                                                      nil))
+                                                                                                                                                    nil))
+                                                                                                                                                  nil)
+                                                                                                                                                 ("2"
+                                                                                                                                                  (assert)
+                                                                                                                                                  (("2"
+                                                                                                                                                    (hide-all-but
+                                                                                                                                                     (-
+                                                                                                                                                      59))
+                                                                                                                                                    (("2"
+                                                                                                                                                      (replace
+                                                                                                                                                       -1
+                                                                                                                                                       -9)
+                                                                                                                                                      (("2"
+                                                                                                                                                        (lemma
+                                                                                                                                                         "sin_pi2")
+                                                                                                                                                        (("2"
+                                                                                                                                                          (replace
+                                                                                                                                                           -1)
+                                                                                                                                                          (("2"
+                                                                                                                                                            (lemma
+                                                                                                                                                             "cos2")
+                                                                                                                                                            (("2"
+                                                                                                                                                              (inst
+                                                                                                                                                               -1
+                                                                                                                                                               "pi/60")
+                                                                                                                                                              (("2"
+                                                                                                                                                                (expand
+                                                                                                                                                                 "sq"
+                                                                                                                                                                 -1
+                                                                                                                                                                 2)
+                                                                                                                                                                (("2"
+                                                                                                                                                                  (expand
+                                                                                                                                                                   "sin60")
+                                                                                                                                                                  (("2"
+                                                                                                                                                                    (simplify
+                                                                                                                                                                     -11)
+                                                                                                                                                                    (("2"
+                                                                                                                                                                      (replace
+                                                                                                                                                                       -11
+                                                                                                                                                                       :dir
+                                                                                                                                                                       rl)
+                                                                                                                                                                      (("2"
+                                                                                                                                                                        (replace
+                                                                                                                                                                         -1
+                                                                                                                                                                         :dir
+                                                                                                                                                                         rl)
+                                                                                                                                                                        (("2"
+                                                                                                                                                                          (lemma
+                                                                                                                                                                           "sqrt_sq")
+                                                                                                                                                                          (("2"
+                                                                                                                                                                            (inst
+                                                                                                                                                                             -1
+                                                                                                                                                                             "cos(pi/60)")
+                                                                                                                                                                            (("2"
+                                                                                                                                                                              (split
+                                                                                                                                                                               -1)
+                                                                                                                                                                              (("1"
+                                                                                                                                                                                (replace
+                                                                                                                                                                                 -1)
+                                                                                                                                                                                (("1"
+                                                                                                                                                                                  (replace
+                                                                                                                                                                                   -12)
+                                                                                                                                                                                  (("1"
+                                                                                                                                                                                    (lemma
+                                                                                                                                                                                     "atan_tan")
+                                                                                                                                                                                    (("1"
+                                                                                                                                                                                      (inst
+                                                                                                                                                                                       -1
+                                                                                                                                                                                       "pi/60")
+                                                                                                                                                                                      (("1"
+                                                                                                                                                                                        (expand
+                                                                                                                                                                                         "tan")
+                                                                                                                                                                                        (("1"
+                                                                                                                                                                                          (replace
+                                                                                                                                                                                           -1)
+                                                                                                                                                                                          (("1"
+                                                                                                                                                                                            (case
+                                                                                                                                                                                             "NOT pi / 60 * (2 / pi) = 1/30")
+                                                                                                                                                                                            (("1"
+                                                                                                                                                                                              (assert)
+                                                                                                                                                                                              nil
+                                                                                                                                                                                              nil)
+                                                                                                                                                                                             ("2"
+                                                                                                                                                                                              (replaces
+                                                                                                                                                                                               -1)
+                                                                                                                                                                                              (("2"
+                                                                                                                                                                                                (eval-expr
+                                                                                                                                                                                                 "2^32")
+                                                                                                                                                                                                (("2"
+                                                                                                                                                                                                  (replaces
+                                                                                                                                                                                                   -1)
+                                                                                                                                                                                                  (("2"
+                                                                                                                                                                                                    (assert)
+                                                                                                                                                                                                    (("2"
+                                                                                                                                                                                                      (expand
+                                                                                                                                                                                                       "##")
+                                                                                                                                                                                                      (("2"
+                                                                                                                                                                                                        (assert)
+                                                                                                                                                                                                        nil
+                                                                                                                                                                                                        nil))
+                                                                                                                                                                                                      nil))
+                                                                                                                                                                                                    nil))
+                                                                                                                                                                                                  nil))
+                                                                                                                                                                                                nil))
+                                                                                                                                                                                              nil))
+                                                                                                                                                                                            nil))
+                                                                                                                                                                                          nil))
+                                                                                                                                                                                        nil))
+                                                                                                                                                                                      nil))
+                                                                                                                                                                                    nil))
+                                                                                                                                                                                  nil))
+                                                                                                                                                                                nil)
+                                                                                                                                                                               ("2"
+                                                                                                                                                                                (lemma
+                                                                                                                                                                                 "cos_decr")
+                                                                                                                                                                                (("2"
+                                                                                                                                                                                  (inst
+                                                                                                                                                                                   -1
+                                                                                                                                                                                   "pi/2"
+                                                                                                                                                                                   "pi/60")
+                                                                                                                                                                                  (("2"
+                                                                                                                                                                                    (split
+                                                                                                                                                                                     -1)
+                                                                                                                                                                                    (("1"
+                                                                                                                                                                                      (flatten)
+                                                                                                                                                                                      (("1"
+                                                                                                                                                                                        (hide
+                                                                                                                                                                                         -1)
+                                                                                                                                                                                        (("1"
+                                                                                                                                                                                          (assert)
+                                                                                                                                                                                          nil
+                                                                                                                                                                                          nil))
+                                                                                                                                                                                        nil))
+                                                                                                                                                                                      nil)
+                                                                                                                                                                                     ("2"
+                                                                                                                                                                                      (assert)
+                                                                                                                                                                                      nil
+                                                                                                                                                                                      nil)
+                                                                                                                                                                                     ("3"
+                                                                                                                                                                                      (assert)
+                                                                                                                                                                                      nil
+                                                                                                                                                                                      nil)
+                                                                                                                                                                                     ("4"
+                                                                                                                                                                                      (assert)
+                                                                                                                                                                                      nil
+                                                                                                                                                                                      nil)
+                                                                                                                                                                                     ("5"
+                                                                                                                                                                                      (assert)
+                                                                                                                                                                                      nil
+                                                                                                                                                                                      nil))
+                                                                                                                                                                                    nil))
+                                                                                                                                                                                  nil))
+                                                                                                                                                                                nil))
+                                                                                                                                                                              nil))
+                                                                                                                                                                            nil))
+                                                                                                                                                                          nil))
+                                                                                                                                                                        nil))
+                                                                                                                                                                      nil))
+                                                                                                                                                                    nil))
+                                                                                                                                                                  nil))
+                                                                                                                                                                nil))
+                                                                                                                                                              nil))
+                                                                                                                                                            nil))
+                                                                                                                                                          nil))
+                                                                                                                                                        nil))
+                                                                                                                                                      nil))
+                                                                                                                                                    nil))
+                                                                                                                                                  nil))
+                                                                                                                                                nil))
+                                                                                                                                              nil))
+                                                                                                                                            nil))
+                                                                                                                                          nil))
+                                                                                                                                        nil))
+                                                                                                                                      nil))
+                                                                                                                                    nil))
+                                                                                                                                  nil))
+                                                                                                                                nil))
+                                                                                                                              nil))
+                                                                                                                            nil))
+                                                                                                                          nil))
+                                                                                                                        nil))
+                                                                                                                      nil))
+                                                                                                                    nil))
+                                                                                                                  nil))
+                                                                                                                nil))
+                                                                                                              nil))
+                                                                                                            nil))
+                                                                                                          nil))
+                                                                                                        nil))
+                                                                                                      nil))
+                                                                                                    nil))
+                                                                                                  nil))
+                                                                                                nil))
+                                                                                              nil))
+                                                                                            nil))
+                                                                                          nil))
+                                                                                        nil))
+                                                                                      nil))
+                                                                                    nil))
+                                                                                  nil))
+                                                                                nil))
+                                                                              nil))
+                                                                            nil))
+                                                                          nil))
+                                                                        nil))
+                                                                      nil))
+                                                                    nil))
+                                                                  nil))
+                                                                nil))
+                                                              nil))
+                                                            nil))
+                                                          nil))
+                                                        nil))
+                                                      nil))
+                                                    nil))
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil)
+             ("3" (hide 2)
+              (("3" (flatten) (("3" (assert) nil nil)) nil)) nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((subrange type-eq-decl nil integers nil)
+    (<= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}"
+     pi_def "trig/")
+    (cos const-decl "real" sincos_def "trig/")
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (sin const-decl "real" sincos_def "trig/")
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (/= const-decl "boolean" notequal nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (posreal_div_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (sin_range application-judgement "real_abs_le1" sincos "trig/")
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (sqrt const-decl "{nnz: nnreal | nnz * nnz = nnx}" sqrt "reals/")
+    (nnreal type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (real_abs_lt_pi2 nonempty-type-eq-decl nil trig_types "trig/")
+    (tan_restrict const-decl "real" trig_basic "trig/")
+    (Interval type-eq-decl nil interval "interval_arith/")
+    (|##| const-decl "bool" interval "interval_arith/")
+    (trans_calc const-decl "real" trans_eval nil)
+    (IF const-decl "[boolean, T, T -> T]" if_def nil)
+    ([\|\|] const-decl "Interval" interval "interval_arith/")
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (^ const-decl "real" exponentiation nil)
+    (atan const-decl "{x: real_abs_lt_pi2 | y = tan_restrict(x)}" atan
+          "trig/")
+    (mult_divides1 application-judgement "(divides(n))" divides nil)
+    (posint_times_posint_is_posint application-judgement "posint"
+     integers nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (real_abs_le1 nonempty-type-eq-decl nil trig_types "trig/")
+    (X const-decl "RealExpr" interval_expr "interval_arith/")
+    (cons adt-constructor-decl "[[T, list] -> (cons?)]" list_adt nil)
+    (cons? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+    (sin60 skolem-const-decl "real_abs_le1" trans_eval nil)
+    (vars_in_box formula-decl nil box "interval_arith/")
+    (length_singleton formula-decl nil more_list_props "structures/")
+    (vars_in_box_rec def-decl
+     "{b: bool | b = (FORALL (k: subrange(i, n - 1)): vs(k) ## nth(box, k - i))}"
+     box "interval_arith/")
+    (nml_18 skolem-const-decl "(div?)" trans_eval nil)
+    (SQRT_n const-decl "RealExpr" interval_expr_extra
+     "interval_arith/")
+    (SUB adt-constructor-decl "[[RealExpr, RealExpr] -> (sub?)]"
+     IntervalExpr_adt "interval_arith/")
+    (MULT adt-constructor-decl "[[RealExpr, RealExpr] -> (mult?)]"
+     IntervalExpr_adt "interval_arith/")
+    (input_1 skolem-const-decl "real" trans_eval nil)
+    (nml_19 skolem-const-decl "(div?)" trans_eval nil)
+    (sqrt_is_safe formula-decl nil interval_expr_extra
+     "interval_arith/")
+    (atan_int const-decl "{AB: Interval | atan(x) ## AB}" compute_atan
+     nil)
+    (RInterval type-eq-decl nil compute_atan nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (cauchy_real? const-decl "bool" cauchy "exact_real_arith/")
+    (cauchy_real nonempty-type-eq-decl nil cauchy "exact_real_arith/")
+    (cauchy_atan const-decl "cauchy_real" atanx "exact_real_arith/")
+    (rat nonempty-type-eq-decl nil rationals nil)
+    (cauchy_rat const-decl "cauchy_real" computable_rat
+     "exact_real_arith/")
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (nml_20 skolem-const-decl "(sub?)" trans_eval nil)
+    (in2 skolem-const-decl "real" trans_eval nil)
+    (atn skolem-const-decl
+     "{x: real_abs_lt_pi2 | in2 = tan_restrict(x)}" trans_eval nil)
+    (nml_24 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_25 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_26 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_30 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_31 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_32 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_36 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_37 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_38 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_42 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_43 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_44 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_48 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_49 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_50 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_54 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_55 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_56 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_60 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_61 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_62 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_66 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_67 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_68 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_72 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_73 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_74 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_78 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_79 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_80 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_84 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_85 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_86 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_90 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_91 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_92 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_96 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_97 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_98 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_102 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_103 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_104 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_108 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_109 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_110 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_114 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_115 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_116 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_120 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_121 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_122 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_126 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_127 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_128 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_132 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_133 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_134 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_138 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_139 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_140 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_144 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_145 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_146 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_150 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_151 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_152 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_156 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_157 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_158 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_162 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_163 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_164 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_168 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_169 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_170 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_174 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_175 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_176 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_180 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_181 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_182 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_186 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_187 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_188 skolem-const-decl "(sub?)" trans_eval nil)
+    (sqrt_sq formula-decl nil sqrt "reals/")
+    (posrat_times_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
+    (tan const-decl "real" trig_basic "trig/")
+    (atan_tan formula-decl nil trig_inverses "trig/")
+    (cos_range application-judgement "real_abs_le1" sincos "trig/")
+    (sqrt_sq_neg formula-decl nil sqrt "reals/")
+    (minus_real_is_real application-judgement "real" reals nil)
+    (cos_decr formula-decl nil trig_ineq "trig/")
+    (sq const-decl "nonneg_real" sq "reals/")
+    (cos2 formula-decl nil sincos_def "trig/")
+    (sin_pi2 formula-decl nil sincos "trig/")
+    (nml_185 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_184 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_183 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_179 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_178 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_177 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_173 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_172 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_171 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_167 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_166 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_165 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_161 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_160 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_159 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_155 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_154 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_153 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_149 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_148 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_147 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_143 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_142 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_141 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_137 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_136 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_135 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_131 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_130 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_129 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_125 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_124 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_123 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_119 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_118 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_117 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_113 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_112 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_111 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_107 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_106 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_105 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_101 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_100 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_99 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_95 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_94 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_93 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_89 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_88 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_87 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_83 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_82 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_81 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_77 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_76 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_75 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_71 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_70 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_69 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_65 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_64 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_63 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_59 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_58 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_57 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_53 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_52 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_51 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_47 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_46 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_45 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_41 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_40 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_39 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_35 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_34 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_33 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_29 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_28 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_27 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_23 skolem-const-decl "(sub?)" trans_eval nil)
+    (nml_22 skolem-const-decl "(div?)" trans_eval nil)
+    (nml_21 skolem-const-decl "(div?)" trans_eval nil)
+    (mult_divides2 application-judgement "(divides(m))" divides nil)
+    (lb_interval formula-decl nil interval "interval_arith/")
+    (ub_interval formula-decl nil interval "interval_arith/")
+    (pi_safe const-decl "[Unit -> real]" interval_expr_trig
+     "interval_arith/")
+    (nml_17 skolem-const-decl "RealExpr" trans_eval nil)
+    (eval def-decl "real" interval_expr "interval_arith/")
+    (listn_0 name-judgement "listn[real](0)" simple_bandb
+     "interval_arith/")
+    (Env type-eq-decl nil box "interval_arith/")
+    (vars_in_box? const-decl "bool" box "interval_arith/")
+    (PRED type-eq-decl nil defined_types nil)
+    (every adt-def-decl "boolean" list_adt nil)
+    (list2array def-decl "T" array2list "structures/")
+    (sound? const-decl "bool" numerical_bandb "interval_arith/")
+    (numerical_soundness formula-decl nil numerical_bandb
+     "interval_arith/")
+    (list type-decl nil list_adt nil)
+    (Box type-eq-decl nil box "interval_arith/")
+    (ProperBox type-eq-decl nil box "interval_arith/")
+    (IntervalMinMax type-eq-decl nil numerical_bandb "interval_arith/")
+    (ProperBox? const-decl "bool" box "interval_arith/")
+    (DirVar type-eq-decl nil branch_and_bound "structures/")
+    (stack type-eq-decl nil stack "structures/")
+    (length def-decl "nat" list_props nil)
+    (DirVarStack type-eq-decl nil branch_and_bound "structures/")
+    (DirVarSelector type-eq-decl nil branch_and_bound "structures/")
+    (Output type-eq-decl nil branch_and_bound "structures/")
+    (numerical const-decl "Output" numerical_bandb "interval_arith/")
+    (altdir_maxvar const-decl "DirVar" numerical_bandb
+     "interval_arith/")
+    (null? adt-recognizer-decl "[list -> boolean]" list_adt nil)
+    (null adt-constructor-decl "(null?)" list_adt nil)
+    (FALSE const-decl "bool" booleans nil)
+    (r2E const-decl "RealExpr" interval_expr "interval_arith/")
+    (PI_n const-decl "RealExpr" interval_expr_trig "interval_arith/")
+    (DIV adt-constructor-decl "[[RealExpr, RealExpr] -> (div?)]"
+     IntervalExpr_adt "interval_arith/")
+    (SIN_n const-decl "RealExpr" interval_expr_trig "interval_arith/")
+    (RealExpr type-eq-decl nil IntervalExpr_adt "interval_arith/")
+    (fun4? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (letin? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (fun2? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (fun? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (div? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (pow? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (sq? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (mult? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (sub? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (neg? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (abs? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (add? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (varidx? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (const? adt-recognizer-decl "[IntervalExpr -> boolean]"
+     IntervalExpr_adt "interval_arith/")
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (IntervalExpr type-decl nil IntervalExpr_adt "interval_arith/")
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (n skolem-const-decl "subrange(2, 59)" trans_eval nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (div_mult_pos_gt2 formula-decl nil extra_real_props nil)
+    (div_mult_pos_gt1 formula-decl nil extra_real_props nil)
+    (both_sides_times_pos_le1 formula-decl nil real_props nil)
+    (odd_times_odd_is_odd application-judgement "odd_int" integers nil)
+    (lt_times_lt_any1 formula-decl nil extra_real_props nil)
+    (sqrt_pos judgement-tcc nil sqrt "reals/")
+    (sin_increasing formula-decl nil trig_ineq "trig/")
+    (sin_0 formula-decl nil sincos_def "trig/")
+    (div_mult_pos_le1 formula-decl nil real_props nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (posreal_times_posreal_is_posreal application-judgement "posreal"
+     real_types nil)
+    (times_div2 formula-decl nil real_props nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (nzreal_div_nzreal_is_nzreal application-judgement "nzreal"
+     real_types nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil))
+   nil)))
+

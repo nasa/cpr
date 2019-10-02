@@ -1,0 +1,23 @@
+simple_props : THEORY
+BEGIN
+
+  IMPORTING trig@trig_ineq
+            
+  NZ: real = 15
+
+  abs_diff: LEMMA FORALL (a,b:real, c:nnreal):
+     abs(a-b)<c IMPLIES
+     EXISTS ((eps: real | abs(eps)<c)):
+     a = b+eps
+
+  nearest_int: LEMMA 
+     FORALL (x:real): 
+     EXISTS (fr:real | -1/2<=fr AND fr<1/2):
+     floor(x+1/2) = x - fr
+  
+  nl_table_simp: LEMMA 
+     FORALL (nl: subrange(2,59)):
+     sqrt((1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl))) = 
+     sin(pi/(4*NZ))/sin(pi/nl)
+
+END simple_props

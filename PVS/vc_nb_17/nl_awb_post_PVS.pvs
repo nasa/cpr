@@ -1,0 +1,34 @@
+nl_awb_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file nl_int.c, line 139) in 'nl_awb' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_nl
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_1, i:int):
+    LET x = to_uint32(-i_1) IN
+    ((0 <= i_1) IMPLIES
+    ((i_1 <= 4294967296) IMPLIES
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((IF (i_1 <= 2147483647)
+      THEN (((i = (L_nl_awb_nn(i_1))) AND (i_1 <= 2147483648)))
+      ELSE (((i = (L_nl_awb_nn(x))) AND (x <= 2147483648))) ENDIF) IMPLIES
+    (i = (L_nl_awb(i_1))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END nl_awb_post

@@ -1,0 +1,43 @@
+north_lat_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 207) in 'north_lat' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_global_decoding
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    LET x = min(16384, 131072) IN
+    FORALL (i_4, i_3, i_2, i_1, i:int):
+    LET x_1 = L_global_decode(60, i_3, i_2, i_4) IN
+    LET x_2 = to_uint32(x_1 - i_1) IN
+    ((0 <= i_4) IMPLIES
+    ((i_2 < x) IMPLIES
+    ((i_3 < x) IMPLIES
+    ((i_4 <= 1) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(i_2)) IMPLIES
+    ((is_uint32(i_3)) IMPLIES
+    ((is_uint32(i_4)) IMPLIES
+    ((is_sint32(i)) IMPLIES
+    ((is_uint32(x_1)) IMPLIES
+    ((IF (x_2 <= 357913941) THEN (1 = i)
+      ELSE (IF (3937053355 <= x_2) THEN (1 = i) ELSE (0 = i) ENDIF) ENDIF) IMPLIES
+    ((((i_1 <= 1073741824) OR
+      (((3221225472 <= i_1) AND (i_1 <= 4294967295))))) IMPLIES
+    ((0 /= i) IFF (P_north_lat(i_4, i_3, i_2, i_1)))))))))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END north_lat_post

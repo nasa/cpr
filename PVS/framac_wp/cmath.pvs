@@ -1,0 +1,31 @@
+cmath: THEORY
+BEGIN
+
+ IMPORTING cint
+
+ % Operations
+
+ abs_int(x:int) : MACRO nat = abs(x)
+
+ % logical shift right (corresponding to the ACSL operator on integers: >>)
+ % represents i >> n
+ lsr(i: int, n: nat): int = floor(i / 2^n)
+
+ IMPORTING ints@div
+
+ error_value: MACRO int = choose({x: int | TRUE})
+
+ cdiv(n,m: int): int
+ = IF m /= 0 THEN div(n,m) ELSE error_value ENDIF
+
+ abs_real(x:real) : MACRO nnreal = abs(x)
+ 
+% pow_int(x:int,y:int | x /= 0 OR y >= 0) : MACRO rat = x^y
+ IMPORTING power@real_expt
+ pow(x:real,y:real) : real = IF NOT (x /= 0 OR y >= 0) THEN error_value
+ 		      	     ELSIF (x >= 0) THEN x^y
+			     ELSE (-x)^y ENDIF
+
+ truncate(x:real) : int = if x < 0 then floor(x) + 1 else floor(x) endif;
+
+END cmath

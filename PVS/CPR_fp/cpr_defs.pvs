@@ -1,0 +1,63 @@
+cpr_defs: THEORY
+BEGIN
+
+  IMPORTING nl,
+  	    cpr_funs
+
+  lat: VAR Latitude
+  nb: VAR NB
+  i: VAR CPRFormat
+
+  % Constants.
+  F2pNb(nb): real = cpr_exp(2,nb)
+  AUTO_REWRITE+ F2pNb
+  F1d2: real = cpr_div(1,2)
+  AUTO_REWRITE F1d2
+
+  % Arithmetic simplification aimed to reduce the accumulated error in the
+  % calculations defined in the rest of the formalization.
+  % Idea: mod(a, b)/b = a/b-floor(a/b)
+  cpr_mod_div(a:real,b:nzreal): MACRO {r:real|r=cpr_div(cpr_mod(a,b),b)} =
+    LET g110 = cpr_div(a,b), 
+    	g11 = cpr_floor( g110 ) IN
+    	cpr_sub( g110 , g11 )
+
+  % Eq 1
+  dlat(i): posreal = cpr_div(360, cpr_sub(cpr_mul(4,NZ),i))
+
+  YZ_f0(nb,i)(lat): MACRO real = cpr_mod(lat, dlat(i))
+
+  % Eq 5 (pg. T-13)
+  YZ(nb,i)(lat): int =
+   LET f0 = YZ_f0(nb,i)(lat),
+       f1 = cpr_div(f0, dlat(i)),
+       f2 = cpr_mul(F2pNb(nb),f1),
+       f3 = cpr_add(f2, F1d2)
+   IN cpr_floor(f3)
+
+  YZ_lb: LEMMA
+    YZ(nb,i)(lat) >= 0
+
+  YZ_ub: LEMMA
+    YZ(nb,i)(lat) <= 2^nb
+
+  YZ_val: LEMMA FORALL (M:posnat, k:nat, x:real, y:posreal):
+    floor(1/2 + M*fractional(x/y)) = k 
+   IFF
+    ((k-1/2)/M<= fractional(x/y) AND fractional(x/y)< (k+1/2)/M)
+    
+  % Eq 6
+  rlat(nb,i)(lat): Latitude =
+    cpr_mul(
+      dlat(i),
+      cpr_add(
+       cpr_div( YZ(nb,i)(lat), cpr_exp(2,nb) ),
+       floor(cpr_div(lat,dlat(i)))))
+
+  % ---------------------------------------------------------------------------%
+  % Dloni: longitude angular zone width (in degrees of longitude)
+  dlon(nb,i)(lat_real:real): { x: real | 0 < x AND x <= 360 } =
+    LET nl = cpr_sub(NL(lat_real),i) IN
+    IF nl = 0 THEN 360 ELSE cpr_div(360,nl) ENDIF
+
+END cpr_defs

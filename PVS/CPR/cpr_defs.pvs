@@ -1,0 +1,6 @@
+cpr_defs: THEORY
+BEGIN
+
+  NumBins: TYPE = {nn:posnat | nn=12 OR nn=14 OR nn=17 OR nn=19}
+
+END cpr_defs

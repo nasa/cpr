@@ -1,0 +1,29 @@
+nl_awb_call_nl_awb_nn_pre_2: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Instance of 'Pre-condition (file nl_int.c, line 72) in 'nl_awb_nn'' in 'nl_awb' at call 'nl_awb_nn' (file nl_int.c, line 142)
+ 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i:int):
+    ((0 <= i) IMPLIES
+    ((2147483648 <= i) IMPLIES
+    ((i <= 4294967296) IMPLIES
+    ((is_uint32(i)) IMPLIES
+    ((to_uint32(-i)) <= 2147483648)))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END nl_awb_call_nl_awb_nn_pre_2

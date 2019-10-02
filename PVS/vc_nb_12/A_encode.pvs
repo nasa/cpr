@@ -1,0 +1,30 @@
+% -------------------------------------------------- 
+% Axiomatic 'encode'                                 
+% -------------------------------------------------- 
+
+A_encode: THEORY
+BEGIN
+IMPORTING A_uint32_operations
+
+L_encoding(nz_0 : int, awb_lat_0 : int, b : int) : int =
+    LET x = L_shr_u32(L_add_u32(L_mul_u32(nz_0, awb_lat_0),
+                        IF (12 = b) THEN 524288
+                        ELSE (IF (14 = b) THEN 131072
+                              ELSE (IF (17 = b) THEN 16384
+                                    ELSE (IF (19 = b) THEN 4096
+                                          ELSE (-1) ENDIF) ENDIF) ENDIF) ENDIF),
+              32 - b) IN IF (19 = b) THEN (L_mod_u32(x, 131072)) ELSE x ENDIF
+
+IMPORTING A_utils
+
+L_rlat_int(i : int, awb_lat_0 : int) : int =
+    LET x = L_closest_mult_div_shift(awb_lat_0,
+              IF (0 = i) THEN 60 ELSE 59 ENDIF) IN
+      L_add_u32(L_mul_u32(1048576,
+                  L_div_u32(x, IF (0 = i) THEN 60 ELSE 59 ENDIF)),
+        L_div_u32(L_add_u32(L_div_u32(L_mul_u32(2097152,
+                                        L_mod_u32(x,
+                                          IF (0 = i) THEN 60 ELSE 59 ENDIF)),
+                              IF (0 = i) THEN 60 ELSE 59 ENDIF), 1), 2))
+END A_encode
+

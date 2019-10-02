@@ -1,0 +1,33 @@
+closest_mult_div_shift_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 19) in 'closest_mult_div_shift' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_utils
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_1, i:int):
+    LET x = lsr(to_uint32(1
+                  + (lsr(to_uint32((to_uint32(2 * i)) *
+                           (to_uint32(mod(i_1, 262144)))), 18))), 1) IN
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(x)) IMPLIES
+    ((L_closest_mult_div_shift(i_1, i))
+       = (to_uint32((to_uint32(i * (lsr(i_1, 18)))) + x))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END closest_mult_div_shift_post

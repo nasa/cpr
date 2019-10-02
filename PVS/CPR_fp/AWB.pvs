@@ -1,0 +1,23 @@
+AWB[ bits: above(1) ]
+		: THEORY
+
+  BEGIN
+
+ IMPORTING cpr_defs
+
+ res: real = 360/2^bits
+
+ LatAWB: TYPE = {x:nat | x<=2^(bits-2) OR (x<2^bits AND x>=3*2^(bits-2))} 
+
+ LonAWB: TYPE = {x:nat | x<2^bits}
+
+ AWB2lat(lat_bin: LatAWB): Latitude = 
+   IF lat_bin<=2^(bits-2) 
+      THEN lat_bin*res
+   ELSE lat_bin*res - 360
+   ENDIF
+
+ AWB2lon(lon_bin: LonAWB): Longitude = 
+   res*lon_bin
+
+  END AWB

@@ -1,0 +1,252 @@
+(compute_atan
+ (atan_comp 0
+  (atan_comp-1 nil 3679663700
+   ("" (lemma "atan_lemma")
+    (("" (lemma "computable_rat.rat_lemma")
+      (("" (skeep)
+        (("" (split 1)
+          (("1" (inst -1 "a")
+            (("1" (inst -2 "computable_rat.cauchy_rat(a)" "a")
+              (("1" (assert)
+                (("1" (hide -1)
+                  (("1" (expand "cauchy_prop")
+                    (("1" (inst -1 "n")
+                      (("1" (flatten)
+                        (("1" (hide -2)
+                          (("1" (lemma "atan_strict_increasing")
+                            (("1" (case "a=x")
+                              (("1"
+                                (cross-mult 1)
+                                (("1" (assert) nil nil))
+                                nil)
+                               ("2"
+                                (expand "strict_increasing?")
+                                (("2"
+                                  (inst -1 "a" "x")
+                                  (("2"
+                                    (assert)
+                                    (("2"
+                                      (expand "##")
+                                      (("2"
+                                        (expand "[||]")
+                                        (("2"
+                                          (assert)
+                                          (("2"
+                                            (flatten)
+                                            (("2"
+                                              (assert)
+                                              (("2"
+                                                (case
+                                                 "(cauchy_atan(computable_rat.cauchy_rat(a))(n) - 1) / 2 ^ n < atan(a)")
+                                                (("1" (assert) nil nil)
+                                                 ("2"
+                                                  (cross-mult 1)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("2" (inst -1 "b")
+            (("2" (inst -2 "computable_rat.cauchy_rat(b)" "b")
+              (("2" (assert)
+                (("2" (hide -1)
+                  (("2" (expand "cauchy_prop")
+                    (("2" (inst -1 "n")
+                      (("2" (flatten)
+                        (("2" (hide -1)
+                          (("2" (case "b=x")
+                            (("1" (cross-mult 1)
+                              (("1" (assert) nil nil)) nil)
+                             ("2" (lemma "atan_strict_increasing")
+                              (("2"
+                                (expand "strict_increasing?")
+                                (("2"
+                                  (inst -1 "x" "b")
+                                  (("2"
+                                    (expand "##")
+                                    (("2"
+                                      (expand "[||]")
+                                      (("2"
+                                        (assert)
+                                        (("2"
+                                          (flatten)
+                                          (("2"
+                                            (assert)
+                                            (("2"
+                                              (case
+                                               "atan(b) < (1 + cauchy_atan(computable_rat.cauchy_rat(b))(n)) / 2 ^ n")
+                                              (("1" (assert) nil nil)
+                                               ("2"
+                                                (cross-mult 1)
+                                                nil
+                                                nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((rat_lemma formula-decl nil computable_rat "exact_real_arith/")
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (cauchy_real? const-decl "bool" cauchy "exact_real_arith/")
+    (cauchy_real nonempty-type-eq-decl nil cauchy "exact_real_arith/")
+    (cauchy_rat const-decl "cauchy_real" computable_rat
+     "exact_real_arith/")
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (^ const-decl "real" exponentiation nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (cos const-decl "real" sincos_def "trig/")
+    (pi const-decl "{x: real | x > 2 AND x < 4 AND cos(x / 2) = 0}"
+     pi_def "trig/")
+    (real_abs_lt_pi2 nonempty-type-eq-decl nil trig_types "trig/")
+    (tan_restrict const-decl "real" trig_basic "trig/")
+    (atan const-decl "{x: real_abs_lt_pi2 | y = tan_restrict(x)}" atan
+          "trig/")
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (cauchy_atan const-decl "cauchy_real" atanx "exact_real_arith/")
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (|##| const-decl "bool" interval "interval_arith/")
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    ([\|\|] const-decl "Interval" interval "interval_arith/")
+    (strict_increasing? const-decl "bool" real_fun_preds "reals/")
+    (atan_strict_increasing formula-decl nil atan "trig/")
+    (cauchy_prop const-decl "bool" cauchy "exact_real_arith/")
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (rat nonempty-type-eq-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (div_mult_pos_lt2 formula-decl nil real_props nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil)
+    (atan_lemma formula-decl nil atanx "exact_real_arith/"))
+   shostak))
+ (atan_int_TCC1 0
+  (atan_int_TCC1-1 nil 3679730461 ("" (subtype-tcc) nil nil)
+   ((^ const-decl "real" exponentiation nil)) nil))
+ (atan_int_TCC2 0
+  (atan_int_TCC2-1 nil 3679730461 ("" (subtype-tcc) nil nil)
+   ((^ const-decl "real" exponentiation nil)) nil))
+ (atan_int_TCC3 0
+  (atan_int_TCC3-1 nil 3679730461
+   ("" (skeep :preds? t)
+    (("" (lemma "atan_comp")
+      (("" (inst -1 "ab`lb" "ab`ub" "n" "x")
+        (("" (assert)
+          (("" (expand "##")
+            (("" (expand "[||]")
+              (("" (flatten)
+                (("" (assert)
+                  (("" (flatten) (("" (assert) nil nil)) nil)) nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((atan_comp formula-decl nil compute_atan nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    ([\|\|] const-decl "Interval" interval "interval_arith/")
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (>= const-decl "bool" reals nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (|##| const-decl "bool" interval "interval_arith/")
+    (RInterval type-eq-decl nil compute_atan nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (Interval type-eq-decl nil interval "interval_arith/")
+    (rat nonempty-type-eq-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (pi_bound name-judgement
+     "{r: posreal | pi_lb_new <= r AND r <= pi_ub_new}" pi_def "trig/")
+    (pi_bound name-judgement "{r: posreal | pi_lb < r AND r < pi_ub}"
+     atan_approx "trig/")
+    (minus_nzreal_is_nzreal application-judgement "nzreal" real_types
+     nil))
+   nil)))
+

@@ -1,0 +1,110 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+% This theory provides functions to print the NL-table through PVSio.          %
+%                                                                              %
+%   csv_file ....... generates a comma-separated values (CSV) file containing  %
+%                    a degree and a NL number in each row (R) such that if     %
+%                    a latitude (lat) is less or equal than R[i-1].degree and  %
+%                    greater than R[i].degree, its corresponding NL number is  %
+%                    i -- being 1 and 59 the minumum and maximum values resp.  %
+%                                                                              %
+%   pvs_file ....... generates a PVS theory containing an explicit definition  %
+%                    of the NL table.                                          %
+%                                                                              %
+% The precision used to compute the table can be controlled setting the global %
+% variables AlgebOpMode, TransOpMode, and FastAppPrec defined in the theory    %
+% cpr_nl_funs.                                                                 %
+%                                                                              %
+% Examples:                                                                    %
+%                                                                              %
+% - the following commands output a csv file using double precision operations %
+%                                                                              %
+%   <PVSio> set(AlgebOpMode,DoublePrecision);                                  %
+%           set(TransOpMode,DoublePrecision);                                  %
+%           csv_file(20);                                                      %
+%                                                                              %
+% - the following commands output a pvs file using the fast aprroximation      %
+%   library with a precision of 10^-20                                         %
+%                                                                              %
+%   <PVSio> set(AlgebOpMode,FastApprox);                                       %
+%           set(TransOpMode,FastApprox);                                       %
+%           set(FastAppPrec,20);                                               %
+%           csv_file(20);                                                      %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+nl_table_printer: THEORY
+BEGIN
+
+  IMPORTING nl,
+  	    PVSioChecker@csv_writerow,
+	    PVSioChecker@pvsio_checker
+
+  % prec_to_show: how many decimals of each number are expected to be printed.
+  csv_file(print_prec: posint): void = 
+    LET alg_op_m = IF    cpr_nl_funs.AlgebOpMode = SinglePrecision THEN "sp"
+    		   ELSIF cpr_nl_funs.AlgebOpMode = DoublePrecision THEN "dp"
+    		   ELSIF cpr_nl_funs.AlgebOpMode = Rational        THEN "qp"
+    		   ELSE  "fa" + cpr_nl_funs.FastAppPrec
+    		   ENDIF,
+    	tra_op_m = IF    cpr_nl_funs.TransOpMode = SinglePrecision THEN "sp"
+    		   ELSIF cpr_nl_funs.TransOpMode = DoublePrecision THEN "dp"
+    		   ELSIF cpr_nl_funs.TransOpMode = Rational        THEN "qp"
+    		   ELSE  "fa" + cpr_nl_funs.FastAppPrec
+    		   ENDIF,
+	op_modes = alg_op_m +
+		   IF alg_op_m = tra_op_m THEN "" ELSE "_" + tra_op_m ENDIF,
+    	filename = "nl_table_" + op_modes + ".csv" IN
+    IF fexists(filename)
+    THEN printf("File " + filename + " exists in the current directory.")
+    ELSE LET csv: CSVWriter = csv_writer(filename, SQCOMMA_DIALECT) IN
+         write_row(csv,("Degree","NL")) &
+         (FORALL (i:subrange(1,59)):
+           write_row(csv,(real2str(transitions(i),print_prec,TowardsZero),i))) &
+         fclose(csv`outs) ENDIF
+
+  pvs_file: void =
+    LET alg_op_m = IF    cpr_nl_funs.AlgebOpMode = SinglePrecision THEN "sp"
+    		   ELSIF cpr_nl_funs.AlgebOpMode = DoublePrecision THEN "dp"
+    		   ELSIF cpr_nl_funs.AlgebOpMode = Rational        THEN "qp"
+    		   ELSE  "fa" + cpr_nl_funs.FastAppPrec
+    		   ENDIF,
+    	tra_op_m = IF    cpr_nl_funs.TransOpMode = SinglePrecision THEN "sp"
+    		   ELSIF cpr_nl_funs.TransOpMode = DoublePrecision THEN "dp"
+    		   ELSIF cpr_nl_funs.TransOpMode = Rational        THEN "qp"
+    		   ELSE  "fa" + cpr_nl_funs.FastAppPrec
+    		   ENDIF,
+	op_modes = alg_op_m +
+		   IF alg_op_m = tra_op_m THEN "" ELSE "_" + tra_op_m ENDIF,
+    	thname   = "nl_table_" + op_modes,
+    	filename = thname + ".pvs" IN
+    IF fexists(filename)
+    THEN printf("File " + filename + " exists in the current directory.")
+    ELSE LET fout  = fopenout(create,filename) IN
+	 fprintf(fout, "% ~%") &
+	 fprintf(fout, "% Theory automatically generated ~
+	 	          using nl_table_printer.pvs ~%") &
+	 fprintf(fout, "% ~%") &
+	 fprintf(fout, "% - Algebraic operations mode: ~37T~a",
+	 	       to_str(cpr_nl_funs.AlgebOpMode)) &
+         IF cpr_nl_funs.AlgebOpMode = FastApprox
+	 THEN fprintf(fout," (prec.: ~a)~%",val(cpr_nl_funs.FastAppPrec))
+	 ELSE fprintf(fout,"~%") ENDIF &
+	 fprintf(fout, "% - Transcendental operations mode: ~37T~a",
+	 	       to_str(cpr_nl_funs.TransOpMode)) &
+         IF cpr_nl_funs.TransOpMode = FastApprox
+	 THEN fprintf(fout," (prec.: ~a)~%",val(cpr_nl_funs.FastAppPrec))
+	 ELSE fprintf(fout,"~%") ENDIF &
+	 fprintf(fout, "% ~%") &
+	 fprintf(fout, "~a : THEORY~%",thname) &
+	 fprintf(fout, "BEGIN~%") &
+	 fprintf(fout, "~%  IMPORTING basic_defs~%") &    
+	 fprintf(fout, "~%  NL_table(lat:Latitude): subrange(1,59) = ~%") &    
+	 fprintf(fout, "    IF    abs(lat) > ~a THEN ~a~%", (transitions(2),1)) &
+	 (FORALL (i:subrange(2,58)):
+	   fprintf(fout, "    ELSIF abs(lat) > ~a  THEN ~a~%",(transitions(i+1),i))) &
+	 fprintf(fout, "    ELSE 59 ENDIF~%") &
+	 fprintf(fout, "~%") &  
+	 fprintf(fout, "END ~a~%", thname) &
+	 fclose(fout) ENDIF
+
+END nl_table_printer

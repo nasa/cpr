@@ -1,0 +1,61 @@
+%
+% Stub functions for CPR functions. They allow a fine-grained control on the
+% semantic attachments to arithmetic and trigonometric operations.
+%
+cpr_funs: THEORY
+BEGIN
+
+  IMPORTING reals@reals_mod,
+  	    trig@acos,
+	    trig@sincos_def,
+	    fast_approx@fast_approx,
+	    pvsio_defs
+
+  % Mode of computation to be used to evaluate algebraic operations: addition,
+  % subtraction, multiplication, division, square root, modulo, and floor.
+  AlgebOpMode: Global[OperationMode,DoublePrecision]
+
+  % Mode of computation to be used to evaluate transcendental operations:
+  % trigonometric, exponentiation.
+  TransOpMode: Global[OperationMode,DoublePrecision]
+
+  % Precision to be used when working with the fast-approximation library.
+  FastAppPrec: Global[posint,5]
+
+  % Functions used in the definition of CPR algorithms. Defined here as aliases
+  % for real-valued functions 
+
+  cpr_sqrt(x:nonneg_real):nonneg_real = sqrt(x)
+  AUTO_REWRITE+ cpr_sqrt
+  
+  cpr_cos(x:real):real = cos(x)
+  AUTO_REWRITE+ cpr_cos
+
+  cpr_acos(x:real_abs_le1):real = acos(x)
+  AUTO_REWRITE+ cpr_acos
+
+  cpr_mod(i:real,j:nonzero_real): {k:real| abs(k) < abs(j)} = mod(i,j)
+  AUTO_REWRITE+ cpr_mod
+
+  cpr_pi: real = pi
+  AUTO_REWRITE+ cpr_pi
+
+  cpr_exp(r: real, i:{i:int | r /= 0 OR i >= 0}):real = r^i
+  AUTO_REWRITE+ cpr_exp
+
+  cpr_sub(x,y:real):real = x-y
+  AUTO_REWRITE+ cpr_sub
+
+  cpr_add(x,y:real):real = x+y
+  AUTO_REWRITE+ cpr_add
+
+  cpr_mul(x,y:real):real = x*y
+  AUTO_REWRITE+ cpr_mul
+
+  cpr_div(x:real,y:nonzero_real):real = x/y
+  AUTO_REWRITE+ cpr_div
+
+  cpr_floor(x:real):real = floor(x)
+  AUTO_REWRITE+ cpr_floor
+
+END cpr_funs

@@ -1,0 +1,236 @@
+;;
+;; Attachments for functions used in the CPR algorithms, but not in the NL    
+;; table calculation.
+;;
+(attachments
+ cpr_funs
+
+ (defattach |cpr_sqrt| (x) 
+   "Square Root of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (sqrt (float x 1d0))))
+       (1 (rational (sqrt (float x))))
+       (2 (attach-error (format nil "Tried to evaluate sqrt in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((sqrt_app "sqrt_approx"))
+	   (funcall sqrt_app x (expt 10 (- (pvsio_get_gvar_by_name "cpr_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate sqrt with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+ 
+ (defattach |cpr_acos| (x) 
+   "Arc Cosine of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (acos (float x 1d0))))
+       (1 (rational (acos (float x))))
+       (2 (attach-error (format nil "Tried to evaluate acos in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((acos_app "acos_app_u"))
+	   (funcall acos_app x (expt 10 (- (pvsio_get_gvar_by_name "cpr_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate acos with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_cos| (x) 
+   "Cosine of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (cos (float x 1d0))))
+       (1 (rational (cos (float x))))
+       (2 (attach-error (format nil "Tried to evaluate cos in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((cos_app "cos_app"))
+	   (funcall cos_app x (expt 10 (- (pvsio_get_gvar_by_name "cpr_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate cos with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+ 
+ (defattach |cpr_pi| () 
+   "Number Pi"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (float pi 1d0)))
+       (1 (rational (float pi)))
+       (2 (attach-error (format nil "Tried to evaluate pi in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((pi_app "pi_app"))
+	   (funcall pi_app (expt 10 (- (pvsio_get_gvar_by_name "cpr_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate pi with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_mod| (x y) 
+   "x mod y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (mod (float x 1d0) (float y 1d0))))
+       (1 (rational (mod (float x) (float y))))
+       (2 (mod x y))
+       (3 (mod x y))
+       (otherwise (attach-error (format nil "Tried to evaluate mod with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_exp| (x y) 
+   "x^y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (expt  (float x 1d0) (float y 1d0))))
+       (1 (rational (expt (float x) (float y))))
+       (2 (expt x y))
+       (3 (expt x y))
+       (otherwise (attach-error (format nil "Tried to evaluate exp with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_sub| (x y) 
+   "x-y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (-  (float x 1d0) (float y 1d0))))
+       (1 (rational (- (float x) (float y))))
+       ((2 3) (- x y))
+       (otherwise (attach-error (format nil "Tried to evaluate subtraction with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_add| (x y) 
+   "x+y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (+  (float x 1d0) (float y 1d0))))
+       (1 (rational (+ (float x) (float y))))
+       ((2 3) (+ x y))
+       (otherwise (attach-error (format nil "Tried to evaluate addition with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_mul| (x y) 
+   "x*y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (*  (float x 1d0) (float y 1d0))))
+       (1 (rational (* (float x) (float y))))
+       ((2 3) (* x y))
+       (otherwise (attach-error (format nil "Tried to evaluate multiplication with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_div| (x y) 
+   "x/y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (/  (float x 1d0) (float y 1d0))))
+       (1 (rational (/ (float x) (float y))))
+       ((2 3) (/ x y))
+       (otherwise (attach-error (format nil "Tried to evaluate division with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |cpr_floor| (x) 
+   "Floor of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (floor  (float x 1d0))))
+       (1 (rational (floor (float x))))
+       ((2 3) (floor x))
+       (otherwise (attach-error (format nil "Tried to evaluate floor with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode)))))))
+
+;; Alternative attachments
+(attachments
+ cpr_nl_funs
+
+ (defattach |nl_sqrt| (x) 
+   "Square Root of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (sqrt (float x 1d0))))
+       (1 (rational (sqrt (float x))))
+       (2 (attach-error (format nil "Tried to evaluate sqrt in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((sqrt_app "sqrt_approx"))
+	   (funcall sqrt_app x (expt 10 (- (pvsio_get_gvar_by_name "cpr_nl_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate sqrt with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+ 
+ (defattach |nl_acos| (x) 
+   "Arc Cosine of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (acos (float x 1d0))))
+       (1 (rational (acos (float x))))
+       (2 (attach-error (format nil "Tried to evaluate acos in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((acos_app "acos_app_u"))
+	   (funcall acos_app x (expt 10 (- (pvsio_get_gvar_by_name "cpr_nl_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate acos with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_cos| (x) 
+   "Cosine of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (cos (float x 1d0))))
+       (1 (rational (cos (float x))))
+       (2 (attach-error (format nil "Tried to evaluate cos in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((cos_app "cos_app"))
+	   (funcall cos_app x (expt 10 (- (pvsio_get_gvar_by_name "cpr_nl_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate cos with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+ 
+ (defattach |nl_pi| () 
+   "Number Pi"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (float pi 1d0)))
+       (1 (rational (float pi)))
+       (2 (attach-error (format nil "Tried to evaluate pi in exact (rational) precision.~%Try instead with  DoublePrecision, SinglePrecision, or FastApprox.")))
+       (3 (using
+	   ((pi_app "pi_app"))
+	   (funcall pi_app (expt 10 (- (pvsio_get_gvar_by_name "cpr_nl_funs.FastAppPrec"))))))
+       (otherwise (attach-error (format nil "Tried to evaluate pi with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_mod| (x y) 
+   "x mod y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (mod (float x 1d0) (float y 1d0))))
+       (1 (rational (mod (float x) (float y))))
+       (2 (mod x y))
+       (3 (mod x y))
+       (otherwise (attach-error (format nil "Tried to evaluate mod with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_exp| (x y) 
+   "x^y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.TransOpMode")))
+     (case ir_mode
+       (0 (rational (expt  (float x 1d0) (float y 1d0))))
+       (1 (rational (expt (float x) (float y))))
+       (2 (expt x y))
+       (3 (expt x y))
+       (otherwise (attach-error (format nil "Tried to evaluate exp with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_sub| (x y) 
+   "x-y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (-  (float x 1d0) (float y 1d0))))
+       (1 (rational (- (float x) (float y))))
+       ((2 3) (- x y))
+       (otherwise (attach-error (format nil "Tried to evaluate subtraction with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_add| (x y) 
+   "x+y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (+  (float x 1d0) (float y 1d0))))
+       (1 (rational (+ (float x) (float y))))
+       ((2 3) (+ x y))
+       (otherwise (attach-error (format nil "Tried to evaluate addition with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_mul| (x y) 
+   "x*y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (*  (float x 1d0) (float y 1d0))))
+       (1 (rational (* (float x) (float y))))
+       ((2 3) (* x y))
+       (otherwise (attach-error (format nil "Tried to evaluate multiplication with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_div| (x y) 
+   "x/y"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (/  (float x 1d0) (float y 1d0))))
+       (1 (rational (/ (float x) (float y))))
+       ((2 3) (/ x y))
+       (otherwise (attach-error (format nil "Tried to evaluate division with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode))))))
+
+ (defattach |nl_floor| (x) 
+   "Floor of X"
+   (let ((ir_mode (pvsio_get_gvar_by_name "cpr_nl_funs.AlgebOpMode")))
+     (case ir_mode
+       (0 (rational (floor  (float x 1d0))))
+       (1 (rational (floor (float x))))
+       ((2 3) (floor x y))
+       (otherwise (attach-error (format nil "Tried to evaluate floor with unknown precision mode: ~a (see CPR@pvsio_defs.pvs)." ir_mode)))))))

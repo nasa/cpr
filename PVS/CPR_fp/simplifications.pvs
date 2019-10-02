@@ -1,0 +1,20 @@
+simplifications: THEORY
+BEGIN
+
+  IMPORTING cpr_defs
+
+  mod_div_simp: LEMMA 
+   FORALL (a:real, b:posreal): 
+    mod(a,b)/b = a/b-floor(a/b)
+
+  floor_plus_mod_simp: LEMMA 
+   FORALL (a, other: real, b:posreal):
+   floor(a/b) + floor(mod(a,b)/b + other) = 
+   floor(a/b + other)
+
+  nl_table_simp: LEMMA 
+   FORALL (nl: subrange(2,59)):
+   sqrt((1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl))) = 
+   sin(pi/(4*NZ))/sin(pi/nl)
+
+END simplifications

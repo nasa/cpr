@@ -1,0 +1,57 @@
+rlat_spec: THEORY
+BEGIN
+
+ IMPORTING abstract_cpr
+
+  Latitude: TYPE = {lat: real | lat>=-90 AND lat<=90}
+
+  nb, nbb: VAR posnat
+  range: VAR posreal
+  i: VAR subrange(0,1)
+  lat_real: VAR real
+  lat, lato: VAR Latitude
+  
+
+  RLAT(range, nb, i)(lat_real): bool = EXISTS (k:int, (m:nat|m<=2^nb)):  lat_real = dl(60-i,range)*(k+m/2^nb)
+
+  rlat_idem: LEMMA 
+   RLAT(range, nb, i)(lat_real) IMPLIES recovered_position(range, 60-i,nb)(lat_real) = lat_real
+
+  rlat_pre: LEMMA 
+   RLAT(range, nb, i)(recovered_position(range, 60-i, nb)(lat_real))
+
+  rlat_sub: LEMMA nbb>=nb AND RLAT(range,nb,i)(lat_real) IMPLIES RLAT(range, nbb,i)(lat_real)
+
+  rlat_sub_pred: LEMMA 
+   FORALL (P :[Latitude ->bool], (nb:posnat|nb<=19)):
+   (FORALL (i, (lat | RLAT(range, 19,i)(lat))): P(lat)) IMPLIES 
+   (FORALL (i, (lato | RLAT(range, nb,i)(lato))): P(lato))
+
+  trans_comp( P:[nnreal->bool], i, (n:nat| 2^32/360*dl(60-i, 360)*n/2^19 <2^32) , it:below(n+1), (awblat: nnreal | awblat = 2^32/360*dl(60-i, 360)*it/2^19)): RECURSIVE 
+    bool = 
+     IF NOT P(awblat)  THEN print(awblat) AND FALSE 
+     ELSIF it = n THEN TRUE 
+     ELSE trans_comp(P, i, n, it+1, (awblat+ 8192/(60-i)))
+     ENDIF
+     MEASURE n-it
+
+  trans_comp_rlat_it: LEMMA FORALL (P:[nnreal->bool], i, (n:nat| 2^32/360*dl(60-i,360)*n/2^19 <2^32), it:below(n+1), (awblat: nnreal | awblat = 2^32/360*dl(60-i,360)*it/2^19)):
+    trans_comp(P, i,n, it, awblat) 
+     IMPLIES 
+     (FORALL ((lat1: nnreal | RLAT(360, 19,i)(lat1) AND lat1 <= dl(60-i, 360)*n/2^19 AND lat1 >= dl(60-i, 360)*it/2^19)): 
+       P(2^32/360*lat1))
+
+  trans_comp_rlat: LEMMA FORALL (P:[nnreal->bool], i): 
+    trans_comp(P, i, (60-i)*2^19-1, 0, 0) IMPLIES
+     FORALL ((lat:Latitude | RLAT(360,19,i)(lat))):
+     P(2^32/360*reals@reals_mod.mod(lat, 360))
+
+  awb_lat_tcc: LEMMA 
+   2^32/360*reals@reals_mod.mod(lat, 360)>=0 AND 
+   2^32/360*reals@reals_mod.mod(lat, 360)<2^32
+   
+  awb_fllat_tcc: LEMMA
+   floor(1/2+2^32/360*reals@reals_mod.mod(lat, 360))>=0 AND 
+   floor(1/2+2^32/360*reals@reals_mod.mod(lat, 360))<=2^32
+
+END rlat_spec

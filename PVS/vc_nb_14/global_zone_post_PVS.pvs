@@ -1,0 +1,48 @@
+global_zone_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 174) in 'global_zone' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_global_decoding
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    LET x = min(16384, 131072) IN
+    FORALL (i_4, i_3, i_2, i_1, i:int):
+    LET x_1 = to_uint32(i - i_3) IN
+    ((0 < i) IMPLIES
+    ((0 <= i_3) IMPLIES
+    ((i_1 < x) IMPLIES
+    ((i_2 < x) IMPLIES
+    ((i_3 <= 1) IMPLIES
+    ((i <= 63) IMPLIES
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(i_2)) IMPLIES
+    ((is_uint32(i_3)) IMPLIES
+    ((is_uint32(i_4)) IMPLIES
+    ((IF (2 <= i)
+      THEN (i_4
+              = (to_uint32(mod(lsr(to_uint32((to_uint32((to_uint32(262144
+                                                           * x_1))
+                                                + (to_uint32(8192
+                                                     + (to_uint32(i_2 *
+                                                          (to_uint32(i - 1))))))))
+                                     - (to_uint32(i * i_1))), 14), x_1))))
+      ELSE (0 = i_4) ENDIF) IMPLIES
+    (i_4 = (L_global_zone(i, i_2, i_1, i_3)))))))))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END global_zone_post

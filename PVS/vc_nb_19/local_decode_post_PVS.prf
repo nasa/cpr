@@ -1,0 +1,4 @@
+(local_decode_post
+ (goal_TCC1 0 (goal_TCC1-1 nil 3771693710 ("" (prove-vc) nil) nil nil))
+ (goal 0 (goal-1 nil 3771693712 ("" (prove-vc) nil) nil shostak)))
+

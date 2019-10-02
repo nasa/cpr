@@ -1,0 +1,36 @@
+awb32: THEORY
+BEGIN
+
+  IMPORTING 
+  rlat_spec
+
+ resolution: real = 360/2^32
+
+ LatAWB: TYPE = {x:nat | x<=2^(30) OR (x<2^32 AND x>=3*2^(30))} 
+
+ LonAWB: TYPE = {x:nat | x<2^32}
+
+ AWB2lat(lat_bin: LatAWB): Latitude = 
+   IF lat_bin<=2^(30) 
+      THEN lat_bin*resolution
+   ELSE lat_bin*resolution - 360
+   ENDIF
+
+ AWB2lon(lon_bin: LonAWB): {x:real | x>=0 and x<360} = 
+   resolution*lon_bin
+
+ lat2AWB(lat: Latitude): LatAWB = 
+  mod(floor((2^32/360)*mod(lat, 360) +1/2), 2^32)
+
+ lon2AWB(lon: real): LonAWB = 
+   mod(floor((lon/360)*2^32 +1/2), 2^32)
+
+ lat_awb_inverse: LEMMA 
+  FORALL (awb: LatAWB):
+  lat2AWB(AWB2lat(awb)) = awb
+
+ lon_awb_inverse: LEMMA 
+  FORALL (awb: LonAWB):
+  lon2AWB(AWB2lon(awb)) = awb  
+ 
+END awb32

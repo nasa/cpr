@@ -1,0 +1,236 @@
+cpr_real[(IMPORTING cpr_defs) nb: NumBins]: THEORY
+BEGIN
+
+  IMPORTING nl, 
+  	    abstract_cpr
+
+  lat: VAR Latitude 
+  lon: VAR real
+  range: VAR real
+  i: VAR subrange(0,1)
+
+  %%%%%%  ENCODING  airborne, TIS_B, intent %%%%%%%
+ 
+  dlat(i:subrange(0,1)): posreal  = 360/(60-i)
+ 
+  YZ_pre(i, lat): nat = floor(2^nb*MOD(lat, dlat(i))/dlat(i) +1/2)
+
+  Rlat(i,lat): real = dlat(i)*(YZ_pre(i,lat)/2^nb + floor(lat/dlat(i)))
+
+  dlon(i, lat): posreal = 
+    IF NL(Rlat(i,lat))-i >0 
+      THEN 360/(NL(Rlat(i,lat))-i) 
+    ELSE 360
+    ENDIF
+
+  dlon_surf(i, lat): posreal =
+    IF NL(Rlat(i,lat))-i >0 
+      THEN 90/(NL(Rlat(i,lat))-i) 
+    ELSE 90
+    ENDIF 
+  
+  XZ_pre(i,lat,lon): nat = floor(2^nb*MOD(lon, dlon(i,lat))/dlon(i,lat) +1/2)
+
+  YZ(i,lat): below(2^nb) = MOD(YZ_pre(i,lat), 2^nb)
+
+  XZ(i,lat,lon): below(2^nb) = MOD(XZ_pre(i,lat,lon), 2^nb)
+
+  %%%%% LOCAL DECODING airborne, TIS-B, intent %%%%%%%%
+
+  lat_s: VAR Latitude
+  lon_s: VAR real
+  Y,X: VAR below(2^nb)
+
+  j(i,lat_s,Y): int = floor(lat_s/dlat(i)) + floor(1/2 + MOD(lat_s,dlat(i))/dlat(i) - Y/2^nb)
+
+  Rlat_loc(i,lat_s,Y): real = dlat(i)*(j(i,lat_s,Y) + Y/2^nb)
+
+  dlon_loc(i,lat_s,Y): posreal = 
+    IF NL(Rlat_loc(i,lat_s,Y))-i >0 
+      THEN 360/(NL(Rlat_loc(i,lat_s,Y))-i) 
+    ELSE 360
+    ENDIF
+
+  m(i,lat_s,Y,lon_s,X): int = floor(lon_s/dlon_loc(i,lat_s,Y)) + floor(1/2 + MOD(lon_s,dlon_loc(i,lat_s,Y))/dlon_loc(i,lat_s,Y) - X/2^nb)
+
+  Rlon_loc(i,lat_s,Y,lon_s,X): real = dlon_loc(i,lat_s,Y)*(m(i,lat_s,Y,lon_s,X) + X/2^nb)
+
+  Local_Decode(i,lat_s,lon_s,Y,X): [real,real] = 
+    ( Rlat_loc(i,lat_s,Y), Rlon_loc(i,lat_s,Y,lon_s,X) )
+
+  Local_Decode_correctness: LEMMA 
+   LET YZi = YZ(i,lat),
+       XZi = XZ(i,lat,lon),
+       Decode = Local_Decode(i,lat_s,lon_s,YZi,XZi) IN
+   abs(lat_s-lat)<dlat(i)*(1/2-1/2^(nb+1)) 
+   AND 
+   abs(lon_s-lon)<dlon(i,lat)*(1/2-1/2^(nb+1)) 
+   IMPLIES
+   (abs(Decode`1-lat)<= dlat(i)/2^(nb+1) AND 
+    abs(Decode`2-lon)<= dlon(i,lat)/2^(nb+1))
+
+  %%%%%% GLOBAL DECODING airborne %%%%%%%
+
+  lat0,lat1: VAR Latitude
+  lon0,lon1: VAR real
+  Y0,Y1,X0,X1: VAR below(2^nb) 
+
+  j(Y0,Y1): int = floor((59*Y0-60*Y1)/2^nb+1/2)
+
+  Rlat_glo_pre(i,Y0,Y1): real= dlat(i)*(MOD(j(Y0,Y1),60-i) + (IF i=0 THEN Y0 ELSE Y1 ENDIF)/2^nb)
+
+  Rlat_glo(i,Y0,Y1): real = Rlat_glo_pre(i,Y0,Y1) - (IF Rlat_glo_pre(i,Y0,Y1)<=180 THEN 0 ELSE 360 ENDIF)
+
+  NL_match(Y0,Y1): bool = 
+    NL(Rlat_glo(0,Y0,Y1)) = 
+    NL(Rlat_glo(1,Y0,Y1))
+
+  m(Y0,Y1,X0,X1): int = 
+   LET nl0 = NL(Rlat_glo(0,Y0,Y1)) IN
+   IF (NOT NL_match(Y0,Y1)) THEN 999
+   ELSE floor((X0*(nl0-1)-X1*nl0)/2^nb +1/2)
+   ENDIF
+
+  Rlon_glo(i,Y0,Y1,X0,X1): real = 
+   LET ni = max(NL(Rlat_glo(0,Y0,Y1))-i, 1),	
+       dloni = 360/ni IN
+   dloni*(MOD(m(Y0,Y1,X0,X1),ni) + (IF i=0 THEN X0 ELSE X1 ENDIF)/2^nb)
+  
+  Global_Decode(i,Y0,Y1,X0,X1): [real,real,bool] = 
+   ( Rlat_glo(i,Y0,Y1),
+     Rlon_glo(i,Y0,Y1,X0,X1),
+     NL_match(Y0,Y1))
+
+  lon_enc_bound(lat0, lat1, lon0, lon1): real = 
+   IF NL(Rlat(0,lat0)) = 1 THEN 180
+   ELSE (dlon(1,lat1)-dlon(0,lat0))/2-dlon(1,lat1)/2^nb
+   ENDIF
+      
+  Global_Decode_correctness: LEMMA 
+   LET lati = IF i=0 THEN lat0 ELSE lat1 ENDIF,
+       loni = IF i=0 THEN lon0 ELSE lon1 ENDIF,
+       YZ0 = YZ(0,lat0),
+       XZ0 = XZ(0,lat0,lon0),
+       YZ1 = YZ(1,lat1),
+       XZ1 = XZ(1,lat1,lon1),
+       Decode = Global_Decode(i,YZ0,YZ1,XZ0,XZ1) IN
+   nb<=17
+   AND 
+   Decode`3 
+   AND 
+   abs(lat0-lat1)<(dlat(1)-dlat(0))/2-dlat(1)/2^nb 
+   AND 
+   close_mod_lt(360)(lon0,lon1, lon_enc_bound(lat0, lat1, lon0, lon1))  
+   IMPLIES
+   (abs(Decode`1-lati)<= dlat(i)/2^(nb+1) AND 
+    close_mod_le(360)(Decode`2,loni,dlon(i,lati)/2^(nb+1)))
+
+ %%%%%% ENCODING surface %%%%%%%
+
+  Ys,Xs: VAR below(2^17)
+
+  YZ_surf(i,lat): below(2^17) = MOD(YZ_pre(i,lat), 2^17)
+
+  XZ_surf(i,lat,lon): below(2^17) = MOD(XZ_pre(i,lat,lon), 2^17)
+
+ %%%%%% LOCAL DECODING SURFACE %%%%%%%%%
+
+  dlat_surf(i): posreal  = 90/(60-i)
+
+  j_surf(i,lat_s,Ys): int = floor(lat_s/dlat_surf(i)) + floor(1/2 + MOD(lat_s,dlat_surf(i))/dlat_surf(i) - Ys/2^17)
+
+  Rlat_loc_surf(i,lat_s,Ys): real = dlat_surf(i)*(j_surf(i,lat_s,Ys) + Ys/2^17)
+
+  dlon_loc_surf(i,lat_s,Ys): posreal = 
+    IF NL(Rlat_loc_surf(i,lat_s,Ys))-i >0 
+      THEN 90/(NL(Rlat_loc_surf(i,lat_s,Ys))-i) 
+    ELSE 90
+    ENDIF
+
+  m_surf(i,lat_s,Ys,lon_s,Xs): int = floor(lon_s/dlon_loc_surf(i,lat_s,Ys)) + floor(1/2 + MOD(lon_s,dlon_loc_surf(i,lat_s,Ys))/dlon_loc_surf(i,lat_s,Ys) - Xs/2^17)
+
+  Rlon_loc_surf(i,lat_s,Ys,lon_s,Xs): real = dlon_loc_surf(i,lat_s,Ys)*(m_surf(i,lat_s,Ys,lon_s,Xs) + Xs/2^17)
+
+  Local_Decode_surf(i,lat_s,lon_s,Ys,Xs): [real,real] = 
+    ( Rlat_loc_surf(i,lat_s,Ys), Rlon_loc_surf(i,lat_s,Ys,lon_s,Xs) )
+ 
+
+  Local_Decode_correctness_surface: LEMMA 
+   LET YZi = YZ_surf(i,lat),
+       XZi = XZ_surf(i,lat,lon),
+       Decode = Local_Decode_surf(i,lat_s,lon_s,YZi,XZi) IN
+   nb = 19 
+   AND 
+   abs(lat_s-lat)<dlat_surf(i)*(1/2-1/2^(17+1)) 
+   AND 
+   close_mod_lt(360)(lon_s,lon, dlon_surf(i,lat)*(1/2-1/2^(17+1))) 
+   IMPLIES
+   (abs(Decode`1 - lat)<= dlat(i)/2^(19+1) AND 
+    close_mod_le(360)(Decode`2,lon, dlon(i,lat)/2^(19+1)))
+
+ %%%%%%% GLOBAL DECODING SURFACE %%%%%%%%%%%%%%
+
+  Surf_Lat: TYPE = {l: Latitude | l< 90-(90/59)/2^18 AND l> - (90-(90/59)/2^18)}
+  JUDGEMENT Surf_Lat SUBTYPE_OF Latitude
+
+  Y0s,Y1s,X0s,X1s: VAR below(2^17)
+  lats0, lats1: VAR Surf_Lat
+  own_lat: VAR Latitude
+  
+  j_surf(Y0s,Y1s): int = floor((59*Y0s-60*Y1s)/2^17+1/2)
+
+  Rlat_glo_pre_surf(i,Y0s,Y1s): real= dlat_surf(i)*(MOD(j_surf(Y0s,Y1s),60-i) + (IF i=0 THEN Y0s ELSE Y1s ENDIF)/2^17)
+
+  norlat?(own_lat: Latitude)(i,Y0s,Y1s): bool
+  = abs((360/2^32)*floor(1/2+Rlat_glo_pre_surf(i,Y0s, Y1s)*(2^32/360))-own_lat) <= 30 -1/3*(360/2^32)
+
+  Rlat_glo_surf(own_lat: Latitude)(i,Y0s,Y1s): real
+  = Rlat_glo_pre_surf(i,Y0s,Y1s) - (IF norlat?(own_lat)(i,Y0s,Y1s) THEN 0 ELSE 90 ENDIF)
+
+  NL_match_surf(own_lat: Latitude)(Y0s,Y1s): bool = 
+    NL(Rlat_glo_surf(own_lat)(0,Y0s,Y1s)) = 
+    NL(Rlat_glo_surf(own_lat)(1,Y0s,Y1s))
+
+  m_surf(own_lat: Latitude)(Y0s,Y1s,X0s,X1s): int = 
+   LET nl0 = NL(Rlat_glo_surf(own_lat)(0,Y0s,Y1s)) IN
+   IF (NOT NL_match_surf(own_lat)(Y0s,Y1s)) THEN 999
+   ELSE floor((X0s*(nl0-1)-X1s*nl0)/2^17 +1/2)
+   ENDIF
+
+  Rlon_glo_surf(own_lat)(i,Y0s,Y1s,X0s,X1s): real = 
+   LET ni = max(NL(Rlat_glo_surf(own_lat)(0,Y0s,Y1s))-i, 1),	
+       dloni = 90/ni IN
+   dloni*(MOD(m_surf(own_lat)(Y0s,Y1s,X0s,X1s),ni) + (IF i=0 THEN X0s ELSE X1s ENDIF)/2^17)
+  
+  Global_Decode_surf(own_lat)(i,Y0s,Y1s,X0s,X1s): [real,real,bool] = 
+   ( Rlat_glo_surf(own_lat)(i,Y0s,Y1s),
+     Rlon_glo_surf(own_lat)(i,Y0s,Y1s,X0s,X1s),
+     NL_match_surf(own_lat)(Y0s,Y1s))
+
+  lon_enc_bound_surf(lat0, lat1, lon0, lon1): real = 
+   IF NL(Rlat(0,lat0)) = 1 THEN 45
+   ELSE (dlon(1,lat1)-dlon(0,lat0))/8-dlon(1,lat1)/2^19
+   ENDIF
+      
+  Global_Decode_correctness_surf: LEMMA 
+   LET lati = IF i=0 THEN lats0 ELSE lats1 ENDIF,
+       loni = IF i=0 THEN lon0 ELSE lon1 ENDIF,
+       YZ0 = YZ_surf(0,lats0),
+       XZ0 = XZ_surf(0,lats0,lon0),
+       YZ1 = YZ_surf(1,lats1),
+       XZ1 = XZ_surf(1,lats1,lon1),
+       Decode = Global_Decode_surf(own_lat)(i,YZ0,YZ1,XZ0,XZ1) IN
+   abs(own_lat-lats0)<=25 
+   AND 
+   nb=19
+   AND 
+   Decode`3 
+   AND 
+   abs(lats0-lats1)<(dlat_surf(1)-dlat_surf(0))/2-dlat_surf(1)/2^17 
+   AND 
+   close_mod_lt(360)(lon0,lon1, lon_enc_bound_surf(lats0, lats1, lon0, lon1))  
+   IMPLIES
+   (abs(Decode`1-lati)<= dlat(i)/2^(nb+1) AND 
+    close_mod_le(90)(Decode`2,loni,dlon(i,lati)/2^(nb+1)))
+
+END cpr_real

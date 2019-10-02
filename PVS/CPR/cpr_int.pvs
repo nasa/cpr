@@ -1,0 +1,181 @@
+cpr_int[(IMPORTING cpr_defs) nb: NumBins]: THEORY
+BEGIN
+
+  IMPORTING cpr_real[nb]
+  IMPORTING uint32
+  IMPORTING awb32
+
+  awb_uint_j
+  : JUDGEMENT
+    LatAWB SUBTYPE_OF unsigned_int
+
+   encoding(nz, awb_lat: unsigned_int, b: NumBins): unsigned_int = 
+  LET mul = times(nz,awb_lat), 
+      num = plus(mul, 2^(32-(b+1))), 
+      ans = div_shift(num, 32-b) IN
+   IF b=19 THEN mod_uint(ans, 2^17) ELSE ans ENDIF
+
+  rlat_int(i:subrange(0,1), awb_lat: unsigned_int, b:NumBins): unsigned_int = 
+    LET num = closest_mult_div_shift(awb_lat, 60-i, 32-b),
+        ans = closest_div_mult(num, 60-i, 32-b)
+    IN  ans
+
+  rlat_eq: LEMMA 
+  FORALL (i:subrange(0,1), awb_lat: LatAWB): 
+  lat2AWB(Rlat(i,AWB2lat(awb_lat))) = rlat_int(i,awb_lat, nb)
+
+  nl_enc: LEMMA 
+  FORALL (i:subrange(0,1), awb_lat: LatAWB):
+  NL(Rlat(i,AWB2lat(awb_lat))) = nl_awb(rlat_int(i,awb_lat,nb))
+
+  enc_eq_lat: LEMMA 
+  FORALL (awb_lat: LatAWB, i: subrange(0,1)):
+    encoding(60-i, awb_lat, nb) = 
+    IF nb=19 THEN YZ_surf(i, AWB2lat(awb_lat)) 
+    ELSE YZ(i, AWB2lat(awb_lat)) 
+    ENDIF
+
+  encoding_lat_j
+  : COROLLARY
+    FORALL (awb_lat: LatAWB, i: subrange(0,1))
+    : encoding(60-i, awb_lat, nb) < 2 ^ min(nb,17)
+
+  enc_eq_lon:  LEMMA 
+  FORALL (awb_lon:LonAWB, i:subrange(0,1), awb_lat: LatAWB):
+    LET nz = max(nl_awb(rlat_int(i,awb_lat,nb))-i, 1), 
+        lat = AWB2lat(awb_lat) IN 
+    encoding(nz, awb_lon, nb) = 
+    IF nb=19 THEN XZ_surf(i,lat, AWB2lon(awb_lon))
+    ELSE XZ(i,lat, AWB2lon(awb_lon))
+    ENDIF
+
+  encoding_lon_j
+  : COROLLARY
+    FORALL (awb_lon:LonAWB, i: subrange(0,1), awb_lat: LatAWB)
+    : encoding(max(nl_awb(rlat_int(i,awb_lat,nb))-i, 1), awb_lon, nb) < 2 ^ min(nb,17)
+
+
+ local_zone(nz:{n:posnat| n<2^6}, ref: unsigned_int, mes: below(2^17)): unsigned_int = 
+   let y: unsigned_int = IF nb = 19 THEN 4*mes ELSE mes ENDIF,
+       nzz: unsigned_int = IF nb = 19 THEN 4*nz ELSE nz ENDIF,
+       a: unsigned_int = 2^(nb-1), 
+       b: unsigned_int = times(nzz, div_shift(ref, 32-nb)), 
+       c: unsigned_int = div_shift(times(nzz, mod_uint(ref, 2^(32-nb))), 32-nb), 
+       d: unsigned_int = plus(a, plus(b, c)) 
+   in
+   IF d < y THEN nzz - 1
+   ELSE div_shift(minus(d, y), nb)
+   ENDIF
+
+ local_zone_def: LEMMA FORALL (nz:{n:posnat| n<2^6}, ref: unsigned_int, mes: below(2^17)): 
+     LET mmes: unsigned_int = IF nb = 19 THEN 4*mes ELSE mes ENDIF,
+          nzz: unsigned_int = IF nb = 19 THEN 4*nz ELSE nz ENDIF IN
+     local_zone(nz, ref, mes) =
+     IF floor(2 ^ nb * ((resolution * ref)/(360/nzz) + 1 / 2))<mmes THEN nzz-1 
+     ELSE floor((resolution * ref)/(360/nzz) + 1 / 2 - mmes/2^nb) ENDIF
+
+ local_decode(nz:{n:posnat| n<2^6}, ref: unsigned_int, mes: below(2^17)): unsigned_int = 
+   let y: unsigned_int = IF nb = 19 then 4*mes ELSE mes ENDIF, 
+       nnz: unsigned_int = IF nb = 19 THEN 4*nz ELSE nz ENDIF, 
+       num: unsigned_int = plus(times(2^nb, local_zone(nz, ref, mes)), y)
+   IN 
+   closest_div_mult(num, nnz, 32-nb)
+
+  local_eq_lat: LEMMA 
+   FORALL (ref_lat: LatAWB, yz: below(2^min(nb, 17)), i: subrange(0,1)):
+   LET rl = IF nb=19 THEN Rlat_loc_surf(i, AWB2lat(ref_lat), yz) ELSE Rlat_loc(i, AWB2lat(ref_lat), yz) ENDIF
+   IN 
+   %% the antecedent here is only to allow "lat2AWB" to be applied. It is not used in the proof. 
+   abs(rl)<= 90 IMPLIES
+   local_decode(60-i, ref_lat, yz) = lat2AWB(rl)
+
+  nl_local: LEMMA 
+  FORALL (ref_lat: LatAWB, yz: below(2^min(nb, 17)), i: subrange(0,1) ):
+  LET rl = IF nb=19 THEN Rlat_loc_surf(i, AWB2lat(ref_lat), yz) ELSE Rlat_loc(i, AWB2lat(ref_lat), yz) ENDIF
+  IN 
+  %% the antecedent is used to apply the previous lemma. 
+  abs(rl)<= 90 IMPLIES
+  NL(rl) = nl_awb(cpr_int.local_decode(60-i, ref_lat, yz))
+
+  local_eq_lon: LEMMA 
+  FORALL (ref_lat: LatAWB, ref_lon: LonAWB, yz,xz: below(2^min(nb, 17)), i: subrange(0,1)):
+   LET nl = nl_awb(local_decode(60-i, ref_lat, yz)), 
+       nz = max(nl-i, 1), 
+       lat = IF nb=19 THEN Rlat_loc_surf(i, AWB2lat(ref_lat), yz) ELSE Rlat_loc(i, AWB2lat(ref_lat), yz) ENDIF, 
+       rl = IF nb=19 THEN  Rlon_loc_surf(i,AWB2lat(ref_lat),yz,AWB2lon(ref_lon),xz) ELSE Rlon_loc(i,AWB2lat(ref_lat),yz,AWB2lon(ref_lon),xz) ENDIF
+   IN 
+   abs(lat)<=90 IMPLIES 
+   %% the antecedent is used to apply the previous lemma
+   local_decode(nz, ref_lon, xz) = lon2AWB(rl)
+
+  global_zone(nz:{n:posnat| n<2^6}, mes0, mes1: below(2^min(nb, 17)), i:subrange(0,1)): unsigned_int = 
+   IF nz=1 THEN 0
+    ELSE 
+      LET a = plus(times(minus(nz,1),mes0),2^(min(nb,17)-1)), 
+      	  b = times(nz,mes1), 
+   	  num = minus(plus(a,times(minus(nz,i),2^18)), b)
+ 	  IN
+
+    mod_uint(div_shift(num, min(nb, 17)), nz-i)
+    ENDIF   
+
+  global_zone_eq: LEMMA 
+  FORALL (nz:{n:posnat| n<2^6}, mes0, mes1: below(2^min(nb, 17)), i:subrange(0,1)): 
+    nz/=1 IMPLIES 
+     global_zone(nz, mes0, mes1, i) = mod(floor( ((nz-1)*mes0-nz*mes1)/2^min(nb, 17) + 1/2) ,nz-i)
+
+  global_decode(nz:{n:posnat| n<2^6}, mes0, mes1: below(2^min(nb, 17)), i:subrange(0,1)): unsigned_int = 
+   let mes = IF i=0 then mes0 ELSE mes1 ENDIF, 
+       mmes: unsigned_int = IF nb = 19 then 4*mes ELSE mes ENDIF, 
+       nnz: unsigned_int = IF nb = 19 THEN 4*max(nz-i, 1) ELSE max(nz-i, 1) ENDIF, 
+       num: unsigned_int = plus(times(2^nb, global_zone(nz, mes0, mes1, i)), mmes)
+   IN 
+   closest_div_mult(num, nnz, 32-nb)
+
+ global_eq_lat: LEMMA 
+  FORALL (mes0, mes1: below(2^min(nb, 17)), i:subrange(0,1)):
+   LET rl = IF nb = 19 THEN Rlat_glo_pre_surf(i, mes0, mes1) ELSE Rlat_glo(i, mes0, mes1) ENDIF 
+   IN
+   abs(rl)<=90 IMPLIES
+   global_decode(60, mes0, mes1, i) = lat2AWB(rl)
+
+ north_lat?(i:subrange(0,1), mes0,mes1: below(2^min(nb,17)), own :LatAWB ): bool = 
+ LET diff = minus(global_decode(60,mes0,mes1, i), own)
+ IN  
+   diff<=357913941 %% ~ 2^30/3 = 30 degrees. 
+   OR  3937053355<=diff %% ~ 2^32-2^30/3 = -30 degrees.
+
+ own_lat: VAR Latitude
+
+ north_lat_eq: LEMMA 
+  FORALL (i:subrange(0,1), mes0,mes1: below(2^min(nb,17)), own :LatAWB ):
+    own_lat = AWB2lat(own) AND nb = 19 AND abs(Rlat_glo_pre_surf(i, mes0, mes1))<=90 IMPLIES
+    norlat?(own_lat)(i,mes0, mes1) = north_lat?(i, mes0, mes1, own)
+  
+global_eq_lat_surf: LEMMA 
+  FORALL (mes0, mes1: below(2^min(nb,17)), i:subrange(0,1), own :LatAWB):
+   LET rl = Rlat_glo_pre_surf(i, mes0, mes1) 
+   IN
+   nb = 19 AND abs(rl)<=90 AND own_lat = AWB2lat(own) IMPLIES 
+ global_decode(60, mes0, mes1, i) + IF north_lat?(i,mes0, mes1, own) THEN 0 ELSE 3*2^30 ENDIF  = lat2AWB(Rlat_glo_surf(own_lat)(i, mes0, mes1)) 
+
+ nl_global: LEMMA 
+  FORALL (own: LatAWB, yz0, yz1: below(2^min(nb, 17)), i: subrange(0,1) ):
+  LET rl = IF nb=19 THEN Rlat_glo_surf(own_lat)(i, yz0, yz1) ELSE Rlat_glo(i, yz0, yz1) ENDIF 
+  IN 
+  %% the antecedent is used to apply the previous lemma. 
+  abs(rl)<= 90 AND own_lat = AWB2lat(own) IMPLIES
+  NL(rl) = nl_awb(global_decode(60, yz0, yz1,i) + IF nb/=19 OR (nb=19 AND north_lat?(i, yz0, yz1, own)) THEN 0 ELSE 3*2^30 ENDIF) 
+  
+ global_eq_lon: LEMMA
+   FORALL (own: LatAWB,  yz0, yz1, xz0, xz1: below(2^min(nb, 17)), i: subrange(0,1)):
+    LET gd_lat = LAMBDA (ii:subrange(0,1)): global_decode(60, yz0, yz1,ii) + IF nb/=19 OR (nb=19 AND north_lat?(ii, yz0, yz1, own)) THEN 0 ELSE 3*2^30 ENDIF, 
+        nl0 = nl_awb(gd_lat(0)), 
+        nl1 = nl_awb(gd_lat(1)),
+        lat = LAMBDA (jj:subrange(0,1)): IF nb = 19 THEN Rlat_glo_surf(own_lat)(jj, yz0, yz1) ELSE Rlat_glo(jj, yz0, yz1) ENDIF,
+        rl = IF nb=19 THEN  Rlon_glo_surf(own_lat)(i,yz0, yz1, xz0, xz1) ELSE Rlon_glo(i,yz0, yz1, xz0, xz1) ENDIF
+   IN 
+   abs(lat(0))<=90 AND abs(lat(1)) <=90 AND own_lat = AWB2lat(own) AND nl0 = nl1 IMPLIES
+         global_decode(nl0, xz0, xz1, i) = lon2AWB(rl)
+
+END cpr_int

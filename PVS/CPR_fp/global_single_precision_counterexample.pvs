@@ -1,0 +1,134 @@
+global_single_precision_counterexample: THEORY
+%
+%   Counterexample of the encoding/decoding procedure evaluated using
+% single-precision floating-point arithmetic. The same position is used
+% as the both inputs needed by the global-decoding procedure. To run the
+% test, open the PVSio interface and type:
+%
+% <PVSio> main;
+% One Position Test
+% -----------------
+% In this test, the same position is used as the both inputs needed by
+% the global decoding procedure.
+% 
+% Input position     : ( lat: 78.33373256, lon: 180)
+% Recovered position : ( lat: 78.33374023, lon: 16.36363602)
+% 
+% Lat. difference    : 0.00000767 degrees
+% Lon. difference    : 163.63636398 degrees
+% 
+% Great circle dist. : 2565955.35562041 meters
+%
+% Note that the single-precision operators are used only to compute the
+% encoding and encoding, but no the the (great circle) distance between
+% the original and the recovered position.
+%
+BEGIN
+
+  IMPORTING encoding,
+  	    global_decoding,
+	    decimals@decimalstr,
+	    aviation@LatLonAlt
+
+  latlondeg_str(pos: LatLonDeg): string
+  = format("( lat: ~a [deg], lon: ~a [deg])",
+           (rat2decstr(pos`lat_deg),
+	    rat2decstr(pos`lon_deg)))
+
+  % (Power of 2 that determines) number of bins for airborne case.
+  AirborneNB: NB = 17
+
+  EVEN: CPRFormat = 0
+  ODD : CPRFormat = 1
+
+  CPRMessage(Nb: NB): TYPE = [#
+    format            : CPRFormat,
+    encoded_latitude  : BinIndex(Nb), % yz
+    encoded_longitude : BinIndex(Nb)  % xz
+  #] CONTAINING (# format := 0, encoded_latitude := 0, encoded_longitude := 0 #)
+
+  cprmessage(nb: NB)(format: CPRFormat, encoded_lat, encoded_lon: BinIndex(nb)): CPRMessage(nb)
+  = (# format := format, encoded_latitude := encoded_lat, encoded_longitude := encoded_lon #)
+
+  prepare_message(nb: NB)(i: CPRFormat, lat: Latitude, lon: Longitude): MACRO CPRMessage(nb)
+  = LET enc = encode(nb,i)(lat,lon)
+    IN cprmessage(nb)(i,enc`elat,enc`elon)
+
+  prepare_even_message(nb: NB)(pos: LatLonDeg): CPRMessage(nb)
+  = LET lat_deg = pos`lat_deg,
+        lon_deg = pos`lon_deg
+    IN IF -90<=lat_deg AND lat_deg<=90
+       THEN prepare_message(nb)(EVEN,lat_deg,lon_deg)
+       ELSE throw("LatitudeOutOfRange") ENDIF
+
+  prepare_odd_message(nb: NB)(pos: LatLonDeg): CPRMessage(nb)
+  = LET lat_deg = pos`lat_deg,
+        lon_deg = pos`lon_deg
+    IN IF -90<=lat_deg AND lat_deg<=90
+       THEN prepare_message(nb)(ODD,lat_deg,lon_deg)
+       ELSE throw("LatitudeOutOfRange") ENDIF
+
+  IMPORTING nl
+
+  NL_: [real->subrange(1,59)] = nl.NL
+
+  % Global decoding
+  decode_messages(older_message, newer_message: CPRMessage(AirborneNB)): LatLonDeg
+  = IF older_message`format = newer_message`format
+    THEN throw("NotAlternatingMessages")
+    ELSE IF newer_message`format = EVEN
+    	 THEN LET rlat = rlat0 (AirborneNB)
+	      	       	       (newer_message`encoded_latitude,older_message`encoded_latitude),
+	      	  rlon = rlons (AirborneNB, NL_)
+		       	       (newer_message`encoded_latitude,older_message`encoded_latitude)
+			       (newer_message`encoded_longitude,older_message`encoded_longitude)
+              IN IF none?(rlon)
+	         THEN throw("UnableToRecoverLongitud")
+		 ELSE latlondeg(rlat,val(rlon)`rl0)
+		 ENDIF
+	 ELSE LET rlat = rlat1 (AirborneNB)
+	      	       	       (older_message`encoded_latitude,newer_message`encoded_latitude),
+	      	  rlon = rlons (AirborneNB, NL_)
+		       	       (older_message`encoded_latitude,newer_message`encoded_latitude)
+			       (older_message`encoded_longitude,newer_message`encoded_longitude)
+              IN IF none?(rlon)
+	         THEN throw("UnableToRecoverLongitud")
+		 ELSE latlondeg(rlat,val(rlon)`rl1)
+		 ENDIF
+	 ENDIF
+    ENDIF
+
+  IMPORTING aviation@GreatCircle
+
+  one_position_test__position: LatLonDeg
+  = latlondeg(78.3337325602769, 180)
+
+  one_position_test: void
+  = LET cpr_msg_even = prepare_even_message(AirborneNB)(one_position_test__position),
+    	cpr_msg_odd  = prepare_odd_message (AirborneNB)(one_position_test__position),
+        decoded_pos  = decode_messages(cpr_msg_even, cpr_msg_odd)
+    IN printf("One Position Test~%") &	
+       printf("-----------------~%") &	 
+       printf("In this test, the same position is used as the both inputs ~
+               needed by the global decoding procedure.~%") &
+       printf("~%") &
+       printf("Input position     : ~a~%",latlondeg_str(one_position_test__position)) &
+       printf("Recovered position : ~a~%",latlondeg_str(decoded_pos)) &
+       printf("~%") &
+       LET lat_diff = abs(one_position_test__position`lat_deg
+       	   	          - decoded_pos`lat_deg),
+	   lon_diff = abs(one_position_test__position`lon_deg
+       	   	          - decoded_pos`lon_deg)
+       IN printf("Lat. difference    : ~a degrees~%",rat2decstr(lat_diff)) &
+          printf("Lon. difference    : ~a degrees~%",rat2decstr(lon_diff)) &
+          printf("~%") &
+	  printf("Great circle dist. : ~a meters~%",
+	         rat2decstr(distance_rad(latlondeg_to_latlonrad(one_position_test__position),
+					 latlondeg_to_latlonrad(decoded_pos))))
+
+  main: void
+  = set(cpr_funs.AlgebOpMode,SinglePrecision) &
+    set(cpr_funs.TransOpMode,SinglePrecision) &
+    one_position_test
+       
+END global_single_precision_counterexample

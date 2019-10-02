@@ -1,0 +1,45 @@
+rlat_int_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 76) in 'rlat_int' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_utils
+IMPORTING A_encode
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_3, i_2, i_1, i:int):
+    LET x = to_uint32(i) IN
+    LET x_1 = L_closest_mult_div_shift(i_3, x) IN
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(i_2)) IMPLIES
+    ((is_uint32(i_3)) IMPLIES
+    ((is_sint32(i)) IMPLIES
+    ((is_uint32(x_1)) IMPLIES
+    ((IF (0 = i_2) THEN (60 = i) ELSE (59 = i) ENDIF) IMPLIES
+    ((IF (1 = x)
+      THEN (i_1 = (to_uint32(8192 * (L_closest_mult_div_shift(i_3, 1)))))
+      ELSE (i_1
+              = (to_uint32((to_uint32(8192 * (to_uint32(div(x_1, x)))))
+                   + (to_uint32(div(to_uint32(1
+                                      + (to_uint32(div(to_uint32(16384
+                                                         * (to_uint32(
+                                                              mod(x_1, x)))),
+                                                     x)))), 2)))))) ENDIF) IMPLIES
+    ((((0 = i_2) OR (1 = i_2))) IMPLIES
+    (i_1 = (L_rlat_int(i_2, i_3)))))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END rlat_int_post

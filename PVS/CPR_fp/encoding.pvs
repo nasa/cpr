@@ -1,0 +1,50 @@
+encoding: THEORY
+BEGIN
+
+  IMPORTING cpr_defs, reals@reals_mod
+
+  lat: VAR Latitude
+  lon: VAR Longitude
+  Nb : VAR NB
+  i  : VAR CPRFormat
+
+  % Dloni: longitude angular zone width (in degrees of longitude)
+  Dloni(Nb,i)(lat): Longitude = dlon(Nb,i)(rlat(Nb,i)(lat))    
+
+  % Eq 7 --------------------------------------------------------------------- %
+  % Encoding of the longitude
+  XZi(Nb,i)(lat,lon): int =
+   LET f10101 = Dloni(Nb,i)(lat),
+       f1010 = cpr_mod(lon,f10101),
+       f101 = cpr_div(f1010,f10101),
+       f100 = F2pNb(Nb),
+       f10 = cpr_mul(f100, f101),
+       f1 = cpr_add(f10,F1d2)
+   IN cpr_floor(f1)
+
+  XZ_ub: LEMMA
+   FORALL (lat: Latitude, lon:Longitude, nb:NB, i:CPRFormat): 
+    XZi(nb, i)(lat,lon)<=2^nb
+    
+  XZ_lb: LEMMA 
+   FORALL (lat: Latitude, lon:Longitude, nb:NB, i:CPRFormat): 
+    0<=XZi(nb,i)(lat,lon)
+
+  % End of Eq 7 -------------------------------------------------------------- %
+  
+  encode: EncodingFun = LAMBDA(Nb,i)(lat,lon):
+   LET f0 = YZ(Nb,i)(lat),
+       f11 = data_field_size(Nb),
+       f1 = cpr_exp(2,f11),
+       f2 = XZi(Nb,i)(lat,lon)
+   IN (# elat := cpr_mod(f0,f1), elon := cpr_mod(f2,f1) #)
+
+  encode_lat_bounds: LEMMA 
+   LET enc = encode(Nb,i)(lat, lon) IN
+     0<= enc`elat AND enc`elat<=2^Nb-1
+
+  encode_lon_bounds: LEMMA 
+   LET enc = encode(Nb,i)(lat, lon) IN
+     0<= enc`elon AND enc`elon<=2^Nb-1
+
+END encoding

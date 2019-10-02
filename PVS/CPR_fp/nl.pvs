@@ -1,0 +1,205 @@
+nl: THEORY
+BEGIN
+  IMPORTING basic_defs,
+  	    trig@trig_basic,
+	    trig@trig_ineq,
+	    trig@trig_extra,
+	    trig@trig_inverses,
+    	    cpr_nl_funs  % nl uses its own stub functions, so their can be
+	    		 % attached to lisp functions other than the ones
+			 % attached to the rest of the CPR equations.
+	     
+
+
+  lat: VAR real
+  nb : VAR NB
+  i  : VAR CPRFormat
+
+  % Eq 2 ----------------------------------------------------------------------%
+  % NL: number of longitude zones given a latitude.
+
+  % TCCs-related props
+
+  NL_cos_pos: LEMMA 
+    FORALL (l : {lat: real | lat >= 0 AND lat <= 87}):
+      cos((pi / 180) * l) > 0
+
+  NL_dec_prep_denom: LEMMA 
+    FORALL (l : {lat: real | lat >= 0 AND lat <= 87}):
+      (cos((pi / 180) * l) ^ 2) > 0
+
+  NL_num_rew: LEMMA
+    (1 - cos(pi / (2 * NZ))) = 2*(sin(pi/60))^2
+
+  NL_arg_bounds: LEMMA 
+    FORALL (l : {lat: real | lat >= 0 AND lat <= 87}):
+      -1 <= 1 - ((1 - cos(pi / (2 * NZ))) / (cos((pi / 180) * l) ^ 2)) AND
+      1 - ((1 - cos(pi / (2 * NZ))) / (cos((pi / 180) * l) ^ 2)) < 1
+
+  NL_acos_nz: LEMMA 
+    FORALL (l: {lat: real | lat >= 0 AND lat <= 87}):
+      (acos(1 - ((1 - cos(pi / (2 * NZ))) / (cos((pi / 180) * l) ^ 2)))) /= 0
+
+  NL_dec_prep: LEMMA 
+   FORALL (l1, l2: {lat: real | lat>=0 AND lat<=87}):
+     l1<l2 
+     IMPLIES 2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*l2) ^2 ))))^-1
+             < 2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*l1) ^2 ))))^-1
+
+  NL_87: LEMMA 
+   2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*87) ^2 ))))^-1 = 2
+
+  NL_0: LEMMA 
+   2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*0) ^2 ))))^-1 = 60
+   
+  % NL definition (as a function of lat)
+  
+  NL(lat): subrange(1,59) =
+    IF    lat = 0                THEN 59
+    ELSIF lat > 87 OR lat < -87  THEN 1
+    ELSIF lat = 87 OR lat = -87  THEN 2
+    ELSE  floor(
+           nl_mul(
+    	    nl_mul(2,nl_pi),
+            nl_exp(
+	     nl_acos(
+	      nl_sub(
+	       1,
+	       nl_div(
+	        nl_sub(1,nl_cos(nl_div(nl_pi,nl_mul(2,NZ)))),
+	        nl_exp(nl_cos(nl_mul(nl_div(nl_pi,180),abs(lat))),2)))),
+	     -1)))
+    ENDIF
+
+  % NL props
+  NL_decreasing: LEMMA 
+   FORALL (l1, l2: {lat: real | lat>=0}): 
+     l1<=l2 IMPLIES NL(l1)>=NL(l2)
+
+  % NL definition (as a lookup table)
+
+  nl: VAR subrange(2, 4*NZ-1)
+
+  denom_nz:   
+    LEMMA  
+    (1-cos(2*pi/nl)) > 0
+
+  expr_bounds:
+    LEMMA 
+    (1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl)) > 0 
+     AND 
+    (1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl)) < 1
+
+  arg_bounds: 
+    LEMMA 
+    sqrt((1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl))) > 0 
+     AND 
+    sqrt((1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl))) < 1
+
+  trans_lat( nl ): {lat: real | lat>0} =
+    nl_mul(
+      nl_div(180,nl_pi),
+      nl_acos(
+        nl_sqrt(
+	  nl_div(
+	    nl_sub(1,nl_cos(nl_div(nl_pi,nl_mul(2,NZ)))),
+	    nl_sub(1,nl_cos(nl_div(nl_mul(2,nl_pi),nl)))))))
+
+  trans_lat_dec: 
+    LEMMA
+  strict_decreasing?(trans_lat)
+
+  trans_lat_2:
+   LEMMA 
+   trans_lat(2) = 87
+
+  trans_lat_inverse: 
+    LEMMA 
+    NL(trans_lat(nl)) = nl
+
+  transitions(num_lat: subrange(1, 4*NZ-1)): {lat: real | lat>0} = 
+   IF num_lat = 1 THEN 90 
+   ELSE trans_lat(num_lat)
+   ENDIF
+
+  transitions_NL_inverse:
+  LEMMA 
+  FORALL (num_lat: subrange(1, 4*NZ-1)):
+  NL(transitions(num_lat)) = num_lat
+
+  % Equivalence between NL-function and lat_table
+  Lat_table_transition: 
+  LEMMA
+  FORALL (lat:real, num_lat: subrange(1, 58)):
+  (abs(lat)<= transitions(59) IMPLIES NL(lat) = 59)
+  AND 
+  ((abs(lat)>transitions(num_lat+1) AND abs(lat)<= transitions(num_lat)) 
+   IMPLIES NL(lat) = num_lat)
+
+  % NL table
+
+  NL_table(lat): subrange(1,59) =
+   IF    abs(lat) > transitions(2) THEN 1
+   ELSIF abs(lat) > transitions(3)  THEN 2 
+   ELSIF abs(lat) > transitions(4)  THEN 3 
+   ELSIF abs(lat) > transitions(5)  THEN 4 
+   ELSIF abs(lat) > transitions(6)  THEN 5 
+   ELSIF abs(lat) > transitions(7)  THEN 6 
+   ELSIF abs(lat) > transitions(8)  THEN 7 
+   ELSIF abs(lat) > transitions(9)  THEN 8 
+   ELSIF abs(lat) > transitions(10) THEN 9 
+   ELSIF abs(lat) > transitions(11) THEN 10
+   ELSIF abs(lat) > transitions(12) THEN 11
+   ELSIF abs(lat) > transitions(13) THEN 12
+   ELSIF abs(lat) > transitions(14) THEN 13
+   ELSIF abs(lat) > transitions(15) THEN 14
+   ELSIF abs(lat) > transitions(16) THEN 15
+   ELSIF abs(lat) > transitions(17) THEN 16
+   ELSIF abs(lat) > transitions(18) THEN 17
+   ELSIF abs(lat) > transitions(19) THEN 18
+   ELSIF abs(lat) > transitions(20) THEN 19
+   ELSIF abs(lat) > transitions(21) THEN 20
+   ELSIF abs(lat) > transitions(22) THEN 21
+   ELSIF abs(lat) > transitions(23) THEN 22
+   ELSIF abs(lat) > transitions(24) THEN 23
+   ELSIF abs(lat) > transitions(25) THEN 24
+   ELSIF abs(lat) > transitions(26) THEN 25
+   ELSIF abs(lat) > transitions(27) THEN 26
+   ELSIF abs(lat) > transitions(28) THEN 27
+   ELSIF abs(lat) > transitions(29) THEN 28
+   ELSIF abs(lat) > transitions(30) THEN 29
+   ELSIF abs(lat) > transitions(31) THEN 30
+   ELSIF abs(lat) > transitions(32) THEN 31
+   ELSIF abs(lat) > transitions(33) THEN 32
+   ELSIF abs(lat) > transitions(34) THEN 33
+   ELSIF abs(lat) > transitions(35) THEN 34
+   ELSIF abs(lat) > transitions(36) THEN 35
+   ELSIF abs(lat) > transitions(37) THEN 36
+   ELSIF abs(lat) > transitions(38) THEN 37
+   ELSIF abs(lat) > transitions(39) THEN 38
+   ELSIF abs(lat) > transitions(40) THEN 39
+   ELSIF abs(lat) > transitions(41) THEN 40
+   ELSIF abs(lat) > transitions(42) THEN 41
+   ELSIF abs(lat) > transitions(43) THEN 42
+   ELSIF abs(lat) > transitions(44) THEN 43
+   ELSIF abs(lat) > transitions(45) THEN 44
+   ELSIF abs(lat) > transitions(46) THEN 45
+   ELSIF abs(lat) > transitions(47) THEN 46
+   ELSIF abs(lat) > transitions(48) THEN 47
+   ELSIF abs(lat) > transitions(49) THEN 48
+   ELSIF abs(lat) > transitions(50) THEN 49
+   ELSIF abs(lat) > transitions(51) THEN 50
+   ELSIF abs(lat) > transitions(52) THEN 51
+   ELSIF abs(lat) > transitions(53) THEN 52
+   ELSIF abs(lat) > transitions(54) THEN 53
+   ELSIF abs(lat) > transitions(55) THEN 54
+   ELSIF abs(lat) > transitions(56) THEN 55
+   ELSIF abs(lat) > transitions(57) THEN 56
+   ELSIF abs(lat) > transitions(58) THEN 57
+   ELSIF abs(lat) > transitions(59) THEN 58
+   ELSE 59 ENDIF
+
+  nl_table_equiv_nl: COROLLARY
+    FORALL(lat: real): NL_table(lat) = NL(lat)
+  
+END nl

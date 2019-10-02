@@ -1,0 +1,334 @@
+nl_awb_nn_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file nl_int.c, line 73) in 'nl_awb_nn' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_nl
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_1, i:int):
+    ((0 <= i_1) IMPLIES
+    ((i_1 <= 2147483648) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_sint32(i)) IMPLIES
+    ((IF (i_1 <= 124917589) THEN (59 = i)
+      ELSE (IF (i_1 <= 176907012) THEN (58 = i)
+            ELSE (IF (i_1 <= 216970576) THEN (57 = i)
+                  ELSE (IF (i_1 <= 250890455) THEN (56 = i)
+                        ELSE (IF (i_1 <= 280903327) THEN (55 = i)
+                              ELSE (IF (i_1 <= 308154921) THEN (54 = i)
+                                    ELSE (IF (i_1 <= 333325100) THEN 
+                                          (53 = i)
+                                          ELSE (IF (i_1 <= 356856388)
+                                                THEN (52 = i)
+                                                ELSE (IF (i_1 <= 379055883)
+                                                      THEN (51 = i)
+                                                      ELSE (IF (i_1
+                                                                  <= 400147004)
+                                                            THEN (50 = i)
+                                                            ELSE (IF 
+                                                                  (i_1
+                                                                    <= 420298294)
+                                                                  THEN 
+                                                                  (49 = i)
+                                                                  ELSE 
+                                                                  (IF 
+                                                                   (i_1
+                                                                    <= 439640621)
+                                                                   THEN 
+                                                                   (48 = i)
+                                                                   ELSE 
+                                                                   (IF 
+                                                                    (i_1
+                                                                    <= 458278009)
+                                                                    THEN 
+                                                                    (47 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 476294775)
+                                                                    THEN 
+                                                                    (46 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 493760397)
+                                                                    THEN 
+                                                                    (45 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 510732936)
+                                                                    THEN 
+                                                                    (44 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 527261514)
+                                                                    THEN 
+                                                                    (43 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 543388133)
+                                                                    THEN 
+                                                                    (42 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 559149057)
+                                                                    THEN 
+                                                                    (41 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 574575849)
+                                                                    THEN 
+                                                                    (40 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 589696199)
+                                                                    THEN 
+                                                                    (39 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 604534563)
+                                                                    THEN 
+                                                                    (38 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 619112673)
+                                                                    THEN 
+                                                                    (37 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 633449951)
+                                                                    THEN 
+                                                                    (36 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 647563849)
+                                                                    THEN 
+                                                                    (35 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 661470114)
+                                                                    THEN 
+                                                                    (34 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 675183028)
+                                                                    THEN 
+                                                                    (33 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 688715586)
+                                                                    THEN 
+                                                                    (32 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 702079666)
+                                                                    THEN 
+                                                                    (31 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 715286154)
+                                                                    THEN 
+                                                                    (30 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 728345061)
+                                                                    THEN 
+                                                                    (29 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 741265621)
+                                                                    THEN 
+                                                                    (28 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 754056371)
+                                                                    THEN 
+                                                                    (27 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 766725217)
+                                                                    THEN 
+                                                                    (26 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 779279500)
+                                                                    THEN 
+                                                                    (25 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 791726041)
+                                                                    THEN 
+                                                                    (24 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 804071180)
+                                                                    THEN 
+                                                                    (23 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 816320815)
+                                                                    THEN 
+                                                                    (22 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 828480417)
+                                                                    THEN 
+                                                                    (21 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 840555055)
+                                                                    THEN 
+                                                                    (20 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 852549395)
+                                                                    THEN 
+                                                                    (19 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 864467699)
+                                                                    THEN 
+                                                                    (18 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 876313803)
+                                                                    THEN 
+                                                                    (17 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 888091078)
+                                                                    THEN 
+                                                                    (16 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 899802361)
+                                                                    THEN 
+                                                                    (15 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 911449851)
+                                                                    THEN 
+                                                                    (14 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 923034937)
+                                                                    THEN 
+                                                                    (13 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 934557931)
+                                                                    THEN 
+                                                                    (12 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 946017637)
+                                                                    THEN 
+                                                                    (11 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 957410633)
+                                                                    THEN 
+                                                                    (10 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 968730035)
+                                                                    THEN 
+                                                                    (9 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 979963239)
+                                                                    THEN 
+                                                                    (8 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 991087499)
+                                                                    THEN 
+                                                                    (7 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 1002060438)
+                                                                    THEN 
+                                                                    (6 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 1012796977)
+                                                                    THEN 
+                                                                    (5 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 1023101967)
+                                                                    THEN 
+                                                                    (4 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 1032407178)
+                                                                    THEN 
+                                                                    (3 = i)
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (i_1
+                                                                    <= 1037950430)
+                                                                    THEN 
+                                                                    (2 = i)
+                                                                    ELSE 
+                                                                    (1 = i) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) IMPLIES
+    ((to_uint32(i)) = (L_nl_awb_nn(i_1))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END nl_awb_nn_post

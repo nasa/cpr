@@ -1,0 +1,40 @@
+local_zone_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 109) in 'local_zone' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_local_decoding
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_3, i_2, i_1, i:int):
+    LET x = to_uint32(4 * i_1) IN
+    LET x_1 = lsr(to_uint32(x * (to_uint32(mod(i, 8192)))), 13) IN
+    LET x_2 = to_uint32(262144
+                + (to_uint32((to_uint32((lsr(i, 13)) * x)) + x_1))) IN
+    LET x_3 = to_uint32(4 * i_2) IN
+    ((i_1 <= 63) IMPLIES
+    ((i_2 <= 131071) IMPLIES
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(i_2)) IMPLIES
+    ((is_uint32(i_3)) IMPLIES
+    ((is_uint32(x_1)) IMPLIES
+    ((IF (x_2 < x_3) THEN (i_3 = (to_uint32(x - 1)))
+      ELSE (i_3 = (lsr(to_uint32(x_2 - x_3), 19))) ENDIF) IMPLIES
+    (i_3 = (L_local_zone(i_1, i, i_2)))))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END local_zone_post

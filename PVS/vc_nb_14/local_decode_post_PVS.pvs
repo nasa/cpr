@@ -1,0 +1,48 @@
+local_decode_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 123) in 'local_decode' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_local_decoding
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_3, i_2, i_1, i:int):
+    LET x = L_local_zone(i_1, i, i_2) IN
+    LET x_1 = to_uint32(i_2 + (to_uint32(16384 * x))) IN
+    ((0 < i_1) IMPLIES
+    ((i_1 <= 63) IMPLIES
+    ((i_2 <= 131071) IMPLIES
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(i_2)) IMPLIES
+    ((is_uint32(i_3)) IMPLIES
+    ((is_uint32(x)) IMPLIES
+    ((IF (1 = i_1)
+      THEN (i_3
+              = (to_uint32(262144
+                   * (to_uint32(i_2
+                        + (to_uint32(16384 * (L_local_zone(1, i, i_2)))))))))
+      ELSE (i_3
+              = (to_uint32((to_uint32(262144 * (to_uint32(div(x_1, i_1)))))
+                   + (to_uint32(div(to_uint32(1
+                                      + (to_uint32(div(to_uint32(524288
+                                                         * (to_uint32(
+                                                              mod(x_1, i_1)))),
+                                                     i_1)))), 2)))))) ENDIF) IMPLIES
+    (i_3 = (L_local_decode(i_1, i, i_2))))))))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END local_decode_post

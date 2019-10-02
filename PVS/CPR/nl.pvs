@@ -1,0 +1,229 @@
+nl: THEORY
+
+  BEGIN
+
+  IMPORTING trig@trig_basic,
+  	    trig@trig_ineq,
+	    trig@trig_extra,
+	    trig@trig_inverses,
+            simple_props,
+            rlat_spec
+            
+
+NZ: real = 15
+
+ % TCC lemmas...
+
+  NL_cos_pos: LEMMA 
+    FORALL (l : {lat: real | lat >= 0 AND lat <= 87}):
+      cos((pi / 180) * l) > 0
+
+  NL_dec_prep_denom: LEMMA 
+    FORALL (l : {lat: real | lat >= 0 AND lat <= 87}):
+      (cos((pi / 180) * l) ^ 2) > 0
+
+  NL_num_rew: LEMMA
+    (1 - cos(pi / (2 * NZ))) = 2*(sin(pi/60))^2
+
+  NL_arg_bounds: LEMMA 
+    FORALL (l : {lat: real | lat >= 0 AND lat <= 87}):
+      -1 <= 1 - ((1 - cos(pi / (2 * NZ))) / (cos((pi / 180) * l) ^ 2)) AND
+      1 - ((1 - cos(pi / (2 * NZ))) / (cos((pi / 180) * l) ^ 2)) < 1
+
+  NL_acos_nz: LEMMA 
+    FORALL (l: {lat: real | lat >= 0 AND lat <= 87}):
+      (acos(1 - ((1 - cos(pi / (2 * NZ))) / (cos((pi / 180) * l) ^ 2)))) /= 0
+
+  NL_dec_prep: LEMMA 
+   FORALL (l1, l2: {lat: real | lat>=0 AND lat<=87}):
+     l1<l2 
+     IMPLIES 2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*l2) ^2 ))))^-1
+             < 2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*l1) ^2 ))))^-1
+
+  NL_87: LEMMA 
+   2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*87) ^2 ))))^-1 = 2
+
+  NL_0: LEMMA 
+   2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*0) ^2 ))))^-1 = 60  
+
+% definition of NL 
+
+ NL(lat:real): subrange(1,59) =
+    IF    lat = 0                THEN 59
+    ELSIF lat > 87 OR lat < -87  THEN 1
+    ELSIF lat = 87 OR lat = -87  THEN 2
+    ELSE  floor(2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*abs(lat))^2 ))))^-1)
+    ENDIF 
+
+% decreasing property
+
+NL_decreasing: LEMMA 
+   FORALL (l1, l2: nnreal): 
+     l1<=l2 IMPLIES NL(l1)>=NL(l2)
+
+% transition latitudes
+
+ nl: VAR subrange(2, 59)
+
+  denom_nz:   
+    LEMMA  
+    (1-cos(2*pi/nl)) > 0
+
+  expr_bounds:
+    LEMMA 
+    (1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl)) > 0 
+     AND 
+    (1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl)) < 1
+
+  arg_bounds: 
+    LEMMA 
+    sqrt((1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl))) > 0 
+     AND 
+    sqrt((1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl))) < 1
+
+% trans_lat definition
+
+  trans_lat( nl ): {lat: real | lat>0} =
+    180/pi*acos(sqrt( (1-cos(pi/(2*NZ)))/(1-cos(2*pi/nl)) ) )
+
+% some lemmas about trans_lat
+
+  trans_lat_dec: 
+    LEMMA
+  strict_decreasing?(trans_lat)
+
+  trans_lat_2:
+   LEMMA 
+   trans_lat(2) = 87
+
+  trans_lat_inverse_pre: 
+   LEMMA 
+   2*pi * (acos(1-((1-cos(pi/(2*NZ))) / (cos((pi/180)*trans_lat(nl)) ^2 ))))^-1 = nl
+
+  trans_lat_inverse: 
+    LEMMA 
+    NL(trans_lat(nl)) = nl
+
+  NL_table_rec(lat:real, nl): RECURSIVE subrange(1,59) = 
+     IF abs(lat) <= trans_lat(nl) THEN nl 
+     ELSIF nl = 2 THEN 1
+     ELSE NL_table_rec(lat, nl-1) 
+     ENDIF
+     MEASURE nl
+
+  NL_table_abstract(lat:real): subrange(1,59) = 
+     NL_table_rec(lat, 59)
+
+  nl_equiv: LEMMA 
+   FORALL (lat:real): 
+   NL(lat) = NL_table_abstract(lat)
+
+ % from trans_eval...
+  IMPORTING trans_eval
+
+  calc_eq: LEMMA 
+      trans_calc(nl) = 2^32/360*trans_lat(nl)
+
+  trans_calc_nz_equiv: LEMMA FORALL ((lat: nnreal|lat<=90)):
+      trans_calc_nl(2^32/360*lat)/= 0 IMPLIES 
+      NL(lat) = trans_calc_nl(2^32/360*lat)
+
+  trans_calc_nl_full((awb: nnreal | awb<=2^32)): below(60) = 
+     IF awb<2^31 THEN trans_calc_nl(awb) 
+     ELSE LET absawb = (4294967296 - awb) IN
+     trans_calc_nl(absawb)
+     ENDIF
+
+  trans_calc_nz_equiv_full: LEMMA FORALL (lat: Latitude):
+      LET awb = 2^32/360*reals@reals_mod.mod(lat, 360) IN
+      trans_calc_nl_full(awb)/= 0 IMPLIES 
+      NL(lat) = trans_calc_nl_full(awb)
+
+   nl_awb_nn(awb:nnreal| awb<=2^31): subrange(1,59) =  
+  			    IF awb <= 124917589 THEN 59 % 07721755
+		      	 ELSIF awb <= 176907012 THEN 58 % 0A8B6304
+		      	 ELSIF awb <= 216970576 THEN 57 % 0CEEB550
+		      	 ELSIF awb <= 250890455 THEN 56	% 0EF448D7
+		      	 ELSIF awb <= 280903327 THEN 55 % 10BE3E9F
+		      	 ELSIF awb <= 308154921 THEN 54 % 125E1229
+		      	 ELSIF awb <= 333325100 THEN 53 % 13DE232C
+		      	 ELSIF awb <= 356856388 THEN 52 % 15453244
+		      	 ELSIF awb <= 379055883 THEN 51 % 1697EF0B
+		      	 ELSIF awb <= 400147004 THEN 50 % 17D9C23C
+		      	 ELSIF awb <= 420298294 THEN 49 % 190D3E36
+		      	 ELSIF awb <= 439640621 THEN 48 % 1A34622D
+		      	 ELSIF awb <= 458278009 THEN 47 % 1B50C479
+		      	 ELSIF awb <= 476294775 THEN 46 % 1C63AE77
+		      	 ELSIF awb <= 493760397 THEN 45 % 1D6E2F8D
+		      	 ELSIF awb <= 510732936 THEN 44 % 1E712A88
+		      	 ELSIF awb <= 527261514 THEN 43 % 1F6D5F4A
+		      	 ELSIF awb <= 543388133 THEN 42 % 206371E5
+		      	 ELSIF awb <= 559149057 THEN 41 % 2153F001
+		      	 ELSIF awb <= 574575849 THEN 40 % 223F54E9
+		      	 ELSIF awb <= 589696199 THEN 39 % 23260CC7
+		      	 ELSIF awb <= 604534563 THEN 38 % 24087723
+		      	 ELSIF awb <= 619112673 THEN 37 % 24E6E8E1
+		      	 ELSIF awb <= 633449951 THEN 36 % 25C1ADDF
+		      	 ELSIF awb <= 647563849 THEN 35 % 26990A49
+		      	 ELSIF awb <= 661470114 THEN 34 % 276D3BA2
+		      	 ELSIF awb <= 675183028 THEN 33 % 283E79B4
+		      	 ELSIF awb <= 688715586 THEN 32 % 290CF742
+		      	 ELSIF awb <= 702079666 THEN 31 % 29D8E2B2
+		      	 ELSIF awb <= 715286154 THEN 30 % 2AA2668A
+		      	 ELSIF awb <= 728345061 THEN 29 % 2B69A9E5
+		      	 ELSIF awb <= 741265621 THEN 28 % 2C2ED0D5
+		      	 ELSIF awb <= 754056371 THEN 27 % 2CF1FCB3
+		      	 ELSIF awb <= 766725217 THEN 26 % 2DB34C61
+		      	 ELSIF awb <= 779279500 THEN 25 % 2E72DC8C
+		      	 ELSIF awb <= 791726041 THEN 24 % 2F30C7D9
+		      	 ELSIF awb <= 804071180 THEN 23 % 2FED270C
+		      	 ELSIF awb <= 816320815 THEN 22 % 30A8112F
+		      	 ELSIF awb <= 828480417 THEN 21 % 31619BA1
+		      	 ELSIF awb <= 840555055 THEN 20 % 3219DA2F
+		      	 ELSIF awb <= 852549395 THEN 19 % 32D0DF13
+		      	 ELSIF awb <= 864467699 THEN 18 % 3386BAF3
+		      	 ELSIF awb <= 876313803 THEN 17 % 343B7CCB
+		      	 ELSIF awb <= 888091078 THEN 16 % 34EF31C6
+		      	 ELSIF awb <= 899802361 THEN 15 % 35A1E4F9
+		      	 ELSIF awb <= 911449851 THEN 14 % 36539EFB
+		      	 ELSIF awb <= 923034937 THEN 13 % 37046539
+		      	 ELSIF awb <= 934557931 THEN 12 % 37B438EB
+		      	 ELSIF awb <= 946017637 THEN 11 % 38631565
+		      	 ELSIF awb <= 957410633 THEN 10 % 3910ED49
+		      	 ELSIF awb <= 968730035 THEN 9  % 39BDA5B3
+		      	 ELSIF awb <= 979963239 THEN 8  % 3A690D67
+		      	 ELSIF awb <= 991087499 THEN 7  % 3B12CB8B
+		      	 ELSIF awb <= 1002060438 THEN 6 % 3BBA3A96
+		      	 ELSIF awb <= 1012796977 THEN 5 % 3C5E0E31
+		      	 ELSIF awb <= 1023101967 THEN 4 % 3CFB4C0F
+		      	 ELSIF awb <= 1032407178 THEN 3 % 3D89488A
+		      	 ELSIF awb <= 1037950430 THEN 2 % 3DDDDDDE
+			 ELSE 1 
+			 ENDIF
+
+  nl_awb((awb:nnreal | awb<=2^32)): subrange(1,59) = 
+       IF awb<2^31 THEN nl_awb_nn(awb) 
+       ELSE LET absawb = (4294967296 - awb) IN % This works in uint32's also, just using -awb
+       nl_awb_nn(absawb)
+       ENDIF 
+
+% Verification of the nl_awb table. 
+
+ nl_equal_pred(awblat: nnreal): bool = 
+   IF awblat>2^32 THEN FALSE
+   ELSE  LET tcnlf = trans_calc_nl_full(awblat) IN
+         (tcnlf/=0 AND tcnlf = nl_awb(floor(awblat +1/2)) 
+         And tcnlf = nl_awb(awblat))
+   ENDIF
+
+  trans_comp_calc: LEMMA 
+    trans_comp(nl_equal_pred, 0, 60*2^19-1, 0,0) AND trans_comp(nl_equal_pred, 1, 59*2^19-1, 0,0) 
+    
+  nl_awb_equiv: LEMMA FORALL (nb: subrange(1,19) , (lat: Latitude | RLAT(360,nb,0)(lat) OR RLAT(360,nb,1)(lat))):
+        (NL(lat)  = nl_awb(floor(2^32/360*reals@reals_mod.mod(lat, 360) +1/2)) AND 
+	 NL(lat)  = nl_awb(2^32/360*reals@reals_mod.mod(lat, 360))) 
+  
+
+
+
+  END nl

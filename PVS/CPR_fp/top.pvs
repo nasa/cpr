@@ -1,0 +1,39 @@
+top: THEORY
+BEGIN
+
+  IMPORTING
+  
+	    cpr_funs,                  % stubs                                   
+	    cpr_nl_funs,               % stubs                                   
+            basic_defs,                % elementary definitions                  
+
+	    % exact calculation
+	    nl,                        % NL calculation                        
+  	    cpr_defs,                  % CPR aux functions                     
+	    encoding,                  % encoding procedure                    
+	    local_decoding,            % local decoding procedure              
+	    global_decoding,           % global decoding procedure
+	    alt_encoding,
+	    rlat_spec,
+
+	    % correctness
+	    local_correctness, 
+	    global_correctness, 
+	    simplifications,
+	    
+	    % real-valued counterexample
+	    AWB,                       % Angular weighted binary
+            counterexample,
+
+	    % single-precision counterexample
+	    global_single_precision_counterexample,
+
+            % animation
+	    nl_table_printer,          % NL-table printer                      
+	    pvsio_defs,                % pvsio related declarations            
+	    nl_table_dp,               % generated table (double precision)    
+	    nl_table_fa20,             % generated table (fast_approx-prec:20)
+
+            % Frama-C logic definitions
+	    framac_logic_definitions
+END top

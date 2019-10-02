@@ -1,0 +1,138 @@
+counterexample: THEORY
+BEGIN
+
+  IMPORTING global_correctness, AWB[32] 
+
+  n : VAR nat
+  nb: VAR NB
+  i : VAR CPRFormat
+
+  % Counterexample for local decoding.
+
+  lats(n, nb, i): real =
+    dlat(i)*(n-1/2^(nb+1) + 1/2^(nb+2))
+
+  lati(n,nb,i): real = 
+    lats(n, nb, i) + dlat(i)/2 - 1/2^(nb+3)
+
+  local_decoding_lat_counterexample: LEMMA 
+   EXISTS (lat1, lat2: Latitude, lon:Longitude):
+   	% counterexample is (lats, lati, 0)
+    LET % encoding
+        enc = encode(17,i)(lat2,lon),
+	% decoding
+	rlat = Rlati(17)(lat1)(i,enc`elat) IN 
+    abs(lat1 - lat2)< dlat(i)/2 
+    AND abs(lat2 - rlat)>5.9 
+    	% this is in degrees latitude, for arbitrary longitude. 
+	% Approximately 354 nmi. 
+
+  local_decoding_lat_counterexample_AWB: LEMMA 
+   EXISTS (lat_bin1, lat_bin2: LatAWB, lon_bin:LonAWB):
+   	  % counterexample is 35791394, 71582788
+    LET % encoding
+    	lat1 = AWB2lat(lat_bin1), 
+	lat2 = AWB2lat(lat_bin2),
+	lon = AWB2lon(lon_bin),
+        enc = encode(17,0)(lat2,lon),
+	% decoding
+	rlat = Rlati(17)(lat1)(0,enc`elat) IN 
+    abs(lat1 - lat2)< dlat(0)/2 
+    AND abs(lat2 - rlat)>5.9 
+    	% this is in degrees latitude, for arbitrary longitude. 
+	% Approximately 354 nmi. 
+
+  % Counterexample for global decoding.
+
+  ZO : posreal = dlat(1) - dlat(0) 
+
+  lat_1(n, nb): real = 
+    n*dlat(1) - 1/2^(nb+1) +1/2^(nb+3)
+  
+  lat_0(n,nb): real = 
+    lat_1(n,nb) - ZO/2+ 1/2^(nb+4)
+
+  global_decoding_lat_counterexample: LEMMA
+    EXISTS(lat0, lat1: Latitude, lon:Longitude):
+    	% counterexample is lat_0(5, 17), lat_1(5,17)
+      LET enc0 = encode(17, 0)(lat0, lon), 
+      	  enc1 = encode(17, 1)(lat1, lon),
+	  dlat0 = rlat0(17)(enc0`elat, enc1`elat), 
+	  dlat1 = rlat1(17)(enc0`elat, enc1`elat)
+       IN
+     abs(lat0-lat1)< ZO/2 AND 
+     abs(dlat0-lat0)>5.9 AND 
+     abs(dlat1-lat1)>5.9   
+
+  global_decoding_lat_counterexample_AWB: LEMMA
+    EXISTS(lat_bin0, lat_bin1: LatAWB, lon_bin:LonAWB):
+    	% counterexample is 363373617, 363980245
+      LET lat0 = AWB2lat(lat_bin0), 
+	  lat1 = AWB2lat(lat_bin1),
+	  lon = AWB2lon(lon_bin),
+	  enc0 = encode(17, 0)(lat0, lon), 
+      	  enc1 = encode(17, 1)(lat1, lon),
+	  dlat0 = rlat0(17)(enc0`elat, enc1`elat), 
+	  dlat1 = rlat1(17)(enc0`elat, enc1`elat)
+       IN
+     abs(lat0-lat1)< ZO/2 AND 
+     abs(dlat0-lat0)>5.9 AND 
+     abs(dlat1-lat1)>5.9   
+
+  % Counterexample for encoding.
+
+  encoding_counterexample: LEMMA
+    LET bs = 1/2^17, 
+        hbs = 1/2^18, 
+        tiny = 1/2^128 IN
+    FORALL(n:subrange(1,2^17-1)):
+   LET lat = 6*(hbs+n*bs) , 
+       lat_sub = lat-tiny, 
+       lat_add = lat+tiny, 
+       enc_sub = encode(17,0)(lat_sub,0),
+       enc_add = encode(17,0)(lat_add,0)
+        IN
+       enc_sub`elat /= enc_add`elat 
+
+%|- encoding_counterexample : PROOF
+%|- (then (assert) (expand "encode") (expand "YZ") (expand "dlat")
+%|-  (expand "NZ") (expand "data_field_size") (expand "min") (assert)
+%|-  (eval-formula 1))
+%|- QED
+ 
+  encoding_counterexample2: LEMMA
+    LET bs = 1/2^17, 
+        hbs = 1/2^18, 
+        tiny = 1/2^128 IN
+    FORALL(n:subrange(1,2^17-1)):
+   LET lat = dlat(1)*(hbs+n*bs) , 
+       lat_sub = lat-tiny, 
+       lat_add = lat+tiny, 
+       enc_sub = encode(17,1)(lat_sub,0),
+       enc_add = encode(17,1)(lat_add,0)
+        IN
+       enc_sub`elat /= enc_add`elat 
+
+%|- encoding_counterexample2 : PROOF
+%|- (then (assert) (expand "encode") (expand "YZ") (expand "dlat")
+%|-  (expand "NZ") (expand "data_field_size") (expand "min") (assert)
+%|-  (eval-formula 1))
+%|- QED
+
+  lat_counterexample_reasonableness: LEMMA
+    EXISTS(lat0, lat1, lat2, lat3: Latitude, lon:Longitude, lat_tcc: Latitude):
+    	% counterexample is lat_0(5, 17), lat_1(5,17), lat0+0.812*ZO, lat1+0.812*ZO
+      LET enc0 = encode(17, 0)(lat0, lon), 
+      	  enc1 = encode(17, 1)(lat1, lon),
+	  enc2 = encode(17, 0)(lat2, lon),
+	  enc3 = encode(17, 1)(lat3, lon),
+	  dlatg1 = rlat1(17)(enc0`elat, enc1`elat),
+	  dlatg3 = rlat1(17)(enc2`elat, enc3`elat)  
+      IN lat_tcc = dlatg1 AND 
+         abs(lat0-lat1)< ZO/2 AND 
+         abs(lat2-lat3)<ZO/2 AND 
+         abs(dlatg1-lat1)>5.9 AND 
+         abs(dlatg3-lat3)>5.9 AND 
+         abs(dlatg3-Rlati(17)(dlatg1)(1,enc3`elat))< dlat(1)/2^18
+
+END counterexample

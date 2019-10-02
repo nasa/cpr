@@ -1,0 +1,31 @@
+encoding_post: THEORY
+BEGIN
+% -------------------------------------------------- 
+% Post-condition (file cpr_int.c, line 66) in 'encoding' 
+% -------------------------------------------------- 
+
+% --- Importings requested by the user --- 
+IMPORTING interface
+
+% --- Qed-related importings and axioms --- 
+IMPORTING framac_wp@creal
+IMPORTING framac_wp@cint
+
+IMPORTING A_encode
+IMPORTING A_params
+
+% --- Verification condition --- 
+
+  goal: LEMMA
+    FORALL (i_1, i:int):
+    LET x = lsr(to_uint32(4096 + (to_uint32(i * i_1))), 13) IN
+    ((is_uint32(i)) IMPLIES
+    ((is_uint32(i_1)) IMPLIES
+    ((is_uint32(x)) IMPLIES
+    ((L_encoding(i, i_1, L_nb)) = (to_uint32(mod(x, 131072)))))));
+
+%|- * : PROOF
+%|-   (prove-vc)
+%|- QED
+
+END encoding_post

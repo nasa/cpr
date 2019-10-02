@@ -1,0 +1,79 @@
+local_correctness: THEORY
+BEGIN
+
+  IMPORTING trig@trig_basic, 
+  	    cpr_defs, 
+	    encoding,
+	    global_decoding,
+	    local_decoding
+
+  mod_frac: LEMMA FORALL (x:real, y:posreal):
+    mod(x,y)/y = fractional(x/y)
+  
+  YZ_val: LEMMA FORALL (M:posnat, k:nat, x:real, y:posreal):
+   floor(1/2 + M*fractional(x/y)) = k 
+   IFF
+   ((k-1/2)/M<= fractional(x/y) AND 
+     fractional(x/y)< (k+1/2)/M)
+  
+  nearest_int: LEMMA 
+  FORALL (x:real): 
+  EXISTS (fr:real | -1/2<=fr AND fr<1/2):
+  floor(x+1/2) = x - fr
+  
+  lat_decomp: LEMMA 
+  FORALL (lat:Latitude, i:CPRFormat, nb:NB):
+   lat  = dlat(i)*(floor(lat/dlat(i)) + (2^nb*mod(lat, dlat(i))/dlat(i))/2^nb)
+  
+  lat_close_ang: LEMMA
+   FORALL (lat: Latitude, i:CPRFormat, nb:NB):
+   abs(lat - rlat(nb,i)(lat))<= dlat(i)/2^(nb+1)
+  
+  local_decode_rlat_eq: LEMMA
+     FORALL (lat1, lat2: Latitude, lon:Longitude, nb: NB, i:CPRFormat):
+     nb = 17 AND
+     abs(lat1-lat2) < dlat(i)*(1/2-1/2^(nb+1))     
+     IMPLIES LET % encoding
+                 enc = encode(nb,i)(lat2,lon),
+  		% decoding
+  		rlat = Rlati(nb)(lat1)(i,enc`elat)
+             IN rlat = rlat(nb,i)(lat2)
+  
+  local_decode_correct_lat: LEMMA
+     FORALL (lat1, lat2: Latitude, lon:Longitude, nb: NB, i:CPRFormat): 
+     nb = 17 AND
+     abs(lat1-lat2) < dlat(i)*(1/2-1/2^(nb+1))
+     IMPLIES LET % encoding
+                 enc = encode(nb,i)(lat2,lon),
+  		% decoding
+  		rlat = Rlati(nb)(lat1)(i,enc`elat)
+  	    IN 
+  	    abs(lat2 - rlat)<= dlat(i)/2^(nb+1)
+  
+  lon_decomp: LEMMA 
+   FORALL (lat:Latitude,nl:subrange(1,59), lon:Longitude, i:CPRFormat, nb:NB):
+    let dl = dlon(nb, i)(lat) IN
+   lon  = dl*(floor(lon/dl) + (2^nb*mod(lon, dl)/dl)/2^nb)
+  
+  XZ_ub: LEMMA
+    FORALL (lat: Latitude, lon:Longitude, nb:NB, i:CPRFormat): 
+    XZi(nb, i)(lat,lon)<=2^nb
+  
+  XZ_lb: LEMMA 
+    FORALL (lat: Latitude, lon:Longitude, nb:NB, i:CPRFormat): 
+    0<=XZi(nb,i)(lat,lon)
+  
+  local_decode_correct_lon: LEMMA	
+     FORALL (lats, lat: Latitude, lons, lon: Longitude, nl:subrange(1,59), nb:NB, i:CPRFormat):
+      LET enc = encode(nb,i)(lat,lon), 
+      	 rlat = Rlati(nb)(lats)(i,enc`elat),
+  	 rlon = Rloni(nb)(lats,lons)(i,enc`elon,enc`elat), 
+  	 dl = dlon(nb, i)(rlat) IN
+      	 nb =17 AND nl = NL(rlat) AND nl = NL(lats) AND 
+  	 abs(lats-lat) < dlat(i)*(1/2-1/2^(nb+1)) AND 
+  	 abs(lons-lon)<dl*(1/2-1/2^(nb+1))
+  	 IMPLIES 
+  	 abs(lon-rlon)<= dl/2^(nb+1)
+  
+END local_correctness
+ 

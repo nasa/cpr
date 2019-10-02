@@ -1,0 +1,78 @@
+uint32: THEORY
+BEGIN
+
+  IMPORTING reals@reals_mod
+
+  unsigned_int: TYPE  = {m: nat | m< 2^32}
+
+  plus(a,b: unsigned_int): unsigned_int = mod(a+b, 2^32)
+  minus(a,b: unsigned_int): unsigned_int = mod(a-b, 2^32)
+  times(a,b: unsigned_int): unsigned_int = mod(a*b, 2^32) 
+  div_shift(a: unsigned_int, n: below(33)): unsigned_int = floor(a/2^n)
+  div(a:unsigned_int, (b:unsigned_int | b/=0)): unsigned_int = floor(a/b)
+  mod_uint(a:unsigned_int, (b:unsigned_int | b/=0)): {ans: unsigned_int| ans = a-b*floor(a/b)} = minus(a,times(b,div(a,b)))
+  closest_div_mult(num:unsigned_int, (den:unsigned_int | den/=0), (ex: unsigned_int | ex<=30)): unsigned_int =   
+    IF den=1 THEN times(2^ex,num)
+    ELSE 
+    LET f1:unsigned_int = times(2^ex, div(num,den)), 
+        f2:unsigned_int = div(plus(div(times(2^(plus(ex,1)), mod_uint(num,den)), den), 1),2),
+        ans:unsigned_int = plus(f1, f2) IN
+    ans
+    ENDIF
+
+  floor_div_div: LEMMA 
+     FORALL (x:real, b:posnat): 
+     floor(floor(x)/b) = floor(x/b)
+
+  plus_assoc:LEMMA FORALL (a,b: unsigned_int):   
+    plus(a,b) = plus(b,a)
+
+  plus_over1: LEMMA FORALL (a,b: unsigned_int):   
+    a+b>=2^32  IMPLIES 
+     plus(a,b) = a+b-2^32 
+
+  plus_over2: LEMMA FORALL (a,b: unsigned_int):   
+     plus(a,b)<a IMPLIES 
+     plus(a,b) = a+b-2^32
+
+  plus_reg1: LEMMA FORALL (a,b: unsigned_int):   
+    a+b< 2^32  IMPLIES 
+     plus(a,b) = a+b 
+
+  plus_reg2: LEMMA FORALL (a,b: unsigned_int):   
+     plus(a,b)>=a IMPLIES 
+     plus(a,b) = a+b
+
+  minus_under1: LEMMA FORALL (a,b: unsigned_int):   
+    a-b< 0  IMPLIES
+    minus(a,b) = 2^32+a-b 
+
+  minus_under2: LEMMA FORALL (a,b: unsigned_int):   
+    minus(a,b)>a  IMPLIES
+    minus(a,b) = 2^32+a-b
+
+  minus_reg1: LEMMA FORALL (a,b: unsigned_int):   
+    a-b>= 0  IMPLIES
+    minus(a,b) = a-b
+
+   minus_reg2: LEMMA FORALL (a,b: unsigned_int):   
+    minus(a,b)<= a  IMPLIES
+    minus(a,b) = a-b
+
+  times_reg1: LEMMA FORALL (a,b: unsigned_int):
+    a*b<2^32 IMPLIES 
+    times(a,b) = a*b
+
+  mod_mod: LEMMA FORALL (a,b:real,  c:posreal):
+     mod(a+mod(b,c),c) = mod(a+b,c)
+ 
+  closest_div_mult_def: LEMMA FORALL (num:unsigned_int, (den:unsigned_int | den/=0),(ex: unsigned_int | ex<=30 AND 2^(ex+1)*(den-1)<2^32) ):
+  closest_div_mult(num, den, ex)  = mod(floor(2^ex*num/den+1/2), 2^32)
+   
+  closest_mult_div_shift(a:unsigned_int, (x: unsigned_int | x<=256), (z: unsigned_int | z<=20 AND z>=12)): {ans:unsigned_int| ans = floor((a*x)/2^z+1/2)} =
+   LET q = times(x, div_shift(a,z)), 
+       r = div_shift(plus(div_shift(times(times(2,x),mod_uint(a,2^z)),z),1),1), 
+       ans = plus(q, r) IN
+   ans  
+   
+END uint32

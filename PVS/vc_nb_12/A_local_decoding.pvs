@@ -1,0 +1,27 @@
+% -------------------------------------------------- 
+% Axiomatic 'local_decoding'                         
+% -------------------------------------------------- 
+
+A_local_decoding: THEORY
+BEGIN
+IMPORTING A_uint32_operations
+IMPORTING framac_wp@cint
+
+L_local_zone(nz_0 : int, ref_0 : int, mes_0 : int) : int =
+    LET x = L_add_u32(2048,
+              L_add_u32(L_mul_u32(nz_0, lsr(ref_0, 20)),
+                lsr(L_mul_u32(nz_0, L_mod_u32(ref_0, 1048576)), 20))) IN
+      IF (x < mes_0) THEN (L_sub_u32(nz_0, 1))
+      ELSE (lsr(L_sub_u32(x, mes_0), 12)) ENDIF
+
+L_local_decode(nz_0 : int, ref_0 : int, mes_0 : int) : int =
+    LET x = L_add_u32(L_mul_u32(4096, L_local_zone(nz_0, ref_0, mes_0)),
+              mes_0) IN
+      IF (0 = nz_0) THEN 0
+      ELSE (IF (1 = nz_0) THEN (L_mul_u32(1048576, x))
+            ELSE (L_add_u32(L_mul_u32(1048576, L_div_u32(x, nz_0)),
+                    L_div_u32(L_add_u32(L_div_u32(L_mul_u32(2097152,
+                                                    L_mod_u32(x, nz_0)),
+                                          nz_0), 1), 2))) ENDIF) ENDIF
+END A_local_decoding
+

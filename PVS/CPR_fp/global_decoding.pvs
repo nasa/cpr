@@ -1,0 +1,104 @@
+global_decoding: THEORY
+BEGIN
+
+  IMPORTING cpr_defs
+
+  Nb: VAR NB
+  i: VAR CPRFormat
+
+  j(Nb)(yz0,yz1: BinIndex(Nb)): int =
+    LET f0 = cpr_mul(59,yz0),
+        f1 = cpr_sub(f0,cpr_mul(60,yz1)),
+        f2 = cpr_div(f1,F2pNb(Nb)),
+	f3 = cpr_add(f2,F1d2)
+    IN cpr_floor(f3)
+
+  % Eq 17
+  rlat0(Nb)(yz0,yz1: BinIndex(Nb)): real =
+    LET f0 = cpr_div(yz0,F2pNb(Nb)),
+    	f1 = cpr_mod(j(Nb)(yz0,yz1),60),
+	f2 = cpr_add(f1, f0),
+        f3 = cpr_mul(dlat(0), f2),
+	f4 = cpr_add(f3, 180),
+	f5 = cpr_mod(f4, 360)
+    IN cpr_sub( f5 , 180)
+
+  rlat1(Nb)(yz0,yz1: BinIndex(Nb)): real =
+    LET f0 = cpr_div(yz1,F2pNb(Nb)),
+    	f1 = cpr_mod(j(Nb)(yz0,yz1),59),
+	f2 = cpr_add(f1, f0),
+        f3 = cpr_mul(dlat(1), f2),
+	f4 = cpr_add(f3, 180),
+	f5 = cpr_mod(f4, 360)
+     IN cpr_sub(f5, 180)
+
+  rlat_g(Nb, i)(yz0,yz1: BinIndex(Nb)): real =
+    LET yz = IF i=0 THEN yz0 ELSE yz1 ENDIF,
+    	f0 = cpr_div(yz,F2pNb(Nb)),
+    	f1 = cpr_mod(j(Nb)(yz0,yz1),60-i),
+	f2 = cpr_add(f1, f0),
+        f3 = cpr_mul(dlat(i), f2),
+	f4 = cpr_add(f3, 180),
+	f5 = cpr_mod(f4, 360)
+     IN cpr_sub(f5, 180)
+
+  rlat_eq: LEMMA FORALL  (yz0,yz1: BinIndex(Nb)):
+    rlat_g(Nb,i)(yz0,yz1) = 
+    IF i=0 THEN
+       rlat0(Nb)(yz0,yz1) 
+    ELSE
+       rlat1(Nb)(yz0,yz1)
+    ENDIF
+
+  % NL for each latitude rlat0 and rlat1 is computed. If the NL values are
+  % different, the receiver must wait until a pair of even and odd messages
+  % arrive that produce the same value for NL.
+
+  m(Nb)(nl:subrange(1,59))(xz0,xz1: BinIndex(Nb)): int =
+   LET f0 = cpr_mul(nl,xz1),
+       f1 = cpr_sub(nl,1),
+       f2 = cpr_mul(f1,xz0),
+       f3 = cpr_sub(f2,f0),
+       f4 = cpr_div(f3, F2pNb(Nb)),
+       f5 = cpr_add(f4,F1d2)
+   IN cpr_floor(f5)
+
+  IMPORTING structures@Maybe
+
+  rlons(Nb: NB, NL:[real->subrange(1,59)])
+       (yz0,yz1: BinIndex(Nb))
+       (xz0,xz1: BinIndex(Nb)): Maybe[[# rl0,rl1: Longitude #]] =
+    LET f0 = rlat0(Nb)(yz0,yz1),
+    	f1 = rlat1(Nb)(yz0,yz1),
+    	nl0 = NL(f0),
+        nl1 = NL(f1),
+	f5 = cpr_sub(nl0,1),
+        f3 = cpr_div(xz0,F2pNb(Nb)),
+	f7 = cpr_div(xz1,F2pNb(Nb))
+    IN IF nl0 = nl1
+       THEN IF nl0 > 1
+            THEN LET dlon0 = dlon(Nb,0)(f0),
+  	     	     dlon1 = dlon(Nb,1)(f1),
+  		     % Eq 27
+		     f2 = cpr_mod(m(Nb)(nl0)(xz0,xz1),nl0),
+		     f4 = cpr_add(f2, f3),
+  		     rlon0 = cpr_mul(dlon0,f4),
+		     f6 = cpr_mod(m(Nb)(nl0)(xz0,xz1),f5),
+		     f8 = cpr_add(f6, f7),
+  		     rlon1 = cpr_mul(dlon1, f8)
+  		 IN Some( (# rl0 := cpr_mod(rlon0,360), 
+  		      	       rl1 := cpr_mod(rlon1,360) #) )
+  	    ELSE LET n0     = max(nl0,1),
+  	     	     n1     = max(f5,1),
+  		     dlon0  = cpr_div(360,n0),
+  		     dlon1  = cpr_div(360,n1),
+		     f9  = cpr_mod(m(Nb)(nl0)(xz0,xz1),n0),
+		     f10 = cpr_add(f9, f3),
+		     f11 = cpr_mod(m(Nb)(nl0)(xz0,xz1),n1),
+		     f12 = cpr_add(f11, f7)
+  		 IN Some((# rl0 := cpr_mul(dlon0, f10),
+  		            rl1 := cpr_mul(dlon1, f12) #))
+  	     ENDIF
+     	ELSE None ENDIF
+
+END global_decoding

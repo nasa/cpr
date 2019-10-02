@@ -1,0 +1,267 @@
+% -------------------------------------------------- 
+% Axiomatic 'nl'                                     
+% -------------------------------------------------- 
+
+A_nl: THEORY
+BEGIN
+
+L_nl_awb_nn(awb_0 : int) : int =
+    IF (awb_0 <= 124917589) THEN 59
+    ELSE (IF (awb_0 <= 176907012) THEN 58
+          ELSE (IF (awb_0 <= 216970576) THEN 57
+                ELSE (IF (awb_0 <= 250890455) THEN 56
+                      ELSE (IF (awb_0 <= 280903327) THEN 55
+                            ELSE (IF (awb_0 <= 308154921) THEN 54
+                                  ELSE (IF (awb_0 <= 333325100) THEN 53
+                                        ELSE (IF (awb_0 <= 356856388) THEN 52
+                                              ELSE (IF (awb_0 <= 379055883)
+                                                    THEN 51
+                                                    ELSE (IF (awb_0
+                                                                <= 400147004)
+                                                          THEN 50
+                                                          ELSE (IF (awb_0
+                                                                    <= 420298294)
+                                                                THEN 49
+                                                                ELSE 
+                                                                (IF (awb_0
+                                                                    <= 439640621)
+                                                                 THEN 48
+                                                                 ELSE 
+                                                                 (IF 
+                                                                  (awb_0
+                                                                    <= 458278009)
+                                                                  THEN 47
+                                                                  ELSE 
+                                                                  (IF 
+                                                                   (awb_0
+                                                                    <= 476294775)
+                                                                   THEN 46
+                                                                   ELSE 
+                                                                   (IF 
+                                                                    (awb_0
+                                                                    <= 493760397)
+                                                                    THEN 45
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 510732936)
+                                                                    THEN 44
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 527261514)
+                                                                    THEN 43
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 543388133)
+                                                                    THEN 42
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 559149057)
+                                                                    THEN 41
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 574575849)
+                                                                    THEN 40
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 589696199)
+                                                                    THEN 39
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 604534563)
+                                                                    THEN 38
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 619112673)
+                                                                    THEN 37
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 633449951)
+                                                                    THEN 36
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 647563849)
+                                                                    THEN 35
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 661470114)
+                                                                    THEN 34
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 675183028)
+                                                                    THEN 33
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 688715586)
+                                                                    THEN 32
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 702079666)
+                                                                    THEN 31
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 715286154)
+                                                                    THEN 30
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 728345061)
+                                                                    THEN 29
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 741265621)
+                                                                    THEN 28
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 754056371)
+                                                                    THEN 27
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 766725217)
+                                                                    THEN 26
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 779279500)
+                                                                    THEN 25
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 791726041)
+                                                                    THEN 24
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 804071180)
+                                                                    THEN 23
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 816320815)
+                                                                    THEN 22
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 828480417)
+                                                                    THEN 21
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 840555055)
+                                                                    THEN 20
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 852549395)
+                                                                    THEN 19
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 864467699)
+                                                                    THEN 18
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 876313803)
+                                                                    THEN 17
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 888091078)
+                                                                    THEN 16
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 899802361)
+                                                                    THEN 15
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 911449851)
+                                                                    THEN 14
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 923034937)
+                                                                    THEN 13
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 934557931)
+                                                                    THEN 12
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 946017637)
+                                                                    THEN 11
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 957410633)
+                                                                    THEN 10
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 968730035)
+                                                                    THEN 9
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 979963239)
+                                                                    THEN 8
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 991087499)
+                                                                    THEN 7
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 1002060438)
+                                                                    THEN 6
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 1012796977)
+                                                                    THEN 5
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 1023101967)
+                                                                    THEN 4
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 1032407178)
+                                                                    THEN 3
+                                                                    ELSE 
+                                                                    (IF 
+                                                                    (awb_0
+                                                                    <= 1037950430)
+                                                                    THEN 2
+                                                                    ELSE 1 ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF) ENDIF
+
+IMPORTING A_uint32_operations
+
+L_nl_awb(awb_0 : int) : int =
+    IF (awb_0 <= 2147483647) THEN (L_nl_awb_nn(awb_0))
+    ELSE (L_nl_awb_nn(L_inv_u32(awb_0))) ENDIF
+END A_nl
+

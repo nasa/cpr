@@ -1,0 +1,53 @@
+basic_defs: THEORY
+BEGIN
+
+  NZ: int = 15
+
+  % Latitude
+  % "Latitude is expressed over a range of 180°".
+  % "The input latitude can be any real number between -90° and +90°."
+  Latitude:  TYPE = {l:real | l>=-90 AND l<=90 }
+  
+  % "Longitude is expressed over a range of 360°".
+  Longitude: TYPE = real
+
+  lat: VAR Latitude
+
+  NB: TYPE = { Nb:nat| % airborne
+    	     	       Nb = 17
+		       % surface
+ 	            OR Nb = 19
+		       % coarse TIS-B
+		    OR Nb = 12 }
+
+  nb: VAR NB
+
+  % Index numbers for the bins inside a zone.
+  BinIndex(nb): TYPE = subrange(0, 2^nb-1) 
+
+  % Size of the data field (where lat and lon are transmitted) in bits. 
+  data_field_size(nb): nat = min(17,nb)
+
+  DataField(nb): TYPE+ = subrange(0,2^data_field_size(nb)-1) CONTAINING 0
+
+  % Relationship between BinIndex and DataField
+  df_is_bi: LEMMA
+    FORALL(df: DataField(nb)): 0 <= df AND df <= 2^nb-1
+
+  % CPR Format: odd (0) or even (1).
+  CPRFormat: TYPE+ = {i:int|i=0 OR i=1} CONTAINING 0
+
+  i: VAR CPRFormat
+
+  inv(i): CPRFormat = IF i=0 THEN 1 ELSE 0 ENDIF
+
+  % Zone Indeces.
+  % There are 60 even latitude zones and 59 odd latitude zones
+  ZoneIndex(i): TYPE = {z: nat | 0 <= z AND z < 4*NZ - i}
+
+
+  % Interface for encoding function
+  EncodingRes(nb) : TYPE = [# elat, elon: DataField(nb) #]
+  EncodingFun : TYPE = [Nb:NB,CPRFormat->[[Latitude,Longitude->EncodingRes(Nb)]]]
+
+End basic_defs

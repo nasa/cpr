@@ -1,0 +1,198 @@
+abstract_cpr: THEORY
+BEGIN
+
+  IMPORTING reals@reals_mod, 
+            simple_props
+
+  dnl: VAR posnat 
+  position, rec_position, ref_position, pos0, pos1: VAR real
+  range: VAR posreal
+  bins,binmod: VAR posnat
+  message, mes0, mes1: VAR nat
+  i: VAR subrange(0,1)
+
+  MOD(x:real, y:posreal): {r:real | r>=0 AND r<y AND r = x-y*floor(x/y)} 
+   = reals@reals_mod.mod(x,y)
+
+  dl(dnl, range): posreal = range/dnl
+
+  dl_less: LEMMA 
+   bins>binmod IMPLIES 
+   dl(dnl, range / 2 ^ (bins - binmod)) = dl(dnl, range)/2^(bins-binmod)
+
+  decomp_position: LEMMA 
+     let dl = dl(dnl, range) in 
+     position = dl*( floor(position/dl) + (2^bins*mod(position,dl)/dl)/2^bins)
+
+  recovered_position(range, dnl, bins)(position): real = 
+     let dl = dl(dnl, range) in
+     dl*( floor(position/dl) + floor(2^bins*mod(position,dl)/dl+1/2)/2^bins)
+
+  alt_rec_pos: LEMMA 
+      LET dll = dl(dnl, range) IN 
+      recovered_position(range, dnl, bins)(position) = dll*(floor(2^bins*((position+dll/2^(bins+1))/dll))/2^bins)
+
+  rec_pos_incr: LEMMA 
+    pos0<=pos1 IMPLIES
+    recovered_position(range, dnl, bins)(pos0)<=recovered_position(range, dnl, bins)(pos1) 
+
+  rec_pos_less: LEMMA 
+  bins>binmod IMPLIES 
+  recovered_position(range, dnl, bins)(position) =
+       recovered_position(range / 2 ^ (bins - binmod), dnl, binmod)
+                         (position)
+
+  recovered_position_close: LEMMA 
+      abs(recovered_position(range, dnl, bins)(position) - position)<=dl(dnl,range)/2^(bins+1)
+
+  correct_recovered_position(range, dnl, bins)(position, rec_position): bool = 
+      mod(recovered_position(range, dnl, bins)(position) - rec_position, range) = 0
+  
+  enc_raw(range, dnl, bins)(position): int = 
+      floor(2^bins*mod(position,dl(dnl,range))/dl(dnl,range)+1/2)
+
+  enc_mod(range, dnl, bins, binmod)(position): int = 
+      mod(enc_raw(range, dnl, bins)(position), 2^binmod)
+
+  enc_mod_val: JUDGEMENT 
+      enc_mod(range, dnl, bins, binmod)(position) 
+      HAS_TYPE 
+      {x: nat | x<2^binmod}
+
+  enc_mod_less: LEMMA 
+      binmod<bins 
+      IMPLIES 
+      enc_mod(range, dnl, bins, binmod)(position) = 
+      enc_mod(range/2^(bins-binmod),dnl, binmod, binmod)(position)
+
+  alt_enc(range, dnl, bins)(position): int = 
+      LET dll = dl(dnl,range), 
+          smidge = dll/2^(bins+1) IN
+      floor(2^bins*mod(position+smidge,dll)/dll)
+
+  alt_enc_is_enc: LEMMA 
+      alt_enc(range, dnl, bins)(position) = 
+      enc_mod(range, dnl, bins, bins)(position)
+
+  alt_alt_is_enc: LEMMA 
+      enc_mod(range, dnl, bins, bins)(position)= 
+      floor(2^bins*(position/dl(dnl,range)) + 1/2)-2^bins*floor(position/dl(dnl,range)+1/2^(1+bins))
+
+  enc_to_rec: LEMMA 
+      (recovered_position(range, dnl, bins)(position)/dl(dnl,range) -floor((dl(dnl,range)/2^(1+bins)+position)/dl(dnl,range))) = 
+      enc_mod(range, dnl, bins, bins)(position)/2^bins 
+    
+
+  local_decode(range, dnl, bins)(ref_position, message): real = 
+      LET dll = dl(dnl, range), 
+          zone = floor(1/2 +ref_position/dll - message/2^bins) IN 
+      dll*(zone + message/2^bins)
+
+  local_decode_correct: LEMMA 
+      LET local = local_decode(range, dnl, bins)(ref_position, enc_mod(range, dnl, bins, bins)(position)) IN
+      abs(ref_position - position) < dl(dnl, range)*(1/2 -1/2^(bins+1)) 
+      IMPLIES 
+      recovered_position(range, dnl, bins)(position) = local
+
+  local_decode_correct_surf: LEMMA 
+     ( bins>binmod AND abs(ref_position - position) < dl(dnl, range/2^(bins-binmod))*(1/2 -1/2^(binmod+1)) )IMPLIES 
+      LET local = local_decode(range/2^(bins-binmod), dnl, binmod)(ref_position, enc_mod(range, dnl, bins, binmod)(position)) IN
+      
+      recovered_position(range, dnl, bins)(position) = local
+
+  global_decode(range, dnl, bins, i)(mes0, mes1): real = 
+      LET ni = max(dnl - i, 1), 
+          dll = range/ni, 
+          mes = IF i=0 THEN mes0 ELSE mes1 ENDIF, 
+          zone = MOD(floor(((dnl-1)*mes0 - dnl*mes1)/2^bins +1/2), ni) IN 
+      dll*(zone+mes/2^bins)
+
+  zone_offset(range, dnl): posreal = 
+      IF dnl = 1 THEN range 
+      ELSE range/(dnl-1) - range/dnl
+      ENDIF
+
+  global_close_mes: LEMMA 
+      dnl>1 AND 
+      abs(pos0 - pos1) < 1/2*zone_offset(range, dnl) -(dl(dnl, range)+ dl(dnl-1, range))/2^(1+bins)
+      IMPLIES 
+      abs(recovered_position(range,dnl,bins)(pos0) - recovered_position(range,dnl-1,bins)(pos1)) < 
+      1/2*zone_offset(range,dnl) 
+
+  global_decode_correct: LEMMA 
+      LET m0 = enc_mod(range, dnl, bins, bins)(pos0), 
+          m1 = enc_mod(range, max(dnl-1, 1), bins, bins)(pos1), 
+          pos = IF i=0 THEN pos0 ELSE pos1 ENDIF, 
+          global = global_decode(range, dnl, bins, i)(m0,m1) IN
+      abs(pos0 - pos1) < 1/2*zone_offset(range, dnl) - IF dnl=1 THEN 0 ELSE (dl(dnl, range)+ dl(dnl-1, range))/2^(1+bins) ENDIF
+      IMPLIES
+      correct_recovered_position(range, max(dnl-i,1), bins)(pos, global) 
+
+  global_delta(position, dnl, range, bins): real = range*floor(floor(position/dl(dnl, range) + 1/2^(1+bins))/dnl)
+
+  global_decode_correct_alt: LEMMA 
+      LET m0 = enc_mod(range, dnl, bins, bins)(pos0), 
+          m1 = enc_mod(range, max(dnl-1, 1), bins, bins)(pos1), 
+          pos = IF i=0 THEN pos0 ELSE pos1 ENDIF, 
+          global = global_decode(range, dnl, bins, i)(m0,m1) IN
+      abs(pos0 - pos1) < 1/2*zone_offset(range, dnl) - IF dnl=1 THEN 0 ELSE (dl(dnl, range)+ dl(dnl-1, range))/2^(1+bins) ENDIF
+      IMPLIES
+      recovered_position(range, max(dnl-i, 1), bins)(pos) - global = global_delta(pos, max(dnl-i, 1), range, bins)
+
+  
+  global_decode_eq: LEMMA 
+      LET m0 = enc_mod(range, dnl, bins, bins)(pos0), 
+          m1 = enc_mod(range, max(dnl-1, 1), bins, bins)(pos1), 
+          pos = IF i=0 THEN pos0 ELSE pos1 ENDIF, 
+          global = global_decode(range, dnl, bins, i)(m0,m1) IN
+      abs(pos0 - pos1) < 1/2*zone_offset(range, dnl) - IF dnl=1 THEN 0 ELSE (dl(dnl, range)+ dl(dnl-1, range))/2^(1+bins) ENDIF
+      AND pos>= - dl( max(dnl-i, 1), range)/2^(1+bins) AND pos< range - dl( max(dnl-i, 1), range)/2^(1+bins) 
+      IMPLIES
+       recovered_position(range, max(dnl-i, 1), bins)(pos)  = global
+
+   global_decode_neg: LEMMA 
+      LET m0 = enc_mod(range, dnl, bins, bins)(pos0), 
+          m1 = enc_mod(range, max(dnl-1, 1), bins, bins)(pos1), 
+          pos = IF i=0 THEN pos0 ELSE pos1 ENDIF, 
+          global = global_decode(range, dnl, bins, i)(m0,m1) IN
+      abs(pos0 - pos1) < 1/2*zone_offset(range, dnl) - IF dnl=1 THEN 0 ELSE (dl(dnl, range)+ dl(dnl-1, range))/2^(1+bins) ENDIF
+      AND pos< - dl( max(dnl-i, 1), range)/2^(1+bins) 
+      IMPLIES
+         global >= range + recovered_position(range, max(dnl-i, 1), bins)(pos)
+
+   close_mod_le(modulus:posreal)(a,b:real, eps:real): bool = 
+       LET diff = MOD(a-b, modulus) IN
+           diff<= eps OR
+           diff>= modulus-eps
+
+   close_mod_le_to_close: LEMMA 
+      FORALL (modulus:posreal, a,b:real, eps:real):
+      close_mod_le(modulus)(a,b, eps) IMPLIES 
+      EXISTS (a_pr, b_pr: real):
+      (MOD(a-a_pr, modulus) = 0 AND MOD(b-b_pr, modulus) = 0 
+      AND abs(a_pr-b_pr) <= eps)
+
+   close_to_close_mod_le: LEMMA 
+      FORALL (modulus:posreal, a,a_pr,b,b_pr:real, eps:real):
+      MOD(a-a_pr, modulus) = 0 AND MOD(b-b_pr, modulus) = 0 
+      AND abs(a_pr-b_pr) <= eps
+      IMPLIES
+      close_mod_le(modulus)(a,b, eps)
+
+   close_mod_lt(modulus:posreal)(a,b:real, eps:real): bool = 
+      LET diff = MOD(a-b, modulus) IN
+          diff< eps OR
+          diff> modulus-eps
+
+   close_mod_lt_to_close: LEMMA 
+      FORALL (modulus:posreal, a,b:real, eps:real):
+      close_mod_lt(modulus)(a,b, eps) IMPLIES 
+      EXISTS (a_pr, b_pr: real):
+      (MOD(a-a_pr, modulus) = 0 AND MOD(b-b_pr, modulus) = 0 
+      AND abs(a_pr-b_pr) < eps)
+
+   close_mod_enc: LEMMA 
+    MOD(pos0-pos1, range) = 0 IMPLIES  
+    enc_mod(range, dnl, bins, binmod)(pos0) = enc_mod(range, dnl, bins, binmod)(pos1)
+
+END abstract_cpr

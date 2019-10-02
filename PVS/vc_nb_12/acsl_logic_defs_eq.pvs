@@ -1,0 +1,141 @@
+acsl_logic_defs_eq: THEORY
+BEGIN
+
+  IMPORTING interface
+
+  IMPORTING CPR@cpr_int
+
+  mod__eq
+  : LEMMA
+    FORALL(i: int, j: nonzero_integer)
+    : reals_mod.mod(i,j) = mod.mod(i,j)
+
+  div_div__eq
+  : LEMMA
+    FORALL(a:unsigned_int,(b:unsigned_int | b/=0))
+    : ints@div.div(a,b) = CPR@uint32.div(a,b)
+
+  mod_uint_mod
+  : LEMMA
+    FORALL(ref: unsigned_int, (n:unsigned_int | n/=0))
+    : mod_uint(ref, n) = mod.mod(ref, n)
+
+  mod_div
+  : LEMMA
+    FORALL(a:unsigned_int,(b:unsigned_int | b/=0),n:nat)
+    : a < n IMPLIES mod.mod(CPR@uint32.div(a,b),n) = CPR@uint32.div(a,b)
+
+  %
+  % Judgements
+  %
+
+  IMPORTING A_utils
+
+  unsigned_int__uint32__j: JUDGEMENT  unsigned_int SUBTYPE_OF (is_uint32)
+  uint32__unsigned_int__j: JUDGEMENT  (is_uint32) SUBTYPE_OF unsigned_int
+
+  add_u32_j
+  : JUDGEMENT
+    FORALL(a:unsigned_int ,b: unsigned_int): L_add_u32(a,b) HAS_TYPE unsigned_int
+
+  lsr_u32_j
+  : JUDGEMENT
+    FORALL(a:unsigned_int ,b: nat): lsr(a,b) HAS_TYPE unsigned_int
+
+  mul_u32_j
+  : JUDGEMENT
+    FORALL(a:int ,b: int): L_mul_u32(a,b) HAS_TYPE unsigned_int
+
+  sub_u32_j
+  : JUDGEMENT
+    FORALL(a:int ,b: int): L_sub_u32(a,b) HAS_TYPE unsigned_int
+
+  mod_u32_j
+  : JUDGEMENT
+    FORALL(a:unsigned_int, b: unsigned_int | b>0): L_mod_u32(a,b) HAS_TYPE unsigned_int
+
+  div_u32_j
+  : JUDGEMENT
+    FORALL(a:unsigned_int, b: unsigned_int | b>0): L_div_u32(a,b) HAS_TYPE unsigned_int
+
+  closest_mult_div_shift_j
+  : JUDGEMENT
+    FORALL(a : int, x : int)
+    : L_closest_mult_div_shift(a, x) HAS_TYPE unsigned_int 
+
+  unsinged_int__65536_j : JUDGEMENT 65536  HAS_TYPE unsigned_int
+  unsinged_int__131072_j: JUDGEMENT 131072 HAS_TYPE unsigned_int
+
+  add_u32__eq: LEMMA FORALL(a,b: unsigned_int): L_add_u32(a,b) = plus(a,b)
+  sub_u32__eq: LEMMA FORALL(a,b: unsigned_int): L_sub_u32(a,b) = minus(a,b)
+  mul_u32__eq: LEMMA FORALL(a,b: unsigned_int): L_mul_u32(a,b) = times(a,b)
+  shr_u32__eq: LEMMA FORALL(a: unsigned_int,b: below(33)): L_shr_u32(a,b) = div_shift(a,b)
+  lsr_u32__eq: LEMMA FORALL(a: unsigned_int,b: below(33)): lsr(a,b) = div_shift(a,b)
+  mod_u32__eq: LEMMA FORALL(a: unsigned_int, b: unsigned_int | 0<b): L_mod_u32(a,b) = mod_uint(a,b)
+  div_u32__eq: LEMMA FORALL(a: unsigned_int, b: unsigned_int | 0<b): L_div_u32(a,b) = uint32.div(a,b)
+
+  minus_1_ui: LEMMA FORALL(a: unsigned_int): a>0 IMPLIES minus(a,1) = a - 1 
+  minus_i_ui: LEMMA FORALL(a: unsigned_int, i: unsigned_int): a>=i IMPLIES minus(a,i) = a - i
+  times_4_ui: LEMMA FORALL(a: unsigned_int): a<131072 IMPLIES times(4,a) = 4*a 
+
+  %
+
+  IMPORTING A_encode
+  IMPORTING A_params
+
+  NB: MACRO NumBins = L_nb
+
+  encoding__eq
+  : LEMMA
+    FORALL(nz, awb_lat: unsigned_int)
+    : L_encoding(nz, awb_lat, NB) = encoding(nz, awb_lat, NB)
+
+  closest_mult_div_shift__eq
+  : LEMMA
+    FORALL(a:unsigned_int, (x: unsigned_int | x<=256))
+    : L_closest_mult_div_shift(a, x) = closest_mult_div_shift(a,x,32-NB)
+
+  rlat_int__eq
+  : LEMMA
+    FORALL(i: unsigned_int | i=0 OR i=1, awb_lat: unsigned_int)
+    : L_rlat_int(i, awb_lat) = rlat_int(i,awb_lat,NB)
+
+  %
+  
+  IMPORTING A_local_decoding
+
+  local_zone__uint32__j
+  : JUDGEMENT
+    FORALL(nz: unsigned_int | 0<nz AND nz<2^6, ref: unsigned_int, mes: unsigned_int | mes < 2^17)
+    : L_local_zone(nz, ref, mes) HAS_TYPE unsigned_int
+
+  local_zone__eq
+  : LEMMA
+    FORALL(nz: unsigned_int | 0<nz AND nz<2^6, ref: unsigned_int, mes: unsigned_int | mes < 2^17)
+    : nb = NB IMPLIES L_local_zone(nz, ref, mes) = local_zone(nz, ref, mes)
+
+  local_decoding__eq
+  : LEMMA
+    FORALL(nz: unsigned_int | 0<nz AND nz<2^6, ref: unsigned_int, mes: unsigned_int | mes < 2^17)
+    : nb = NB IMPLIES L_local_decode(nz, ref, mes) = local_decode(nz, ref, mes)
+
+  %
+  
+  IMPORTING A_global_decoding
+
+  global_zone__eq
+  : LEMMA
+    FORALL(nz:{n:posnat| n<2^6}, mes0: unsigned_int | mes0 < 2^min(nb, 17), mes1: unsigned_int | mes1 < 2^min(nb, 17), i:subrange(0,1))
+    : nb = NB IMPLIES L_global_zone(nz, mes0, mes1, i) = global_zone(nz, mes0, mes1, i)
+
+  global_decoding__eq
+  : LEMMA
+    FORALL(nz:unsigned_int | 0<nz AND nz<2^6, mes0: unsigned_int | mes0 < 2^min(nb, 17), mes1: unsigned_int | mes1 < 2^min(nb, 17), i:unsigned_int | i=0 OR i=1)
+    : nb = NB IMPLIES L_global_decode(nz, mes0, mes1, i) = global_decode(nz, mes0, mes1, i)
+
+  north_lat__eq
+  : LEMMA
+    FORALL(mes0: unsigned_int | mes0 < 2^min(nb, 17), mes1: unsigned_int | mes1 < 2^min(nb, 17), i:unsigned_int | i=0 OR i=1, own : LatAWB)
+    : nb = NB IMPLIES P_north_lat(i, mes0, mes1, own) = north_lat?(i, mes0, mes1, own)
+
+END acsl_logic_defs_eq

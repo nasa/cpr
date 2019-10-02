@@ -1,0 +1,12 @@
+% -------------------------------------------------- 
+% Axiomatic 'params'                                 
+% -------------------------------------------------- 
+
+A_params: THEORY
+BEGIN
+
+L_nb :  int
+
+Q_nb_def: AXIOM 12 = (L_nb)
+END A_params
+

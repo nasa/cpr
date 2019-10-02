@@ -1,0 +1,38 @@
+rlat_spec : THEORY
+
+  BEGIN
+
+ IMPORTING cpr_defs, encoding, global_decoding
+
+  nb: VAR NB
+  i: VAR CPRFormat
+  lat_real, lat_reale, lat_realo: VAR real
+  lat, late, lato: VAR Latitude
+  lone, lono: VAR Longitude
+
+  RLAT(nb, i)(lat_real): bool = EXISTS (k:int, (m:nat|m<=2^nb)):  lat_real = dlat(i)*(k+m/2^nb)
+
+  rlat_idem: LEMMA 
+   RLAT(nb, i)(lat) IMPLIES rlat(nb, i)(lat) = lat
+
+  rlate_global: LEMMA 
+   LET ence = encode(nb,0)(late,lone),
+       enco = encode(nb,1)(lato, lono), 
+       rlate = rlat0(nb)(ence`elat,enco`elat)
+   IN RLAT(nb, 0)(rlate)
+
+  rlato_global: LEMMA 
+   LET ence = encode(nb,0)(late,lone),
+       enco = encode(nb,1)(lato, lono), 
+       rlato = rlat1(nb)(ence`elat,enco`elat)
+   IN RLAT(nb, 1)(rlato)
+
+  rlat_pre: LEMMA 
+   RLAT(nb,i)(rlat(nb,i)(lat))
+
+  closest_rlat: LEMMA
+   RLAT(nb,i)(lat_reale) AND RLAT(nb,i)(lat_realo) AND 
+   abs(lat-lat_reale)<=dlat(i)/2^(nb+1) AND abs(lat-lat_realo)<dlat(i)/2^(nb+1) 
+   IMPLIES lat_reale = lat_realo
+   
+  END rlat_spec

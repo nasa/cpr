@@ -1,0 +1,22 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                              %
+% Definitions to control the pvsio evaluation of the algorithms.               %
+%                                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+pvsio_defs: THEORY
+BEGIN
+
+  % The type "OperationMode" determines the minimum precision used in the
+  % computation of the numeric operations.
+  OperationMode: TYPE = { DoublePrecision, 
+  		      	  SinglePrecision,
+			  Rational,
+			  FastApprox }
+
+  to_str(opm: OperationMode): string =
+    IF    opm = DoublePrecision THEN "Double Precision"
+    ELSIF opm = SinglePrecision THEN "Single Precision"
+    ELSIF opm = Rational        THEN "Rational"
+                                ELSE "Fast Approximation" ENDIF
+
+END pvsio_defs

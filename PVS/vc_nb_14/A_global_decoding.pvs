@@ -1,0 +1,39 @@
+% -------------------------------------------------- 
+% Axiomatic 'global_decoding'                        
+% -------------------------------------------------- 
+
+A_global_decoding: THEORY
+BEGIN
+
+L_global_zone : [int, int, int, int -> int]
+
+IMPORTING A_uint32_operations
+
+L_global_decode(nz_0 : int, mes0_0 : int, mes1_0 : int, i : int) : int =
+    LET x = max(1, L_sub_u32(nz_0, i)) IN
+      LET x_1 = L_add_u32(L_mul_u32(16384,
+                            L_global_zone(nz_0, mes0_0, mes1_0, i)),
+                  IF (0 = i) THEN mes0_0 ELSE mes1_0 ENDIF) IN
+      IF (1 = x) THEN (L_mul_u32(262144, x_1))
+      ELSE (L_add_u32(L_mul_u32(262144, L_div_u32(x_1, x)),
+              L_div_u32(L_add_u32(L_div_u32(L_mul_u32(524288,
+                                              L_mod_u32(x_1, x)), x), 1), 2))) ENDIF
+
+P_north_lat(i : int, mes0_0 : int, mes1_0 : int, own_0 : int) : bool =
+    LET x = L_sub_u32(L_global_decode(60, mes0_0, mes1_0, i), own_0) IN
+      ((x <= 357913941) OR (3937053355 <= x))
+
+Q_global_zone__def_0: AXIOM FORALL (i_2, i_1, i:int): ((0 <= i) IMPLIES
+    ((i <= 1) IMPLIES (0 = (L_global_zone(1, i_2, i_1, i)))))
+IMPORTING framac_wp@cint
+
+Q_global_zone__def_1: AXIOM FORALL (i_3, i_2, i_1, i:int):
+    LET x = L_sub_u32(i_3, i) IN ((0 <= i) IMPLIES ((i <= 1) IMPLIES
+    ((2 <= i_3) IMPLIES ((i_3 <= 63) IMPLIES
+    ((L_global_zone(i_3, i_2, i_1, i))
+       = (L_mod_u32(lsr(L_sub_u32(L_add_u32(L_add_u32(L_mul_u32(L_sub_u32(i_3,
+                                                                  1), i_2),
+                                              8192), L_mul_u32(x, 262144)),
+                          L_mul_u32(i_3, i_1)), 14), x)))))))
+END A_global_decoding
+

@@ -1,0 +1,27 @@
+alt_encoding : THEORY
+
+  BEGIN
+
+  IMPORTING 
+    cpr_defs, 
+    encoding
+
+ i: VAR CPRFormat
+ lat: VAR Latitude
+ lon: VAR Longitude
+ nl: VAR subrange(1,59)
+
+  YZ_alt(i)(lat):  int = floor(2^17*mod(lat+dlat(i)/2^18, dlat(i))/dlat(i))
+
+  alt_is_YZ: LEMMA 
+    mod(YZ(17,i)(lat), 2^17) = YZ_alt(i)(lat)
+
+  XZ_alt(nl,i)(lon): int = 
+  LET dl = 360/max(nl-i, 1) IN
+  floor(2^17*fractional(lon/dl+1/2^18))
+
+  alt_is_XZ: LEMMA 
+    nl = NL(rlat(17,i)(lat)) IMPLIES
+    mod(XZi(17,i)(lat,lon), 2^17) = XZ_alt(nl,i)(lon)
+   
+  END alt_encoding
