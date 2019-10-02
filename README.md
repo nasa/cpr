@@ -25,7 +25,7 @@ For details on the verification process for the floating-point implementation, s
 
 ### Version
 
-Current version is 1.0.1
+Current version is 1.0.0
 
 ### License
 
