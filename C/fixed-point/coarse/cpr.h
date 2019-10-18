@@ -25,6 +25,7 @@ struct message {
 };
 
 struct recovered_position {
+    int valid;        // (0) if invalid, (1) if valid
     int_type lat_awb; // recovered latitude
     int_type lon_awb; // recovered longitude
 };

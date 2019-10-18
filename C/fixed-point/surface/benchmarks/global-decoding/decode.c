@@ -24,35 +24,28 @@
 #define __usage_str__ \
   "USAGE: this program expect as argument the name of an CSV file.\n"\
   "       Each line of the file must start with the following fields:\n"\
-  "        1) even latitude in degrees (double),\n"\
-  "        2) even longitude in degrees (double),\n"\
-  "        3) even latitude as AWB (unsigned int, hexadecimal),\n"\
-  "        4) even longitude as AWB (unsigned int, hexadecimal),\n"\
-  "        5) encoded even latitude [YZ] (unsigned int, hexadecimal),\n"\
-  "        6) encoded even longitude [XZ] (unsigned int, hexadecimal),\n"\
-  "        7) odd latitude in degrees (double),\n"\
-  "        8) odd longitude in degrees (double),\n"\
-  "        9) odd latitude as AWB (unsigned int, hexadecimal),\n"\
-  "       10) odd longitude as AWB (unsigned int, hexadecimal),\n"\
-  "       11) encoded odd latitude [YZ] (unsigned int, hexadecimal),\n"\
-  "       12) encoded odd longitude [XZ] (unsigned int, hexadecimal),\n\n"\
+  "        1) even latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        2) even longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        3) encoded even latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        4) encoded even longitude [XZ] (unsigned int, hexadecimal),\n"\
+  "        5) odd latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        6) odd longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        7) encoded odd latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        8) encoded odd longitude [XZ] (unsigned int, hexadecimal),\n\n"\
   "       For each line, it prints in the standard output the following information:\n"\
-  "        1) even latitude in degrees (double),\n"\
-  "        2) even longitude in degrees (double),\n"\
-  "        3) even latitude as AWB (unsigned int, hexadecimal),\n"\
-  "        4) even longitude as AWB (unsigned int, hexadecimal),\n"\
-  "        5) encoded even latitude [YZ] (unsigned int, hexadecimal),\n"\
-  "        6) encoded even longitude [XZ] (unsigned int, hexadecimal),\n"\
-  "        7) recovered latitude as AWB (unsigned int, hexadecimal) decoding with i=0,\n"\
-  "        8) recovered longitude as AWB (unsigned int, hexadecimal) decoding with i=0,\n"\
-  "        9) odd latitude in degrees (double),\n"\
-  "       10) odd longitude in degrees (double),\n"\
-  "       11) odd latitude as AWB (unsigned int, hexadecimal),\n"\
-  "       12) odd longitude as AWB (unsigned int, hexadecimal),\n"\
-  "       13) encoded odd latitude [YZ] (unsigned int, hexadecimal),\n"\
-  "       14) encoded odd longitude [XZ] (unsigned int, hexadecimal),\n"\
-  "       15) recovered latitude as AWB (unsigned int, hexadecimal) decoding with i=1,\n"\
-  "       16) recovered longitude as AWB (unsigned int, hexadecimal) decoding with i=1,\n"
+  "        1) even latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        2) even longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        3) encoded even latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        4) encoded even longitude [XZ] (unsigned int, hexadecimal),\n"\
+  "        5) odd latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        6) odd longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        7) encoded odd latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        8) encoded odd longitude [XZ] (unsigned int, hexadecimal),\n"\
+  "        9) validity flag for recovered NL values (1 for valid, 0 for invalid),\n"\
+  "       10) recovered latitude as AWB (unsigned int, hexadecimal) decoding with i=0,\n"\
+  "       11) recovered longitude as AWB (unsigned int, hexadecimal) decoding with i=0,\n"\
+  "       12) recovered latitude as AWB (unsigned int, hexadecimal) decoding with i=1,\n"\
+  "       13) recovered longitude as AWB (unsigned int, hexadecimal) decoding with i=1,\n"
 
 int main(int argc, char * argv[]){
     int i;
@@ -108,10 +101,10 @@ int main(int argc, char * argv[]){
         struct recovered_position rpos0 = global_dec(0, msg0, msg1, awb_evn_lat);
         struct recovered_position rpos1 = global_dec(1, msg0, msg1, awb_evn_lat);
 
-        printf("%X,%X,%X,%X,%X,%X,%X,%X,%X,%X,%X,%X\n",
+        printf("%X,%X,%X,%X,%X,%X,%X,%X,%i,%X,%X,%X,%X\n",
                 awb_evn_lat,awb_evn_lon,enc_evn_lat,enc_evn_lon,
                 awb_odd_lat,awb_odd_lon,enc_odd_lat,enc_odd_lon,
-                rpos0.lat_awb,rpos0.lon_awb,rpos1.lat_awb,rpos1.lon_awb);
+	            rpos0.valid,rpos0.lat_awb,rpos0.lon_awb,rpos1.lat_awb,rpos1.lon_awb);
     }
     fclose(fp) ;
     return 0;

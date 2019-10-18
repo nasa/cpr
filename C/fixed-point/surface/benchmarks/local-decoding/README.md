@@ -1,22 +1,29 @@
-# Example of use of the decoding functionality of CPR
+# Example of use of the local decoding functionality of CPR
 
 The program in `decode.c` reads the information needed to (locally) decode a CPR message and prints the recovered position.
-It is expected for the information to be provided in a CSV file in which every line starts with the following fields:
- 1) reference latitude in degrees (double),
- 2) reference longitude in degrees (double),
- 3) reference latitude as AWB (unsigned int),
- 4) reference longitude as AWB (unsigned int),
- 5) current latitude in degrees (double),
- 6) current longitude in degrees (double),
- 7) current latitude as AWB (unsigned int),
- 8) current longitude as AWB (unsigned int),
- 9) message format [i] (int)
- 9) message latitude [YZ] (unsigned int),
-10) message longitude [XZ] (unsigned int).
+It is expected for the information to be provided in a CSV file in which every line starts with the following fields: 
+ 1) reference latitude as AWB (unsigned int),
+ 2) reference longitude as AWB (unsigned int),
+ 3) current latitude as AWB (unsigned int),
+ 4) current longitude as AWB (unsigned int),
+ 5) message format [i] (int)
+ 6) message latitude [YZ] (unsigned int),
+ 7) message longitude [XZ] (unsigned int).
 
-It prints on the standard output the input data followed by the recovered position: latitude and longitude (AWB), in that order.
+The program expects as argument the name of the input CSV file. 
+It prints on the standard output the following data:
 
-All the integer values (AWB and encodings) are expected and expected and outputted in hexadecimal with no prefixes (ie, "FF02" instead of "0xFF02", for example).
+ 1) reference latitude as AWB (unsigned int),
+ 2) reference longitude as AWB (unsigned int),
+ 3) current latitude as AWB (unsigned int),
+ 4) current longitude as AWB (unsigned int), 
+ 5) message format [i] (int)
+ 6) message latitude [YZ] (unsigned int),
+ 7) message longitude [XZ] (unsigned int),
+ 8) recovered latitude as AWB (unsigned int),
+ 9) recovered longitude as AWB (unsigned int).
+ 
+All the integer values (AWB and encodings) are expected and output in hexadecimal with no prefixes (ie, "FF02" instead of "0xFF02", for example).
 
 ## Building
 
@@ -34,7 +41,9 @@ It executes `decode` on every `.csv` file in the current directory and prints th
 
 ## Checking the results
 
-Two scripts aimed to check the produced decodings are provided.
+Two scripts aimed to check the produced decodings are provided. These
+scripts assume that `decode-all.sh` has already been run, and so every
+.csv file has a corresponding .csv.out file associated to it. 
 
 * `check-decoding.sh` checks that every position in an `.csv.out` file with the format explained above fulfills the condition on the correctness theorem for the decoding. For that purpose, it executes the program `check-decoding` which can be built by the target `check` of the Makefile.
 

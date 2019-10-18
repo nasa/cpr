@@ -78,6 +78,7 @@ int main(int argc, char * argv[]){
     double deg_odd_lat, deg_odd_lon;
     int_type dec_evn_lat, dec_evn_lon;
     int_type dec_odd_lat, dec_odd_lon;
+    int nl_match;
 
     if(argc <= 1) {
         fprintf(stderr, "Error: Missing input file name.\n");
@@ -117,6 +118,8 @@ int main(int argc, char * argv[]){
         token = strtok(NULL, ",");
         enc_odd_lon = (int_type) strtoul(token,NULL,16);
 
+        token = strtok(NULL, ",");
+        nl_match = atoi(token);
         token = strtok(NULL, ",");
         dec_evn_lat = (int_type) strtoul(token,NULL,16);
         token = strtok(NULL, ",");

@@ -3,7 +3,6 @@
 for csvfile in *.csv
 do
    if [ -e "$csvfile" ]; then 
-      ./encode $csvfile > $csvfile.out
       DIFF=$(diff $csvfile $csvfile.out) 
       if [ "$DIFF" != "" ]
       then

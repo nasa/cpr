@@ -20,12 +20,32 @@
 
 #define INPUT_LINE_MAX_LENGTH 200
 
-#define __print_usage__ \
-  fprintf(stderr,"USAGE: this program expect as argument the name of an CSV file.\n");\
-  fprintf(stderr,"       Each line of such file must start with the following fields:\n");\
-  fprintf(stderr,"          <message format>, <message latitude (i=0)>, <message longitude (i=0), <message latitude (i=1)>, <message longitude (i=1)>\n");\
-  fprintf(stderr,"       where message format can take the value 0 (even message) or 1 (odd message).\n");
-
+#define __usage_str__ \
+  "USAGE: this program expect as argument the name of an CSV file.\n"\
+  "       Each line of the file must start with the following fields:\n"\
+  "        1) even latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        2) even longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        3) encoded even latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        4) encoded even longitude [XZ] (unsigned int, hexadecimal),\n"\
+  "        5) odd latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        6) odd longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        7) encoded odd latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        8) encoded odd longitude [XZ] (unsigned int, hexadecimal),\n\n"\
+  "       For each line, it prints in the standard output the following information:\n"\
+  "        1) even latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        2) even longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        3) encoded even latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        4) encoded even longitude [XZ] (unsigned int, hexadecimal),\n"\
+  "        5) odd latitude as AWB (unsigned int, hexadecimal),\n"\
+  "        6) odd longitude as AWB (unsigned int, hexadecimal),\n"\
+  "        7) encoded odd latitude [YZ] (unsigned int, hexadecimal),\n"\
+  "        8) encoded odd longitude [XZ] (unsigned int, hexadecimal),\n"\
+  "        9) validity flag for recovered NL values (1 for valid, 0 for invalid),\n"\
+  "       10) recovered latitude as AWB (unsigned int, hexadecimal) decoding with i=0,\n"\
+  "       11) recovered longitude as AWB (unsigned int, hexadecimal) decoding with i=0,\n"\
+  "       12) recovered latitude as AWB (unsigned int, hexadecimal) decoding with i=1,\n"\
+  "       13) recovered longitude as AWB (unsigned int, hexadecimal) decoding with i=1,\n"
+  
 int main(int argc, char * argv[]){
     int i;
     FILE *fp ;
@@ -38,7 +58,7 @@ int main(int argc, char * argv[]){
 
     if(argc <= 1) {
         fprintf(stderr, "Error: Missing input file name.\n");
-        __print_usage__;
+        __usage_str__;
         return 1;
     }
 
@@ -78,10 +98,10 @@ int main(int argc, char * argv[]){
         struct recovered_position rpos0 = global_dec(0, msg0, msg1);
         struct recovered_position rpos1 = global_dec(1, msg0, msg1);
 
-        printf("%X,%X,%X,%X,%X,%X,%X,%X,%X,%X,%X,%X\n",
+        printf("%X,%X,%X,%X,%X,%X,%X,%X,%i,%X,%X,%X,%X\n",
                 awb_evn_lat,awb_evn_lon,enc_evn_lat,enc_evn_lon,
                 awb_odd_lat,awb_odd_lon,enc_odd_lat,enc_odd_lon,
-                rpos0.lat_awb,rpos0.lon_awb,rpos1.lat_awb,rpos1.lon_awb);
+	            rpos0.valid,rpos0.lat_awb,rpos0.lon_awb,rpos1.lat_awb,rpos1.lon_awb);
     }
     fclose(fp) ;
     return 0;

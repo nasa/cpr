@@ -32,7 +32,7 @@ struct message encode(int i, int_type awb_lat, int_type awb_lon) {
 struct recovered_position local_dec(int i, int_type reference_lat, int_type reference_longitude, struct message msg){
     int_type r_lat = local_decode(60-i, reference_lat, msg.yz);
     int_type r_lon = local_decode(max(nl_awb(r_lat)-i, 1), reference_longitude, msg.xz);
-    struct recovered_position result = { r_lat, r_lon};
+    struct recovered_position result = {1, r_lat, r_lon};
     return result;
 }
 
@@ -43,7 +43,9 @@ struct recovered_position local_dec(int i, int_type reference_lat, int_type refe
 struct recovered_position global_dec(int i, struct message msg0, struct message msg1){
     int_type r_lat = global_decode(60, msg0.yz, msg1.yz, i);
     int_type nl0 = nl_awb(global_decode(60, msg0.yz, msg1.yz, 0));
+    int_type nl1 = nl_awb(global_decode(60, msg0.yz, msg1.yz, 1));
+    int valid = (nl0 == nl1) ? 1 : 0 ; 
     int_type r_lon = global_decode(nl0, msg0.xz, msg1.xz, i);
-    struct recovered_position result = { r_lat, r_lon};
+    struct recovered_position result = {valid, r_lat, r_lon};
     return result;
 }

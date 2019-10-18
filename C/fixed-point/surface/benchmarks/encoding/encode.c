@@ -21,7 +21,7 @@
 #define INPUT_LINE_MAX_LENGTH 100
 
 #define __print_usage__ \
-  fprintf(stderr,"USAGE: this program expect as argument the name of an CSV file.\n");\
+  fprintf(stderr,"USAGE: this program expects as argument the name of an CSV file.\n");\
   fprintf(stderr,"       Each line of such file must start with the following fields:\n");\
   fprintf(stderr,"          <message format>, <awb latitude>, <awb longitude>\n");\
   fprintf(stderr,"       where message format can take the value 0 (even message) or 1 (odd message).\n");
