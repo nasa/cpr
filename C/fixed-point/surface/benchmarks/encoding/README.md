@@ -30,14 +30,10 @@ gcc -o encode encode.c -L../.. -lsurface
 This program uses the surface library (`libsurface.a`). 
 To build the library, the user may invoke `make` in the [`surface`](`../../`) directory (see [`surface/README.md`](`../../README.md`) for details).
 
-A bash script ([`encode-all.sh`](encode-all.sh)) aimed to automate the
-execution of the program on multiple files is also provided.
-It executes `encode` on every `.csv` file in the current directory and prints the results in corresponding `.out` files.
+## Running
 
-## Checking the results
-
-A script aimed to check the produced encodings is provided. This
-script assumes that `encode-all.sh` has already been run, and so every
-.csv file has a corresponding .csv.out file associated to it. 
-
-* `check-against.sh` assumes that every `.csv` file contains not only the required input data (in the order explained above) but also the expected encoding result. The script simply compares every `.csv` file with its corresponding `.csv.out` file. The standard output is used to report discrepancies.
+A bash script ([`run.sh`](run.sh)) aimed to automate the execution of the program on multiple files is also provided. 
+It assumes that the CSV file contains not only the required input data (in the order explained above) but also the expected result of the encoding.
+The script iterates over all the CSV files in the directory and executes `encode` on them.
+Every result is stored in an `.out` file and compared with the input.
+The standard output is used to report discrepancies of the results w.r.t. the given input.

@@ -3,11 +3,12 @@
 for csvfile in *.csv
 do
    if [ -e "$csvfile" ]; then 
-      DIFF=$(diff $csvfile $csvfile.out) 
-      if [ "$DIFF" != "" ]
-      then
-         echo "Error in $csvfile"
-      else 
+      ./encode $csvfile > $csvfile.out
+
+      ./check-encoding $csvfile $csvfile.out
+
+      retVal=$?
+      if [ $retVal -eq 0 ]; then
          echo "$csvfile encoded as expected."
       fi
    else 

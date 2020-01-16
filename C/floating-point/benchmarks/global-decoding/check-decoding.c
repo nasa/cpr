@@ -77,7 +77,7 @@ int main(int argc, char * argv[]){
         return 1;
     }
 
-    // Bound stated by the local_correcteness_theorem
+    // Bound stated by the local_correctness_theorem
     int_type awb_bound;
     double deg_bound;
     double deg_bound_i0 = __dlati__(0)/P2_NB1 + FP_BOUND_CORRECTION; 
