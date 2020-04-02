@@ -17,7 +17,7 @@
 		 "unsinged_int__131072_j"
 		 "local_zone__uint32__j")
    (skeep :preds? t)
-   (match - "nb=%1" step (label "nb_def" $1n))
+   (safe-match - "nb=%1" step (label "nb_def" $1n))
    (invoke (name-replace "fun1" "%1" :hide? nil) (! 1 1))
    (invoke (expand "%1" -1) (! -1 1 0))
    (invoke (name-replace "fun2" "CPR@cpr_int.%1" :hide? nil) (! 1 2))
@@ -27,16 +27,16 @@
    (replace -1 :dir rl)
    (replace "nb_def")
    (assert)
-   (repeat (match -2 "2^%1" step (then (eval-expr "2^%1") (replace -1 :hide? t))))
-   (repeat (match -3 "L_shr_u32(%,%)" step (rewrite "shr_u32__eq")))
-   (repeat (match -3 "L_add_u32(%,%)" step (rewrite "add_u32__eq")))
-   (repeat (match -3 "L_mul_u32(%,%)" step (rewrite "mul_u32__eq")))
-   (repeat (match -3 "lsr(%,%)" step (rewrite "lsr_u32__eq")))
-   (repeat (match -3 "L_sub_u32(%,%)" step (rewrite "sub_u32__eq")))
-   (repeat (match -3 "L_mod_u32(%,%)" step (rewrite "mod_u32__eq")))
-   (repeat (match -3 "L_div_u32(%,%)" step (rewrite "div_u32__eq")))
-   (repeat (match -3 "minus(%,%)" step (rewrite "minus_1_ui")))
-   (repeat (match -3 "L_local_zone(%,%,%)" step (rewrite "local_zone__eq")))
+   (repeat (safe-match -2 "2^%1" step (then (eval-expr "2^%1") (replace -1 :hide? t))))
+   (repeat (safe-match -3 "L_shr_u32(%,%)" step (rewrite "shr_u32__eq")))
+   (repeat (safe-match -3 "L_add_u32(%,%)" step (rewrite "add_u32__eq")))
+   (repeat (safe-match -3 "L_mul_u32(%,%)" step (rewrite "mul_u32__eq")))
+   (repeat (safe-match -3 "lsr(%,%)" step (rewrite "lsr_u32__eq")))
+   (repeat (safe-match -3 "L_sub_u32(%,%)" step (rewrite "sub_u32__eq")))
+   (repeat (safe-match -3 "L_mod_u32(%,%)" step (rewrite "mod_u32__eq")))
+   (repeat (safe-match -3 "L_div_u32(%,%)" step (rewrite "div_u32__eq")))
+   (repeat (safe-match -3 "minus(%,%)" step (rewrite "minus_1_ui")))
+   (repeat (safe-match -3 "L_local_zone(%,%,%)" step (rewrite "local_zone__eq")))
    (replace -2 :dir rl :hide? t)
    (replace -2 :dir rl :hide? t)
    (assert)
@@ -48,6 +48,30 @@
 		  (spread (split +) ((then (flatten) (assert)) (propax)))))))
   "Prove equivalence between acsl declarations and PVS functions (CPR@cpr_int)"
   "Proving...")
+
+(handler-case (/ 3 0)
+  (error (c)
+    (format t "We caught a condition.~&")
+    (values 0 c)))
+
+(defstep safe-match (&rest spec-items)
+  (let ((step (handler-case (apply #'match-syntax-step spec-items)
+		(error (c) '(skip)))))
+    step)
+
+  "[Manip] Try matching syntax patterns against formulas in the sequent.
+Each pattern can be of the form <patt> or ([fnums] <patt> [occur]), where
+<patt> can be either a symbol or a string \"patt\".  Successful matches
+can bind subexpressions to pattern variables (identifiers having a leading
+'%').  Use these variables to instantiate template expressions and affect
+the sequent.  Actions are specified using a symbol, where the choices
+include 'rep' (replace first matched instance with template), 'case' (use
+case splitting on expressions), a binary relation symbol (split on case
+<instance> <op> <template>), 'step' (invoke template as a proof step or
+strategy), and a symbol <rule> (invoke <rule> on templates).  Proof steps
+for all cases can be provided. See the Manip user's guide for a full
+description of all features."
+  "~%Matching syntax in formulas and using instantiated templates")
 
 (defstep prove-local_decoding__eq ()
   (then
@@ -65,7 +89,7 @@
 		 "local_zone__uint32__j"
 		 "real_expt_int_rew")
    (skeep :preds? t)
-   (match - "nb=%1" step (label "nb_def" $1n))
+   (safe-match - "nb=%1" step (label "nb_def" $1n))
    (invoke (name-replace "fun1" "%1" :hide? nil) (! 1 1))
    (invoke (expand "%1" -1) (! -1 1 0))
    (invoke (name-replace "fun2" "CPR@cpr_int.%1" :hide? nil) (! 1 2))
@@ -75,15 +99,15 @@
    (replace -1 :dir rl)
    (replace "nb_def")
    (assert)
-   (repeat (match - "2^%1" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
-   (repeat (match - "exponentiation.^(2,%1)" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
+   (repeat (safe-match - "2^%1" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
+   (repeat (safe-match - "exponentiation.^(2,%1)" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
    (rewrite "local_zone__eq")
-   (match - "local_zone(%1, %2, %3)" step (let((fname (freshname "cpr")))
+   (safe-match - "local_zone(%1, %2, %3)" step (let((fname (freshname "cpr")))
 					    (name-replace fname "local_zone(%1, %2, %3)")))
    (branch
     (acsl-to-cpr -3)
-    ((then	(repeat(match "times(4,%{name_})" step (rewrite "times_4_ui")))
-		(repeat(match "minus(%,1)" step (rewrite "minus_1_ui")))
+    ((then	(repeat(safe-match "times(4,%{name_})" step (rewrite "times_4_ui")))
+		(repeat(safe-match "minus(%,1)" step (rewrite "minus_1_ui")))
 		(replace -2 :dir rl :hide? t)
 		(replace -2 :dir rl :hide? t)
 		(assert)
@@ -95,7 +119,7 @@
 			       (branch (split +) ((then (flatten) (assert)))))
 			 (then (flatten) (lift-if +)
 			       (branch (split +) ((then (flatten) (assert))))))))
-     (then (repeat(match "times(4,%{name_})" step (rewrite "times_4_ui")))
+     (then (repeat(safe-match "times(4,%{name_})" step (rewrite "times_4_ui")))
 	   (assert)
 	   (eval-formula)
 	   (hide-all-but 1)
@@ -110,7 +134,7 @@
 		 "mod__eq" "mod_lt_nat" "unsinged_int__65536_j"
 		 "unsinged_int__131072_j" "local_zone__uint32__j" "real_expt_int_rew")
    (skeep :preds? t)
-   (match - "nb=%1" step (label "nb_def" $1n))
+   (safe-match - "nb=%1" step (label "nb_def" $1n))
    (invoke (name-replace "fun1" "%1" :hide? nil) (! 1 1))
    (invoke (name-replace "fun2" "CPR@cpr_int.%1" :hide? nil) (! 1 2))
    (invoke (expand "%1" -1) (! -1 1 0))
@@ -118,17 +142,17 @@
    (replace -1 :dir rl)
    (replace "nb_def")
    (assert)
-   (repeat (match - "2^%1" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
-   (repeat (match - "exponentiation.^(2,%1)" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
+   (repeat (safe-match - "2^%1" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
+   (repeat (safe-match - "exponentiation.^(2,%1)" step (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
    (repeat
-    (match - "min(%1,%2)" step
+    (safe-match - "min(%1,%2)" step
 	   (then (eval-expr "min(%1,%2)") (replace -1 :hide? t))))
    (lift-if -2)
    (spread
     (split -2)
     ((then
       (lemma "Q_global_zone__def_0")
-      (match - "L_global_zone(nz, %2, %3, %4)" step
+      (safe-match - "L_global_zone(nz, %2, %3, %4)" step
 	     (inst -1 "%2" "%3" "%4"))
       (assert)
       (flatten)
@@ -136,7 +160,7 @@
      (then
       (flatten)
       (lemma "Q_global_zone__def_1")
-      (match - "L_global_zone(nz, %2, %3, %4)" step
+      (safe-match - "L_global_zone(nz, %2, %3, %4)" step
 	     (inst -1 "nz" "%2" "%3" "%4"))
       (assert)
       (branch
@@ -144,8 +168,8 @@
        ((then
 	 (branch (acsl-to-cpr -1)
 		 ((then
-		   (repeat (match -1 "minus(%,1)" step (rewrite "minus_1_ui")))
-		   (repeat (match -1 "minus(%,i)" step (rewrite "minus_i_ui")))
+		   (repeat (safe-match -1 "minus(%,1)" step (rewrite "minus_1_ui")))
+		   (repeat (safe-match -1 "minus(%,i)" step (rewrite "minus_i_ui")))
 		   (replace -2 :dir rl :hide? t) (replace -3 :dir rl :hide? t)
 		   (assert)))))
 	(assert)))))))
@@ -159,7 +183,7 @@
 		 "mod__eq" "mod_lt_nat" "unsinged_int__65536_j"
 		 "unsinged_int__131072_j" "local_zone__uint32__j" "real_expt_int_rew")
    (skeep :preds? t)
-   (match - "nb=%1" step (label "nb_def" $1n))
+   (safe-match - "nb=%1" step (label "nb_def" $1n))
    (invoke (name-replace "fun1" "%1" :hide? nil) (! 1 1))
    (invoke (expand "%1" -1) (! -1 1 0))
    (invoke (name-replace "fun2" "CPR@cpr_int.%1" :hide? nil) (! 1 2))
@@ -177,16 +201,16 @@
       (let ((newname (freshname "cpr")))
 	(name-replace newname "global_zone (nz, mes0, mes1, i)"))
 			 (repeat
-			  (match - "2^%1" step
+			  (safe-match - "2^%1" step
 				 (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
 			 (repeat
-			  (match - "exponentiation.^(2,%1)" step
+			  (safe-match - "exponentiation.^(2,%1)" step
 				 (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
       (branch (acsl-to-cpr -4)
 	      ((then
-	        (repeat(match (-4 "minus(%,1)") step (rewrite "minus_1_ui")))
-		(repeat(match (-4 "minus(%,i)") step (rewrite "minus_i_ui")))
-		(repeat (match
+	        (repeat(safe-match (-4 "minus(%,1)") step (rewrite "minus_1_ui")))
+		(repeat(safe-match (-4 "minus(%,i)") step (rewrite "minus_i_ui")))
+		(repeat (safe-match
 		 (-4 "times(4,%)")
 		 step (branch
 		       (rewrite "times_4_ui")
@@ -194,10 +218,10 @@
 			(then
 			 (assert)
 			 (repeat
-			  (match - "2^%1" step
+			  (safe-match - "2^%1" step
 				 (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
 			 (repeat
-			  (match - "exponentiation.^(2,%1)" step
+			  (safe-match - "exponentiation.^(2,%1)" step
 				 (then (eval-expr "exponentiation.^(2,%1)") (replace -1 :hide? t))))
 			 (expand "max" 1)
 			 (lift-if 1)
@@ -215,8 +239,8 @@
 				       (branch (split) ((then (flatten) (assert))))))))
 		  (then (hide-all-but 1)(grind)))))
 	       (then
-		(match 1 "minus(%,i)" step (rewrite "minus_i_ui"))
-		(branch (match (1 "times(4,%)") step (rewrite "times_4_ui"))
+		(safe-match 1 "minus(%,i)" step (rewrite "minus_i_ui"))
+		(branch (safe-match (1 "times(4,%)") step (rewrite "times_4_ui"))
 			((then (assert))
 			 (then
 			  (expand "max")
@@ -253,7 +277,7 @@
    ((then (flatten) (replace -2 :hide? t) (expand "L_global_decode")
      (spread (split -17)
       ((then (flatten)
-        (match 1 " %% = IF %1 THEN %% ELSE %% ENDIF" step
+        (safe-match 1 " %% = IF %1 THEN %% ELSE %% ENDIF" step
                (branch (case "%1")
                 ((skip)
                  (then (hide 2) (acsl-to-c 1) (assert) (expand "max")
@@ -263,7 +287,7 @@
         (branch (split -)
          ((then (flatten) (replace -1 :dir rl)
            (replace -2 :dir rl :hide? t)
-           (match "L_global_zone(%1, %2, %3, %4)" step
+           (safe-match "L_global_zone(%1, %2, %3, %4)" step
                   (let ((name (freshname "cpr")))
                     (name-replace name
                      "L_global_zone(%1, %2, %3, %4)")))
@@ -271,14 +295,14 @@
           (then (flatten) (assert) (replace -1 :hide? t)
            (branch (case "i_5=1")
             ((then (replace -1 :hide? t)
-              (match "L_global_zone(%1, %2, %3, %4)" step
+              (safe-match "L_global_zone(%1, %2, %3, %4)" step
                      (let ((name (freshname "cpr")))
                        (name-replace name
                         "L_global_zone(%1, %2, %3, %4)")))
               (acsl-to-c 2) (assert))
              (assert)))))))
        (then (flatten)
-        (match 2 " %% = IF %1 THEN %% ELSE %% ENDIF" step
+        (safe-match 2 " %% = IF %1 THEN %% ELSE %% ENDIF" step
                (branch (case "%1")
                 ((skip)
                  (then (hide 3) (acsl-to-c 1) (assert) (expand "max")
@@ -288,7 +312,7 @@
         (spread (split -)
          ((then (flatten) (replace -1 :dir rl)
            (replace -2 :dir rl :hide? t)
-           (match "L_global_zone(%1, %2, %3, %4)" step
+           (safe-match "L_global_zone(%1, %2, %3, %4)" step
                   (let ((name (freshname "cpr")))
                     (name-replace name
                      "L_global_zone(%1, %2, %3, %4)")))
@@ -296,7 +320,7 @@
           (then (flatten) (assert) (replace -1 :hide? t)
            (spread (case "i_5=1")
             ((then (replace -1 :hide? t)
-              (match "L_global_zone(%1, %2, %3, %4)" step
+              (safe-match "L_global_zone(%1, %2, %3, %4)" step
                      (let ((name (freshname "cpr")))
                        (name-replace name
                         "L_global_zone(%1, %2, %3, %4)")))
@@ -309,24 +333,24 @@
         (spread (split -)
          ((then (flatten) (replace -1 :dir rl)
            (replace -2 :hide? t :dir rl)
-           (match "L_sub_u32(%1, 0)" step
+           (safe-match "L_sub_u32(%1, 0)" step
                   (branch (case "L_sub_u32(%1, 0)=%1")
                    ((replace -1 :hide? t)
                     (then (rewrite "sub_u32_def" 1)
                      (rewrite "to_uint32_id" 1) (assert)))))
-           (match "max(1, %1{name_})" step
+           (safe-match "max(1, %1{name_})" step
                   (spread (case "max(1, %1) = %1")
                    ((replace -1 :hide? t)
                     (then (expand "max" 1) (lift-if 1)
                      (branch (split 1) ((then (flatten) (assert))))))))
-           (match "L_global_zone(%1, %2, %3, %4)" step
+           (safe-match "L_global_zone(%1, %2, %3, %4)" step
                   (let ((name (freshname "cpr")))
                     (name-replace name
                      "L_global_zone(%1, %2, %3, %4)")))
            (assert)
-           (match "%1{name_} = to_uint32(%2{name_})" step
+           (safe-match "%1{name_} = to_uint32(%2{name_})" step
                   (then (rewrite "to_uint32_id" $1n) (replace $1n)))
-           (match 2 " %% = IF %1 THEN %% ELSE %% ENDIF" step
+           (safe-match 2 " %% = IF %1 THEN %% ELSE %% ENDIF" step
                   (branch (case "NOT %1")
                    ((skip)
                     (then (hide 2) (acsl-to-c -1) (assert)
@@ -340,7 +364,7 @@
           (then (flatten) (replace -1 :hide? t)
            (spread (case "i_5=1")
             ((then (replace -1 :hide? t)
-              (match "max(1, L_sub_u32(%1{name_}, 1))" step
+              (safe-match "max(1, L_sub_u32(%1{name_}, 1))" step
                      (spread
                       (case "max(1, L_sub_u32(%1, 1)) = L_sub_u32(%1, 1)")
                       ((replace -1 :hide? t)
@@ -349,41 +373,41 @@
                         (branch (split 1)
                          ((then (flatten) (assert))))))))
               (assert)
-              (match "L_global_zone(%1, %2, %3, %4)" step
+              (safe-match "L_global_zone(%1, %2, %3, %4)" step
                      (let ((name (freshname "cpr")))
                        (name-replace name
                         "L_global_zone(%1, %2, %3, %4)")))
               (branch
-               (match 3 " %% = IF %1 THEN %% ELSE %% ENDIF" step
+               (safe-match 3 " %% = IF %1 THEN %% ELSE %% ENDIF" step
                       (branch (case "NOT %1")
                        ((assert) (then (acsl-to-c -1)))))
                ((branch (acsl-to-c 4)
                  ((assert)
                   (then (eval-formula)
                    (then (repeat (rewrite "to_uint32_id")) (assert)))))
-                (match "^%1{name_} = %2$" step
+                (safe-match "^%1{name_} = %2$" step
                        (replace $1n :hide? t)))))
              (assert)))))))
        (then (flatten) (replace -1 :dir rl)
         (spread (split -)
          ((then (flatten) (replace -1 :dir rl)
            (replace -2 :hide? t :dir rl)
-           (match "L_sub_u32(%1, 0)" step
+           (safe-match "L_sub_u32(%1, 0)" step
                   (branch (case "L_sub_u32(%1, 0)=%1")
                    ((replace -1 :hide? t)
                     (then (rewrite "sub_u32_def" 1)
                      (rewrite "to_uint32_id" 1) (assert)))))
-           (match "max(1, %1{name_})" step
+           (safe-match "max(1, %1{name_})" step
                   (spread (case "max(1, %1) = %1")
                    ((replace -1 :hide? t)
                     (then (expand "max" 1) (lift-if 1)
                      (branch (split 1) ((then (flatten) (assert))))))))
-           (match "L_global_zone(%1, %2, %3, %4)" step
+           (safe-match "L_global_zone(%1, %2, %3, %4)" step
                   (let ((name (freshname "cpr")))
                     (name-replace name
                      "L_global_zone(%1, %2, %3, %4)")))
            (assert)
-           (match 3 " %% = IF %1 THEN %% ELSE %% ENDIF" step
+           (safe-match 3 " %% = IF %1 THEN %% ELSE %% ENDIF" step
                   (branch (case "NOT %1")
                    ((skip)
                     (then (hide 2) (acsl-to-c -1) (assert)
@@ -395,24 +419,24 @@
           (then (flatten) (replace -1 :dir rl)
            (spread (case "i_5=1")
             ((then (replace -1 :hide? t)
-              (match "0 < to_uint32(%1{name_} - 1)" step
+              (safe-match "0 < to_uint32(%1{name_} - 1)" step
                      (branch (case "%1 = 1")
                       ((then (replace -1 :hide? t) (skip))
                        (then
                         (let ((newfnum (+ $1n 1)))
                           (rewrite "to_uint32_id" newfnum))
                         (assert)))))
-              (match "max(1, L_sub_u32(1, 1))" step
+              (safe-match "max(1, L_sub_u32(1, 1))" step
                      (then (eval-expr "max(1, L_sub_u32(1, 1))")
                       (replace -1 :hide? t)))
-              (match "L_mul_u32(4, 1)" step
+              (safe-match "L_mul_u32(4, 1)" step
                      (then (eval-expr "L_mul_u32(4, 1)")
                       (replace -1 :hide? t)))
               (assert)
-              (match "to_uint32(%1{number})" step
+              (safe-match "to_uint32(%1{number})" step
                      (then (eval-expr "to_uint32(%1)")
                       (replace -1 :hide? t)))
-              (match "L_global_zone(%1, %2, %3, %4)" step
+              (safe-match "L_global_zone(%1, %2, %3, %4)" step
                      (let ((name (freshname "cpr")))
                        (name-replace name
                         "L_global_zone(%1, %2, %3, %4)")))
@@ -440,8 +464,8 @@
  (then (skeep* :preds? t)
   (deftactic replace_by_def (name)
    (let ((match-pattern (format nil "~a = %1" name)))
-     (match match-pattern step (replace $1n :hide? t))))
-  (match 1 "1 = %1{name_}" step (replace_by_def "%1"))
+     (safe-match match-pattern step (replace $1n :hide? t))))
+  (safe-match 1 "1 = %1{name_}" step (replace_by_def "%1"))
   (spread (split -18)
    ((then (assert) (replace -1 :hide? t) (replace -17 :hide? t)
      (rewrite "to_uint32_id" -) (rewrite "to_uint32_id" -) (assert))
@@ -531,13 +555,13 @@
     (split -)
     ((then
       (flatten) (assert) (replace -1 :hide? t :dir rl)
-      (match 1 "L_local_zone(%1, %2, %3)" step
+      (safe-match 1 "L_local_zone(%1, %2, %3)" step
 	     (let ((name (freshname "cpr")))
 	       (name-replace name "L_local_zone(%1, %2, %3)")))
       (branch (acsl-to-c 1) ((assert))))
      (then
       (flatten) (assert)
-      (match "L_local_zone(%1, %2, %3)" step
+      (safe-match "L_local_zone(%1, %2, %3)" step
 	     (let ((name (freshname "cpr")))
 	       (name-replace name "L_local_zone(%1, %2, %3)")))
       (branch
@@ -567,7 +591,7 @@
 	     (case "to_uint32(60) = 60")
 	     ((then
 	       (replace -1 :hide? t)
-	       (match "L_closest_mult_div_shift(%1, %2)" step
+	       (safe-match "L_closest_mult_div_shift(%1, %2)" step
 		      (let ((name (freshname "cpr")))
 			(name-replace name "L_closest_mult_div_shift(%1, %2)")))
 	       (spread (acsl-to-c 2)
@@ -580,7 +604,7 @@
 	  (case "to_uint32(59) = 59")
 	  ((then
 	    (assert)
-	    (match "L_closest_mult_div_shift(%1, %2)" step
+	    (safe-match "L_closest_mult_div_shift(%1, %2)" step
 		   (let ((name (freshname "cpr")))
 		     (name-replace name "L_closest_mult_div_shift(%1, %2)")))
 	    (spread
@@ -712,7 +736,7 @@
 
 (defhelper acsl-to-c (fnum)
   (let ((*suppress-manip-messages* t))
-    (translate-funs$ fnum acsl-c-info))
+    (translate-funs$ fnum acsl-c-info :hiding-lhs? t))
   "Translate ACSL expressions to C expressions."
   "Translating ACSL expressions to C expressions.")
 
@@ -747,6 +771,15 @@
 
 (defvar new-names nil)
 
+(defhelper encapsulate-app (fnum acsl-fun arg1 arg2 arg3 arg4)
+  (let ((newname (freshname "arg"))
+	(subexpr (format nil "~a(~a,~a,~a,~a)" acsl-fun arg1 arg2 arg3 arg4)))
+    (then (name-replace newname subexpr)
+	  (let ((d(setq new-names (cons newname new-names))))
+	    (skip))))
+  ""
+  "")
+
 (defhelper translate-fun (fnum acsl-fun arg1 arg2 fun-lemmas-db)
   (let ((cpr-info (get-cpr-info acsl-fun fun-lemmas-db)))
     (if (and cpr-info (listp cpr-info))
@@ -767,15 +800,25 @@
   "Translate the application of the function ACSL-FUN to the arguments ARG1 and ARG2 in FNUM as stated by FUN-LEMMAS-DB."
   "Translating expressions in ~a.")
 
-(defhelper translate-funs (fnum fun-lemmas-db)
+(defhelper translate-funs (fnum fun-lemmas-db &optional hiding-lhs?)
   (let ((d(setq new-names nil)))
     (then
-     (repeat (match fnum "%1{number}"
+     (if hiding-lhs?
+	 (safe-match fnum "%1=%2"
+		    step (let ((newname (freshname "arg"))
+			       (d(setq new-names (cons newname new-names))))
+			   (name-replace newname "%1")))
+       (skip))
+     (repeat (safe-match fnum "%1{number}"
 		    step (let ((newname (freshname "arg"))
 			       (d(setq new-names (cons newname new-names))))
 			   (name-replace newname "%1"))))
      (repeat
-      (match
+      (safe-match
+       fnum "%3{name_}(%1{name_},%2{name_},%4{name_},%5{name_})"
+       step (encapsulate-app fnum "%3" "%1" "%2" "%4" "%5")))
+     (repeat
+      (safe-match
        fnum "%3{name_}(%1{name_},%2{name_})"
        step (let ((fun-lemmas-db
 		   ;;!DEV This symbol-value is here because match does not seem to work well

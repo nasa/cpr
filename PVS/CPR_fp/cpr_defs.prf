@@ -17,11 +17,13 @@
     (cpr_div const-decl "real" cpr_funs nil)
     (cpr_floor const-decl "real" cpr_funs nil)
     (cpr_sub const-decl "real" cpr_funs nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (cpr_mod const-decl "{k: real | abs(k) < abs(j)}" cpr_funs nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_minus_real_is_real application-judgement "real" reals nil))
-   nil))
+   nil
+   (cpr_mod_div subtype "cpr_funs.cpr_sub(cpr_defs.g110, cpr_defs.g11)"
+    "{r: reals.real | r = cpr_funs.cpr_div(cpr_funs.cpr_mod(cpr_defs.a, cpr_defs.b), cpr_defs.b)}")))
  (dlat_TCC1 0
   (dlat_TCC1-1 nil 3660941288
    ("" (with-tccs (assert))
@@ -43,9 +45,7 @@
         nil))
       nil))
     nil)
-   ((divides const-decl "bool" divides nil)
-    (even? const-decl "bool" integers nil)
-    (divides const-decl "bool" divides nil)
+   (nil (even? const-decl "bool" integers nil) nil
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (CPRFormat nonempty-type-eq-decl nil basic_defs nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -75,7 +75,10 @@
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (dlat subtype
+    "cpr_funs.cpr_sub(cpr_funs.cpr_mul(4, basic_defs.NZ), cpr_defs.i)"
+    "nonzero_real")))
  (dlat_TCC2 0
   (dlat_TCC2-1 nil 3665850692 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -109,7 +112,10 @@
     (cpr_sub const-decl "real" cpr_funs nil)
     (cpr_div const-decl "real" cpr_funs nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (dlat subtype
+    "cpr_funs.cpr_div(360, cpr_funs.cpr_sub(cpr_funs.cpr_mul(4, basic_defs.NZ), cpr_defs.i))"
+    "posreal")))
  (YZ_TCC1 0
   (YZ_TCC1-1 nil 3669394166 ("" (subtype-tcc) nil nil)
    ((NZ const-decl "int" basic_defs nil)
@@ -117,7 +123,7 @@
     (cpr_sub const-decl "real" cpr_funs nil)
     (cpr_div const-decl "real" cpr_funs nil)
     (dlat const-decl "posreal" cpr_defs nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (cpr_mod const-decl "{k: real | abs(k) < abs(j)}" cpr_funs nil)
     (^ const-decl "real" exponentiation nil)
     (cpr_exp const-decl "real" cpr_funs nil)
@@ -130,7 +136,7 @@
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil (YZ subtype "cpr_funs.cpr_floor(cpr_defs.f3)" "int")))
  (YZ_lb 0
   (YZ_lb-2 nil 3676216893
    ("" (skeep)
@@ -215,18 +221,14 @@
     (posreal nonempty-type-eq-decl nil real_types nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (CPRFormat nonempty-type-eq-decl nil basic_defs nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (< const-decl "bool" reals nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (A skolem-const-decl "posrat" cpr_defs nil)
-    (B skolem-const-decl "posint" cpr_defs nil)
-    (C skolem-const-decl "posreal" cpr_defs nil)
-    (E skolem-const-decl "{k | abs(k) < abs(C)}" cpr_defs nil)
-    (D skolem-const-decl "Latitude" cpr_defs nil)
+    nil nil nil nil nil
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
@@ -235,9 +237,7 @@
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (cpr_sub const-decl "real" cpr_funs nil)
     (NZ const-decl "int" basic_defs nil)
-    (nonneg_real_mult_closed formula-decl nil real_types nil)
-    (i skolem-const-decl "CPRFormat" cpr_defs nil)
-    (lat skolem-const-decl "Latitude" cpr_defs nil)
+    (nonneg_real_mult_closed formula-decl nil real_types nil) nil nil
     (nonneg_floor_is_nat judgement-tcc nil floor_ceil nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
@@ -334,124 +334,92 @@
    ("" (skeep)
     (("" (expand "YZ")
       (("" (typepred "cpr_mod_div(lat,dlat(i))")
-        (("" (beta)
-          (("" (replace -1 :hide? t)
-            (("" (assert)
-              (("" (use "floor_plus")
-                (("" (replace -1 :hide? t)
-                  (("" (expand "fractional" 1 1)
-                    (("" (case "floor(1/2) = 0")
-                      (("1" (replace -1 :hide? t)
-                        (("1" (assert)
+        (("1" (beta)
+          (("1" (assert)
+            (("1" (use "floor_plus")
+              (("1" (replace -1 :hide? t)
+                (("1" (expand "fractional" 1 1)
+                  (("1" (case "floor(1/2) = 0")
+                    (("1" (replace -1 :hide? t)
+                      (("1" (assert)
+                        (("1"
+                          (case "floor(fractional(2 ^ nb * (mod(lat, dlat(i)) / dlat(i))) + 1/2) <= 1")
                           (("1"
-                            (case "floor(fractional(2 ^ nb * (mod(lat, dlat(i)) / dlat(i))) + 1/2) <= 1")
-                            (("1"
-                              (case "floor(2 ^ nb * (mod(lat, dlat(i)) / dlat(i)))<2 ^ nb")
+                            (case "floor(2 ^ nb * (mod(lat, dlat(i)) / dlat(i)))<2 ^ nb")
+                            (("1" (lemma "lt_plus_lt1")
                               (("1"
-                                (lemma "lt_plus_lt1")
+                                (inst? -1 :where -2)
                                 (("1"
-                                  (inst? -1 :where -2)
+                                  (inst? -1 :where -3)
                                   (("1"
-                                    (inst? -1 :where -3)
+                                    (split -1)
                                     (("1"
-                                      (split -1)
-                                      (("1"
-                                        (hide-all-but (-1 1))
-                                        (("1"
-                                          (case
-                                           "FORALL(i,j:int): i < 1 + j IMPLIES i <= j")
-                                          (("1"
-                                            (inst? -1 :where 1)
-                                            (("1" (assert) nil nil))
-                                            nil)
-                                           ("2"
-                                            (hide-all-but 1)
-                                            (("2" (grind) nil nil))
-                                            nil))
-                                          nil))
-                                        nil)
-                                       ("2" (propax) nil nil)
-                                       ("3" (propax) nil nil))
-                                      nil))
-                                    nil))
-                                  nil))
-                                nil)
-                               ("2"
-                                (hide-all-but 1)
-                                (("2"
-                                  (invoke (typepred "%1") (! 1 1))
-                                  (("2"
-                                    (hide -2)
-                                    (("2"
-                                      (case
-                                       "(mod(lat, dlat(i)) / dlat(i)) >= 0")
+                                      (hide-all-but (-1 1))
                                       (("1"
                                         (case
-                                         "FORALL(x:posreal,y:nonneg_real): y<1 IMPLIES x*y<x")
+                                         "FORALL(i,j:int): i < 1 + j IMPLIES i <= j")
                                         (("1"
-                                          (invoke
-                                           (inst -1 "%1" "%2")
-                                           (! -3 2 1)
-                                           (! -3 2 2))
-                                          (("1"
-                                            (split -1)
-                                            (("1" (assert) nil nil)
-                                             ("2"
-                                              (hide-all-but (-1 1))
-                                              (("2"
-                                                (invoke
-                                                 (typepred "%1")
-                                                 (! 1 1 1))
-                                                (("2"
-                                                  (lemma
-                                                   "lt_div_lt_pos2")
-                                                  (("2"
-                                                    (inst
-                                                     -1
-                                                     "mod(lat,dlat(i))"
-                                                     "dlat(i)"
-                                                     "dlat(i)"
-                                                     "dlat(i)")
-                                                    (("1"
-                                                      (assert)
-                                                      (("1"
-                                                        (expand "abs")
-                                                        (("1"
-                                                          (propax)
-                                                          nil
-                                                          nil))
-                                                        nil))
-                                                      nil)
-                                                     ("2"
-                                                      (use "mod_pos")
-                                                      (("2"
-                                                        (flatten)
-                                                        nil
-                                                        nil))
-                                                      nil))
-                                                    nil))
-                                                  nil))
-                                                nil))
-                                              nil))
-                                            nil))
+                                          (inst? -1 :where 1)
+                                          (("1" (assert) nil nil))
                                           nil)
                                          ("2"
                                           (hide-all-but 1)
-                                          (("2"
-                                            (skeep)
+                                          (("2" (grind) nil nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2" (propax) nil nil)
+                                     ("3" (propax) nil nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil)
+                             ("2" (hide-all-but 1)
+                              (("2"
+                                (invoke (typepred "%1") (! 1 1))
+                                (("2"
+                                  (hide -2)
+                                  (("2"
+                                    (case
+                                     "(mod(lat, dlat(i)) / dlat(i)) >= 0")
+                                    (("1"
+                                      (case
+                                       "FORALL(x:posreal,y:nonneg_real): y<1 IMPLIES x*y<x")
+                                      (("1"
+                                        (invoke
+                                         (inst -1 "%1" "%2")
+                                         (! -3 2 1)
+                                         (! -3 2 2))
+                                        (("1"
+                                          (split -1)
+                                          (("1" (assert) nil nil)
+                                           ("2"
+                                            (hide-all-but (-1 1))
                                             (("2"
-                                              (lemma
-                                               "lt_times_lt_pos1")
+                                              (invoke
+                                               (typepred "%1")
+                                               (! 1 1 1))
                                               (("2"
-                                                (inst
-                                                 -1
-                                                 "y"
-                                                 "x"
-                                                 "1"
-                                                 "x")
+                                                (lemma
+                                                 "lt_div_lt_pos2")
                                                 (("2"
-                                                  (assert)
-                                                  nil
+                                                  (inst
+                                                   -1
+                                                   "mod(lat,dlat(i))"
+                                                   "dlat(i)"
+                                                   "dlat(i)"
+                                                   "dlat(i)")
+                                                  (("1"
+                                                    (assert)
+                                                    nil
+                                                    nil)
+                                                   ("2"
+                                                    (use "mod_pos")
+                                                    (("2"
+                                                      (flatten)
+                                                      nil
+                                                      nil))
+                                                    nil))
                                                   nil))
                                                 nil))
                                               nil))
@@ -459,70 +427,79 @@
                                           nil))
                                         nil)
                                        ("2"
-                                        (invoke
-                                         (case "%1 < 0")
-                                         (! 1 1))
+                                        (hide-all-but 1)
+                                        (("2"
+                                          (skeep)
+                                          (("2"
+                                            (lemma "lt_times_lt_pos1")
+                                            (("2"
+                                              (inst -1 "y" "x" "1" "x")
+                                              (("2" (assert) nil nil))
+                                              nil))
+                                            nil))
+                                          nil))
+                                        nil))
+                                      nil)
+                                     ("2"
+                                      (invoke (case "%1 < 0") (! 1 1))
+                                      (("1"
+                                        (hide 1)
                                         (("1"
-                                          (hide 1)
+                                          (hide -2)
                                           (("1"
-                                            (hide -2)
-                                            (("1"
-                                              (invoke
-                                               (case "%1 < 0")
-                                               (! 1 1))
-                                              (("1" (assert) nil nil)
-                                               ("2"
-                                                (hide 2)
+                                            (invoke
+                                             (case "%1 < 0")
+                                             (! 1 1))
+                                            (("1" (assert) nil nil)
+                                             ("2"
+                                              (hide 2)
+                                              (("2"
+                                                (invoke
+                                                 (typepred "%1")
+                                                 (! 1 1))
                                                 (("2"
-                                                  (invoke
-                                                   (typepred "%1")
-                                                   (! 1 1))
+                                                  (hide -2)
                                                   (("2"
-                                                    (hide -2)
-                                                    (("2"
-                                                      (assert)
-                                                      (("2"
-                                                        (invoke
-                                                         (case
-                                                          "%1 < 0")
-                                                         (! -1 2))
-                                                        (("1"
-                                                          (assert)
-                                                          nil
-                                                          nil)
-                                                         ("2"
-                                                          (hide-all-but
-                                                           (-2 1))
-                                                          (("2"
-                                                            (use
-                                                             "neg_times_lt")
-                                                            (("2"
-                                                              (assert)
-                                                              nil
-                                                              nil))
-                                                            nil))
-                                                          nil))
-                                                        nil))
-                                                      nil))
+                                                    (assert)
+                                                    nil
                                                     nil))
                                                   nil))
                                                 nil))
                                               nil))
                                             nil))
-                                          nil)
-                                         ("2" (assert) nil nil))
-                                        nil))
+                                          nil))
+                                        nil)
+                                       ("2" (assert) nil nil))
                                       nil))
                                     nil))
                                   nil))
                                 nil))
-                              nil)
-                             ("2" (hide-all-but 1)
-                              (("2" (grind) nil nil)) nil))
-                            nil))
+                              nil))
+                            nil)
+                           ("2" (hide-all-but 1)
+                            (("2" (grind) nil nil)) nil))
                           nil))
-                        nil)
-                       ("2" (eval-formula 1) nil nil))
+                        nil))
+                      nil)
+                     ("2" (eval-formula 1) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil)
+         ("2" (hide 2)
+          (("2" (skeep*)
+            (("2" (lemma "cpr_mod_div_TCC1")
+              (("2" (expand "cpr_sub")
+                (("2" (expand "cpr_div")
+                  (("2" (expand "cpr_mod")
+                    (("2" (expand "cpr_floor")
+                      (("2" (inst?)
+                        (("2" (assert)
+                          (("2" (inst?) (("2" (assert) nil nil)) nil))
+                          nil))
+                        nil))
                       nil))
                     nil))
                   nil))
@@ -533,97 +510,99 @@
         nil))
       nil))
     nil)
-   ((YZ const-decl "int" cpr_defs nil)
-    (floor_plus formula-decl nil floor_ceil nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (^ const-decl "real" exponentiation nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (NB type-eq-decl nil basic_defs nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
-    (TRUE const-decl "bool" booleans nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
-    (bijective? const-decl "bool" functions nil)
-    (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (lat skolem-const-decl "Latitude" cpr_defs nil)
-    (i skolem-const-decl "CPRFormat" cpr_defs nil)
-    (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
-     real_defs nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
-    (lt_div_lt_pos2 formula-decl nil real_props nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (lt_times_lt_pos1 formula-decl nil real_props nil)
-    (lt_plus_lt1 formula-decl nil real_props nil)
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+   ((cpr_mod const-decl "{k: real | abs(k) < abs(j)}" cpr_funs nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (< const-decl "bool" reals nil)
+    (dlat const-decl "posreal" cpr_defs nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (CPRFormat nonempty-type-eq-decl nil basic_defs nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (Latitude type-eq-decl nil basic_defs nil)
+    (<= const-decl "bool" reals nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (>= const-decl "bool" reals nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (cpr_div const-decl "real" cpr_funs nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (/= const-decl "boolean" notequal nil)
+    (cpr_floor const-decl "real" cpr_funs nil)
+    (cpr_sub const-decl "real" cpr_funs nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (NZ const-decl "int" basic_defs nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (number nonempty-type-decl nil numbers nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (integer nonempty-type-from-decl nil integers nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (cpr_add const-decl "real" cpr_funs nil)
-    (F1d2 const-decl "real" cpr_defs nil)
-    (cpr_mul const-decl "real" cpr_funs nil)
-    (F2pNb const-decl "real" cpr_defs nil)
-    (cpr_exp const-decl "real" cpr_funs nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (posint_exp application-judgement "posint" exponentiation nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (posint_exp application-judgement "posint" exponentiation nil)
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (cpr_exp const-decl "real" cpr_funs nil)
+    (F2pNb const-decl "real" cpr_defs nil)
+    (cpr_mul const-decl "real" cpr_funs nil)
+    (F1d2 const-decl "real" cpr_defs nil)
+    (cpr_add const-decl "real" cpr_funs nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (NZ const-decl "int" basic_defs nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (cpr_sub const-decl "real" cpr_funs nil)
-    (cpr_floor const-decl "real" cpr_funs nil)
-    (/= const-decl "boolean" notequal nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (cpr_div const-decl "real" cpr_funs nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (>= const-decl "bool" reals nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (<= const-decl "bool" reals nil)
-    (Latitude type-eq-decl nil basic_defs nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (CPRFormat nonempty-type-eq-decl nil basic_defs nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (> const-decl "bool" reals nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (dlat const-decl "posreal" cpr_defs nil)
-    (< const-decl "bool" reals nil)
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (cpr_mod const-decl "{k: real | abs(k) < abs(j)}" cpr_funs nil))
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (lt_plus_lt1 formula-decl nil real_props nil)
+    (lt_times_lt_pos1 formula-decl nil real_props nil)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (lt_div_lt_pos2 formula-decl nil real_props nil)
+    (mod_pos formula-decl nil reals_mod reals)
+    (nonzero_abs_is_pos application-judgement "{y: posreal | y >= x}"
+     real_defs nil)
+    (i skolem-const-decl "CPRFormat" cpr_defs nil)
+    (lat skolem-const-decl "Latitude" cpr_defs nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (TRUE const-decl "bool" booleans nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (bijective? const-decl "bool" functions nil)
+    (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (NB type-eq-decl nil basic_defs nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (^ const-decl "real" exponentiation nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (floor_plus formula-decl nil floor_ceil nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
+    (cpr_mod_div_TCC1 subtype-tcc nil cpr_defs nil)
+    (YZ const-decl "int" cpr_defs nil))
    nil)
   (YZ_ub-1 nil 3665858855
    ("" (skeep)
@@ -917,7 +896,8 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (^ const-decl "real" exponentiation nil)
     (cpr_exp const-decl "real" cpr_funs nil))
-   nil))
+   nil
+   (rlat subtype "cpr_funs.cpr_exp(2, cpr_defs.nb)" "nonzero_real")))
  (rlat_TCC2 0
   (rlat_TCC2-3 nil 3676216973
    ("" (skolem 1 ("nb" "i" "_"))
@@ -1325,13 +1305,16 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
     (posint nonempty-type-eq-decl nil integers nil)
     (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil)
+   nil
+   (rlat subtype
+    "cpr_funs.cpr_mul(cpr_defs.dlat(cpr_defs.i), cpr_funs.cpr_add(cpr_funs.cpr_div(cpr_defs.YZ(cpr_defs.nb, cpr_defs.i)(cpr_defs.lat), cpr_funs.cpr_exp(2, cpr_defs.nb)), floor_ceil.floor(cpr_funs.cpr_div(cpr_defs.lat, cpr_defs.dlat(cpr_defs.i)))))"
+    "Latitude"))
   (rlat_TCC2-2 nil 3676197573
    ("" (skolem 1 ("nb" "i" "_"))
     ((""
@@ -1619,9 +1602,15 @@
     (cpr_sub const-decl "real" cpr_funs nil)
     (cpr_floor const-decl "real" cpr_funs nil)
     (cpr_mod const-decl "{k: real | abs(k) < abs(j)}" cpr_funs nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/"))
-   nil)
-  (rlat_TCC2-1 nil 3667665498 ("" (subtype-tcc) nil nil) nil nil))
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals))
+   nil
+   (rlat subtype
+    "cpr_funs.cpr_mul(cpr_defs.dlat(cpr_defs.i), cpr_funs.cpr_add(cpr_funs.cpr_div(cpr_defs.YZ(cpr_defs.nb, cpr_defs.i)(cpr_defs.lat), cpr_funs.cpr_exp(2, cpr_defs.nb)), floor_ceil.floor(cpr_funs.cpr_div(cpr_defs.lat, cpr_defs.dlat(cpr_defs.i)))))"
+    "Latitude"))
+  (rlat_TCC2-1 nil 3667665498 ("" (subtype-tcc) nil nil) nil nil
+   (rlat subtype
+    "cpr_funs.cpr_mul(cpr_defs.dlat(cpr_defs.i), cpr_funs.cpr_add(cpr_funs.cpr_div(cpr_defs.YZ(cpr_defs.nb, cpr_defs.i)(cpr_defs.lat), cpr_funs.cpr_exp(2, cpr_defs.nb)), floor_ceil.floor(cpr_funs.cpr_div(cpr_defs.lat, cpr_defs.dlat(cpr_defs.i)))))"
+    "Latitude")))
  (dlon_TCC1 0
   (dlon_TCC1-1 nil 3665761692 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -1645,14 +1634,14 @@
     (CPRFormat nonempty-type-eq-decl nil basic_defs nil)
     (cpr_sub const-decl "real" cpr_funs nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil (dlon subtype "cpr_defs.nl" "nonzero_real")))
  (dlon_TCC2 0
   (dlon_TCC2-2 nil 3676201741
    ("" (skeep)
     (("" (assert)
       (("" (split 2)
         (("1" (assert)
-          (("1" (typepred "NL(lat)")
+          (("1" (typepred "NL(lat_real)")
             (("1" (use "pos_div_lt")
               (("1" (assert)
                 (("1" (typepred "i")
@@ -1660,10 +1649,7 @@
                     (("1" (replace -1 :hide? t)
                       (("1" (assert) nil nil)) nil)
                      ("2" (replace -1 :hide? t)
-                      (("2" (case "0<=NL(lat) - 1")
-                        (("1" (assert) nil nil) ("2" (assert) nil nil))
-                        nil))
-                      nil))
+                      (("2" (assert) nil nil)) nil))
                     nil))
                   nil))
                 nil))
@@ -1691,31 +1677,39 @@
     (cpr_sub const-decl "real" cpr_funs nil)
     (cpr_div const-decl "real" cpr_funs nil)
     (le_div_le_pos formula-decl nil real_props nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (> const-decl "bool" reals nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
+    (pos_div_lt formula-decl nil real_props nil)
+    (/= const-decl "boolean" notequal nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (int nonempty-type-eq-decl nil integers nil)
     (CPRFormat nonempty-type-eq-decl nil basic_defs nil)
-    (number nonempty-type-decl nil numbers nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (boolean nonempty-type-decl nil booleans nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (number nonempty-type-decl nil numbers nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (real nonempty-type-from-decl nil reals nil)
-    (/= const-decl "boolean" notequal nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (pos_div_lt formula-decl nil real_props nil))
-   nil)
-  (dlon_TCC2-1 nil 3676139429 ("" (subtype-tcc) nil nil) nil nil)))
+    (<= const-decl "bool" reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (subrange type-eq-decl nil integers nil)
+    (NL const-decl "subrange(1, 59)" nl nil))
+   nil
+   (dlon subtype "cpr_funs.cpr_div(360, cpr_defs.nl)"
+    "{x: reals.real | booleans.AND(reals.<(0, x), reals.<=(x, 360))}"))
+  (dlon_TCC2-1 nil 3676139429 ("" (subtype-tcc) nil nil) nil nil
+   (dlon subtype "cpr_funs.cpr_div(360, cpr_defs.nl)"
+    "{x: reals.real | booleans.AND(reals.<(0, x), reals.<=(x, 360))}"))))
 

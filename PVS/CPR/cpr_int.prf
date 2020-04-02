@@ -9,10 +9,10 @@
     nil)
    ((real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (number nonempty-type-decl nil numbers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (real nonempty-type-from-decl nil reals nil)
@@ -34,7 +34,7 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil (awb_uint_j subtype "cpr_int.x" "unsigned_int")))
  (encoding_TCC1 0
   (encoding_TCC1-1 nil 3735487269
    ("" (skeep)
@@ -72,7 +72,10 @@
     (TRUE const-decl "bool" booleans nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil))
-   nil))
+   nil
+   (encoding subtype
+    "exponentiation.^(2, ((number_fields.-)(32, ((number_fields.+)(cpr_int.b, 1)))))"
+    "unsigned_int")))
  (encoding_TCC2 0
   (encoding_TCC2-1 nil 3735487269 ("" (subtype-tcc) nil nil)
    ((posrat_plus_nnrat_is_posrat application-judgement "posrat"
@@ -103,23 +106,23 @@
     (NumBins type-eq-decl nil cpr_defs nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (plus const-decl "unsigned_int" uint32 nil)
     (times const-decl "unsigned_int" uint32 nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (^ const-decl "real" exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -133,7 +136,9 @@
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (nnrat_plus_posrat_is_posrat application-judgement "posrat"
      rationals nil))
-   nil))
+   nil
+   (encoding subtype "(number_fields.-)(32, cpr_int.b)"
+    "naturalnumbers.below(33)")))
  (encoding_TCC3 0
   (encoding_TCC3-1 nil 3735487269
    ("" (skeep)
@@ -145,7 +150,9 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (encoding subtype "exponentiation.^(2, 17)"
+    "{b: uint32.unsigned_int | b /= 0}")))
  (rlat_int_TCC1 0
   (rlat_int_TCC1-1 nil 3735487269
    ("" (skeep)
@@ -180,7 +187,9 @@
     (TRUE const-decl "bool" booleans nil)
     (FALSE const-decl "bool" booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil))
-   nil))
+   nil
+   (rlat_int subtype "(number_fields.-)(60, cpr_int.i)"
+    "{x: uint32.unsigned_int | reals.<=(x, 256)}")))
  (rlat_int_TCC2 0
   (rlat_int_TCC2-1 nil 3735487269
    ("" (skeep)
@@ -216,7 +225,9 @@
     (TRUE const-decl "bool" booleans nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil))
-   nil))
+   nil
+   (rlat_int subtype "(number_fields.-)(32, cpr_int.b)"
+    "{z: uint32.unsigned_int | booleans.AND(reals.<=(z, 20), reals.>=(z, 12))}")))
  (rlat_int_TCC3 0
   (rlat_int_TCC3-1 nil 3735487269
    ("" (skeep)
@@ -249,14 +260,14 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
@@ -275,7 +286,9 @@
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil))
-   nil))
+   nil
+   (rlat_int subtype "(number_fields.-)(60, cpr_int.i)"
+    "{den: uint32.unsigned_int | den /= 0}")))
  (rlat_int_TCC4 0
   (rlat_int_TCC4-1 nil 3735487269
    ("" (skeep)
@@ -324,7 +337,9 @@
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil))
-   nil))
+   nil
+   (rlat_int subtype "(number_fields.-)(32, cpr_int.b)"
+    "{ex: uint32.unsigned_int | reals.<=(ex, 30)}")))
  (rlat_eq_TCC1 0
   (rlat_eq_TCC1-1 nil 3736089513
    ("" (skeep)
@@ -616,10 +631,10 @@
     (subrange type-eq-decl nil integers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
@@ -643,7 +658,7 @@
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (TRUE const-decl "bool" booleans nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
@@ -661,14 +676,14 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (int_times_int_is_int application-judgement "int" integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
@@ -678,7 +693,10 @@
     (minus_even_is_even application-judgement "even_int" integers nil)
     (rec_pos_incr formula-decl nil abstract_cpr nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (rlat_eq subtype
+    "cpr_real[cpr_int.nb].Rlat(cpr_int.i, awb32.AWB2lat(cpr_int.awb_lat))"
+    "Latitude")))
  (rlat_eq 0
   (rlat_eq-1 nil 3736089615
    ("" (skeep)
@@ -1146,7 +1164,7 @@
     (lat2AWB const-decl "LatAWB" awb32 nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (posreal_div_posreal_is_posreal application-judgement "posreal"
      real_types nil)
@@ -1178,7 +1196,7 @@
     (real_minus_real_is_real application-judgement "real" reals nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
     (nzint_times_nzint_is_nzint application-judgement "nzint" integers
      nil)
@@ -1191,27 +1209,26 @@
      nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
+    (mod_multiple formula-decl nil reals_mod reals)
     (floor_plus_int formula-decl nil floor_ceil nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (minus_int_is_int application-judgement "int" integers nil)
     (mod_mult formula-decl nil mod nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
     (alt_rec_pos formula-decl nil abstract_cpr nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    nil
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
@@ -1220,7 +1237,7 @@
     (int_plus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -1303,14 +1320,17 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (nl_enc subtype
+    "cpr_int.rlat_int(cpr_int.i, cpr_int.awb_lat, cpr_int.nb)"
+    "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (nl_enc 0
   (nl_enc-1 nil 3736694671
    ("" (skeep)
@@ -1604,8 +1624,21 @@
                                         (case
                                          "NOT (360 / (60 - i)) * (m / 2 ^ nb) + k * (360 / (60 - i)) = (360*(k*2^nb+m))/((60-i)*2^nb)")
                                         (("1"
-                                          (cancel-by 1 "360/(60-i)")
-                                          nil
+                                          (expand "^" :assert? none)
+                                          (("1"
+                                            (case "nb>=0")
+                                            (("1"
+                                              (replace -1 :hide? t)
+                                              (("1"
+                                                (assert)
+                                                (("1"
+                                                  (grind-reals)
+                                                  nil
+                                                  nil))
+                                                nil))
+                                              nil)
+                                             ("2" (assert) nil nil))
+                                            nil))
                                           nil)
                                          ("2"
                                           (replaces -1)
@@ -2015,169 +2048,171 @@
         nil))
       nil))
     nil)
-   ((rlat_eq formula-decl nil cpr_int nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_times_real_is_real application-judgement "real" reals nil)
-    (posrat_div_posrat_is_posrat application-judgement "posrat"
+   ((posint_exp application-judgement "posint" exponentiation nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
+    (number_field_pred const-decl "[number -> boolean]" number_fields
+     nil)
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (AND const-decl "[bool, bool -> bool]" booleans nil)
+    (<= const-decl "bool" reals nil)
+    (subrange type-eq-decl nil integers nil)
+    (>= const-decl "bool" reals nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
+    (/= const-decl "boolean" notequal nil)
+    (^ const-decl "real" exponentiation nil)
+    (< const-decl "bool" reals nil)
+    (numfield nonempty-type-eq-decl nil number_fields nil)
+    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (LatAWB type-eq-decl nil awb32 nil)
+    (nl_awb_equiv formula-decl nil nl nil)
+    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (> const-decl "bool" reals nil)
-    (posnat nonempty-type-eq-decl nil integers nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
-    (NumBins type-eq-decl nil cpr_defs nil)
-    (nb formal-const-decl "NumBins" cpr_int nil) nil
-    (AWB2lat const-decl "Latitude" awb32 nil) nil
-    (Rlat const-decl "real" cpr_real nil)
-    (Latitude type-eq-decl nil rlat_spec nil)
-    (- const-decl "[numfield -> numfield]" number_fields nil)
-    (RLAT const-decl "bool" rlat_spec nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (lat2AWB const-decl "LatAWB" awb32 nil)
-    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
-    (posrat_plus_nnrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (floor_plus_int formula-decl nil floor_ceil nil)
-    (TRUE const-decl "bool" booleans nil)
-    (id const-decl "(bijective?[T, T])" identity nil)
-    (bijective? const-decl "bool" functions nil)
-    (nnint_plus_posint_is_posint application-judgement "posint"
+    (nil application-judgement "below(m)" reals_mod reals)
+    (real_plus_real_is_real application-judgement "real" reals nil)
+    (NOT const-decl "[bool -> bool]" booleans nil)
+    (nonzero_real nonempty-type-eq-decl nil reals nil)
+    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
+         nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (integer nonempty-type-from-decl nil integers nil)
+    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
+    (nznum nonempty-type-eq-decl nil number_fields nil)
+    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
+    (int_times_int_is_int application-judgement "int" integers nil)
+    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
+    (div_mult_pos_lt1 formula-decl nil real_props nil)
+    (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
-    (mod_frac formula-decl nil reals_mod "reals/")
-    (MOD const-decl
-     "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
-     abstract_cpr nil)
-    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (int_minus_int_is_int application-judgement "int" integers nil)
-    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+    (mod_pos formula-decl nil reals_mod reals)
+    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
      nil)
-    (dl const-decl "posreal" abstract_cpr nil)
-    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
-    (dlat const-decl "posreal" cpr_real nil)
-    (YZ_pre const-decl "nat" cpr_real nil)
-    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
-     real_types nil)
-    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
-     rationals nil)
-    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
-    (times_div_cancel1 formula-decl nil extra_real_props nil)
-    (both_sides_div_pos_le1 formula-decl nil real_props nil)
-    (odd_plus_even_is_odd application-judgement "odd_int" integers nil)
-    (div_cancel3 formula-decl nil real_props nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
-    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
-    (expt def-decl "real" exponentiation nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil)
-    (int_times_even_is_even application-judgement "even_int" integers
-     nil)
-    (real_minus_real_is_real application-judgement "real" reals nil)
-    (even_plus_even_is_even application-judgement "even_int" integers
-     nil)
-    (IFF const-decl "[bool, bool -> bool]" booleans nil)
-    (nzrat nonempty-type-eq-decl nil rationals nil)
-    (both_sides_times1 formula-decl nil real_props nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
-     nil)
-    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
-     nil)
-    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
-     nil)
-    (even_minus_odd_is_odd application-judgement "odd_int" integers
-     nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (even_minus_even_is_even application-judgement "even_int" integers
-     nil)
-    (posrat_times_posrat_is_posrat application-judgement "posrat"
-     rationals nil)
-    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (real_lt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil)
-    (floor_0 formula-decl nil floor_ceil nil)
-    (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (times_div2 formula-decl nil real_props nil)
-    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
+    (real_ge_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
-     real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
-    (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
-     nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
-    (posint_times_posint_is_posint application-judgement "posint"
-     integers nil)
-    (div_mult_pos_lt1 formula-decl nil real_props nil)
-    (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (int_times_int_is_int application-judgement "int" integers nil)
-    (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (nznum nonempty-type-eq-decl nil number_fields nil)
-    (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
-    (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (integer nonempty-type-from-decl nil integers nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
-         nil)
-    (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (real_plus_real_is_real application-judgement "real" reals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
-    (posreal_plus_nnreal_is_posreal application-judgement "posreal"
-     real_types nil)
-    (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
+    (div_mult_pos_le2 formula-decl nil real_props nil)
+    (times_div2 formula-decl nil real_props nil)
+    (real_div_nzreal_is_real application-judgement "real" reals nil)
+    (floor_0 formula-decl nil floor_ceil nil)
+    (real_lt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
+    (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
+    (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (nl_awb_equiv formula-decl nil nl nil)
-    (LatAWB type-eq-decl nil awb32 nil)
-    (* const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (numfield nonempty-type-eq-decl nil number_fields nil)
-    (< const-decl "bool" reals nil)
-    (^ const-decl "real" exponentiation nil)
-    (/= const-decl "boolean" notequal nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (>= const-decl "bool" reals nil)
-    (subrange type-eq-decl nil integers nil)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
+    (even_minus_even_is_even application-judgement "even_int" integers
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (posint_exp application-judgement "posint" exponentiation nil))
+    (real_gt_is_strict_total_order name-judgement
+     "(strict_total_order?[real])" real_props nil)
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
+    (even_minus_odd_is_odd application-judgement "odd_int" integers
+     nil)
+    (nzint_times_nzint_is_nzint application-judgement "nzint" integers
+     nil)
+    (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
+     nil)
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
+    (even_plus_even_is_even application-judgement "even_int" integers
+     nil)
+    (int_plus_int_is_int application-judgement "int" integers nil)
+    (posnat_expt application-judgement "posnat" exponentiation nil)
+    (int_times_even_is_even application-judgement "even_int" integers
+     nil)
+    (div_times formula-decl nil real_props nil)
+    (times_div1 formula-decl nil real_props nil)
+    (add_div formula-decl nil real_props nil)
+    (div_cancel4 formula-decl nil real_props nil)
+    (div_distributes_minus formula-decl nil real_props nil)
+    (div_cancel3 formula-decl nil real_props nil)
+    (IFF const-decl "[bool, bool -> bool]" booleans nil)
+    (real_minus_real_is_real application-judgement "real" reals nil)
+    (expt def-decl "real" exponentiation nil)
+    (div_mult_pos_neg_lt1 formula-decl nil extra_real_props nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (both_sides_div_pos_le1 formula-decl nil real_props nil)
+    (times_div_cancel1 formula-decl nil extra_real_props nil)
+    (both_sides_div_pos_lt1 formula-decl nil real_props nil)
+    (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
+     rationals nil)
+    (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (YZ_pre const-decl "nat" cpr_real nil)
+    (dlat const-decl "posreal" cpr_real nil)
+    (rat_times_rat_is_rat application-judgement "rat" rationals nil)
+    (dl const-decl "posreal" abstract_cpr nil)
+    (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
+     nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
+    (MOD const-decl
+     "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
+     abstract_cpr nil)
+    (mod_frac formula-decl nil reals_mod reals)
+    (both_sides_times_pos_lt1 formula-decl nil real_props nil)
+    (nnint_plus_posint_is_posint application-judgement "posint"
+     integers nil)
+    (bijective? const-decl "bool" functions nil)
+    (id const-decl "(bijective?[T, T])" identity nil)
+    (TRUE const-decl "bool" booleans nil)
+    (floor_plus_int formula-decl nil floor_ceil nil)
+    (nnrat_plus_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
+    (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
+    (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
+     real_types nil)
+    (lat2AWB const-decl "LatAWB" awb32 nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (RLAT const-decl "bool" rlat_spec nil)
+    (- const-decl "[numfield -> numfield]" number_fields nil)
+    (Latitude type-eq-decl nil rlat_spec nil)
+    (Rlat const-decl "real" cpr_real nil)
+    (i skolem-const-decl "subrange(0, 1)" cpr_int nil)
+    (AWB2lat const-decl "Latitude" awb32 nil)
+    (awb_lat skolem-const-decl "LatAWB" cpr_int nil)
+    (nb formal-const-decl "NumBins" cpr_int nil)
+    (NumBins type-eq-decl nil cpr_defs nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
+    (posnat nonempty-type-eq-decl nil integers nil)
+    (> const-decl "bool" reals nil)
+    (nonneg_int nonempty-type-eq-decl nil integers nil)
+    (posrat_div_posrat_is_posrat application-judgement "posrat"
+     rationals nil)
+    (real_times_real_is_real application-judgement "real" reals nil)
+    (le_realorder name-judgement "RealOrder" real_orders reals)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (rlat_eq formula-decl nil cpr_int nil))
    shostak))
  (enc_eq_lat_TCC1 0
   (enc_eq_lat_TCC1-1 nil 3735487269
    ("" (skeep) (("" (grind) nil nil)) nil)
-   ((lt_realorder name-judgement "RealOrder" real_orders "reals/")
+   ((lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -2190,7 +2225,9 @@
     (^ const-decl "real" exponentiation nil)
     (expt def-decl "real" exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (enc_eq_lat subtype "(number_fields.-)(60, cpr_int.i)"
+    "unsigned_int")))
  (enc_eq_lat 0
   (enc_eq_lat-1 nil 3737291545
    ("" (skeep)
@@ -2803,7 +2840,7 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
@@ -2824,7 +2861,7 @@
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (resolution const-decl "real" awb32 nil)
     (dl const-decl "posreal" abstract_cpr nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
@@ -2833,12 +2870,11 @@
      rationals nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    nil
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (floor_plus_int formula-decl nil floor_ceil nil) nil
+    (floor_plus_int formula-decl nil floor_ceil nil)
     (enc_mod const-decl "int" abstract_cpr nil)
     (enc_raw const-decl "int" abstract_cpr nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
@@ -2853,7 +2889,7 @@
      abstract_cpr nil)
     (real_minus_real_is_real application-judgement "real" reals nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (alt_alt_is_enc formula-decl nil abstract_cpr nil)
@@ -2868,9 +2904,9 @@
      integers nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (mod_mod formula-decl nil uint32 nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (TRUE const-decl "bool" booleans nil)
@@ -2879,7 +2915,7 @@
     (minus_int_is_int application-judgement "int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
+    (mod_multiple formula-decl nil reals_mod reals)
     (AWB2lat const-decl "Latitude" awb32 nil)
     (YZ_pre const-decl "nat" cpr_real nil)
     (Latitude type-eq-decl nil rlat_spec nil)
@@ -2898,7 +2934,7 @@
     (YZ_surf const-decl "below(2 ^ 17)" cpr_real nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (times const-decl "unsigned_int" uint32 nil)
     (plus const-decl "unsigned_int" uint32 nil)
     (div_shift const-decl "unsigned_int" uint32 nil)
@@ -2967,10 +3003,10 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (posint_exp application-judgement "posint" exponentiation nil))
    shostak))
@@ -2996,14 +3032,14 @@
    ((max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil)
@@ -3042,7 +3078,7 @@
     (LatAWB type-eq-decl nil awb32 nil)
     (nb formal-const-decl "NumBins" cpr_int nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil (enc_eq_lon subtype "cpr_int.nz" "unsigned_int")))
  (enc_eq_lon 0
   (enc_eq_lon-1 nil 3739029082
    ("" (skeep)
@@ -3552,7 +3588,7 @@
     (XZ const-decl "below(2 ^ nb)" cpr_real nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (int_times_int_is_int application-judgement "int" integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
@@ -3566,17 +3602,17 @@
     (div_shift const-decl "unsigned_int" uint32 nil)
     (plus const-decl "unsigned_int" uint32 nil)
     (times const-decl "unsigned_int" uint32 nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (mod_mod formula-decl nil uint32 nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (real_times_real_is_real application-judgement "real" reals nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
@@ -3592,7 +3628,7 @@
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
+    (mod_multiple formula-decl nil reals_mod reals)
     (enc_raw const-decl "int" abstract_cpr nil)
     (XZ_pre const-decl "nat" cpr_real nil)
     (floor_plus_int formula-decl nil floor_ceil nil)
@@ -3602,10 +3638,9 @@
     (enc_mod const-decl "int" abstract_cpr nil)
     (enc_mod_val application-judgement "{x: nat | x < 2 ^ binmod}"
      abstract_cpr nil)
-    nil nil nil
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -3683,7 +3718,7 @@
     (real nonempty-type-from-decl nil reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (number nonempty-type-decl nil numbers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_max application-judgement "{k: int | i <= k AND j <= k}"
@@ -3691,12 +3726,15 @@
     (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
      real_defs nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (encoding_lon_j subtype
+    "real_defs.max((number_fields.-)(nl.nl_awb(cpr_int.rlat_int(cpr_int.i, cpr_int.awb_lat, cpr_int.nb)), cpr_int.i), 1)"
+    "unsigned_int")))
  (encoding_lon_j 0
   (encoding_lon_j-1 nil 3778513665
    ("" (skeep)
@@ -3729,8 +3767,8 @@
      real_defs nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nb formal-const-decl "NumBins" cpr_int nil)
@@ -3804,11 +3842,13 @@
     (int_times_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/"))
-   nil))
+    (gt_realorder name-judgement "RealOrder" real_orders reals))
+   nil
+   (local_zone subtype "number_fields.*(4, cpr_int.mes)"
+    "unsigned_int")))
  (local_zone_TCC2 0
   (local_zone_TCC2-1 nil 3739113144
    ("" (skeep :preds? T)
@@ -3838,11 +3878,11 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/"))
-   nil))
+    (gt_realorder name-judgement "RealOrder" real_orders reals))
+   nil (local_zone subtype "cpr_int.mes" "unsigned_int")))
  (local_zone_TCC3 0
   (local_zone_TCC3-1 nil 3739113144
    ("" (skeep)
@@ -3872,10 +3912,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -3890,7 +3930,9 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (local_zone subtype "number_fields.*(4, cpr_int.nz)"
+    "unsigned_int")))
  (local_zone_TCC4 0
   (local_zone_TCC4-1 nil 3739113144
    ("" (skeep :preds? T)
@@ -3922,11 +3964,11 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/"))
-   nil))
+    (gt_realorder name-judgement "RealOrder" real_orders reals))
+   nil (local_zone subtype "cpr_int.nz" "unsigned_int")))
  (local_zone_TCC5 0
   (local_zone_TCC5-1 nil 3739113144
    ("" (skeep)
@@ -3965,7 +4007,10 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (nb formal-const-decl "NumBins" cpr_int nil))
-   nil))
+   nil
+   (local_zone subtype
+    "exponentiation.^(2, ((number_fields.-)(cpr_int.nb, 1)))"
+    "unsigned_int")))
  (local_zone_TCC6 0
   (local_zone_TCC6-1 nil 3739113144
    ("" (skeep)
@@ -4023,12 +4068,12 @@
      nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
@@ -4047,7 +4092,9 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (local_zone subtype "(number_fields.-)(32, cpr_int.nb)"
+    "naturalnumbers.below(33)")))
  (local_zone_TCC7 0
   (local_zone_TCC7-1 nil 3739113144
    ("" (skeep)
@@ -4091,7 +4138,10 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (nb formal-const-decl "NumBins" cpr_int nil))
-   nil))
+   nil
+   (local_zone subtype
+    "exponentiation.^(2, ((number_fields.-)(32, cpr_int.nb)))"
+    "{b: uint32.unsigned_int | b /= 0}")))
  (local_zone_TCC8 0
   (local_zone_TCC8-1 nil 3739113144
    ("" (skeep)
@@ -4130,16 +4180,16 @@
      nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -4168,7 +4218,9 @@
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil))
-   nil))
+   nil
+   (local_zone subtype "(number_fields.-)(cpr_int.nzz, 1)"
+    "unsigned_int")))
  (local_zone_TCC9 0
   (local_zone_TCC9-1 nil 3740757400
    ("" (skeep)
@@ -4185,11 +4237,11 @@
     nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -4216,7 +4268,7 @@
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil))
-   nil))
+   nil (local_zone subtype "cpr_int.nb" "naturalnumbers.below(33)")))
  (local_zone_def_TCC1 0
   (local_zone_def_TCC1-1 nil 3740821546 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -4242,19 +4294,19 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (unsigned_int type-eq-decl nil uint32 nil)
     (below type-eq-decl nil naturalnumbers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil (local_zone_def subtype "cpr_int.nzz" "nznum")))
  (local_zone_def 0
   (local_zone_def-2 nil 3740843138
    ("" (skeep)
@@ -5179,7 +5231,7 @@
     (bijective? const-decl "bool" functions nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (resolution const-decl "real" awb32 nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -5196,14 +5248,14 @@
      rationals nil)
     (local_zone const-decl "unsigned_int" cpr_int nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (posnat_expt application-judgement "posnat" exponentiation nil) nil
+    (posnat_expt application-judgement "posnat" exponentiation nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
@@ -5212,7 +5264,7 @@
     (div_shift const-decl "unsigned_int" uint32 nil)
     (mod_uint const-decl
      "{ans: unsigned_int | ans = a - b * floor(a / b)}" uint32 nil)
-    nil nil (floor_plus_int formula-decl nil floor_ceil nil)
+    (floor_plus_int formula-decl nil floor_ceil nil)
     (floor_div_div formula-decl nil uint32 nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (minus_int_is_int application-judgement "int" integers nil)
@@ -5222,17 +5274,17 @@
     (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
     (times_reg1 formula-decl nil uint32 nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
+    (nil application-judgement "below(m)" reals_mod reals)
     (plus_reg1 formula-decl nil uint32 nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (abs_nat_rew formula-decl nil abs_rews ints)
     (lt_times_lt_any1 formula-decl nil extra_real_props nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
@@ -5259,12 +5311,12 @@
     (div_cancel2 formula-decl nil real_props nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (mod_frac formula-decl nil reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (mod_frac formula-decl nil reals_mod reals)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (real_parts formula-decl nil floor_ceil nil) nil
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (real_parts formula-decl nil floor_ceil nil)
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_times_real_is_real application-judgement "real" reals nil)
@@ -5531,7 +5583,9 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (nb formal-const-decl "NumBins" cpr_int nil))
-   nil))
+   nil
+   (local_decode subtype "exponentiation.^(2, cpr_int.nb)"
+    "unsigned_int")))
  (local_decode_TCC2 0
   (local_decode_TCC2-1 nil 3739182012
    ("" (skeep)
@@ -5575,15 +5629,17 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (TRUE const-decl "bool" booleans nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil))
-   nil))
+   nil
+   (local_decode subtype "(number_fields.-)(32, cpr_int.nb)"
+    "{ex: uint32.unsigned_int | reals.<=(ex, 30)}")))
  (local_eq_lat_TCC1 0
   (local_eq_lat_TCC1-1 nil 3739182029
    ("" (skeep)
@@ -5622,7 +5678,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lat subtype "cpr_int.yz"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (local_eq_lat_TCC2 0
   (local_eq_lat_TCC2-1 nil 3739182029
    ("" (skeep)
@@ -5662,10 +5720,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (< const-decl "bool" reals nil)
@@ -5677,7 +5735,9 @@
     (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (below type-eq-decl nil naturalnumbers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lat subtype "cpr_int.yz"
+    "naturalnumbers.below(exponentiation.^(2, cpr_int.nb))")))
  (local_eq_lat_TCC3 0
   (local_eq_lat_TCC3-1 nil 3739182029
    ("" (skeep) (("" (eval-expr "2^6") (("" (assert) nil nil)) nil))
@@ -5702,15 +5762,17 @@
     (real nonempty-type-from-decl nil reals nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (number nonempty-type-decl nil numbers nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lat subtype "(number_fields.-)(60, cpr_int.i)"
+    "{n: integers.posnat | reals.<(n, exponentiation.^(2, 6))}")))
  (local_eq_lat_TCC4 0
   (local_eq_lat_TCC4-1 nil 3739182029
    ("" (skeep)
@@ -5752,10 +5814,10 @@
    ((TRUE const-decl "bool" booleans nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (boolean nonempty-type-decl nil booleans nil)
@@ -5788,7 +5850,9 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (below type-eq-decl nil naturalnumbers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lat subtype "cpr_int.yz"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (local_eq_lat_TCC5 0
   (local_eq_lat_TCC5-1 nil 3739182029 ("" (subtype-tcc) nil nil)
    ((subrange type-eq-decl nil integers nil)
@@ -5803,18 +5867,18 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (<= const-decl "bool" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
@@ -5842,12 +5906,12 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (dlat_surf const-decl "posreal" cpr_real nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    nil (Rlat_loc_surf const-decl "real" cpr_real nil)
-    (dlat const-decl "posreal" cpr_real nil) nil
+    (Rlat_loc_surf const-decl "real" cpr_real nil)
+    (dlat const-decl "posreal" cpr_real nil)
     (Rlat_loc const-decl "real" cpr_real nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
@@ -5873,7 +5937,7 @@
      real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil))
-   nil))
+   nil (local_eq_lat subtype "cpr_int.rl" "Latitude")))
  (local_eq_lat 0
   (local_eq_lat-1 nil 3739189660
    ("" (skeep)
@@ -7571,7 +7635,7 @@
         nil))
       nil))
     nil)
-   ((le_realorder name-judgement "RealOrder" real_orders "reals/")
+   ((le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -7582,7 +7646,7 @@
     (local_decode const-decl "unsigned_int" cpr_int nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (lat2AWB const-decl "LatAWB" awb32 nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -7601,13 +7665,12 @@
     (dlat_surf const-decl "posreal" cpr_real nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    nil nil
     (real_times_real_is_real application-judgement "real" reals nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
@@ -7633,7 +7696,7 @@
      rationals nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (expt_div formula-decl nil exponentiation nil)
     (times_div2 formula-decl nil real_props nil)
@@ -7642,15 +7705,15 @@
     (posreal_times_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (resolution const-decl "real" awb32 nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
+    (mod_multiple formula-decl nil reals_mod reals)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (mod_eq formula-decl nil reals_mod "reals/")
+    (mod_eq formula-decl nil reals_mod reals)
     (floor_0 formula-decl nil floor_ceil nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (both_sides_div_pos_lt1 formula-decl nil real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (minus_int_is_int application-judgement "int" integers nil)
@@ -7683,15 +7746,15 @@
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (mod_frac formula-decl nil reals_mod "reals/")
+    (mod_frac formula-decl nil reals_mod reals)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (rat_plus_rat_is_rat application-judgement "rat" rationals nil) nil
+    (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (bijective? const-decl "bool" functions nil)
-    (id const-decl "(bijective?[T, T])" identity nil) nil
+    (id const-decl "(bijective?[T, T])" identity nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (dlat const-decl "posreal" cpr_real nil)
@@ -7700,7 +7763,7 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -7784,19 +7847,22 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (nl_local subtype
+    "cpr_int.local_decode((number_fields.-)(60, cpr_int.i), cpr_int.ref_lat, cpr_int.yz)"
+    "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (nl_local 0
   (nl_local-1 nil 3743871773
    ("" (skeep)
@@ -8730,7 +8796,7 @@
     (TRUE const-decl "bool" booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (number nonempty-type-decl nil numbers nil)
@@ -8791,7 +8857,7 @@
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (int_times_int_is_int application-judgement "int" integers nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (NL const-decl "subrange(1, 59)" nl nil)
@@ -8801,7 +8867,7 @@
     (nl_awb_equiv formula-decl nil nl nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    nil (lat2AWB const-decl "LatAWB" awb32 nil)
+    (lat2AWB const-decl "LatAWB" awb32 nil)
     (floor_0 formula-decl nil floor_ceil nil)
     (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
      nil)
@@ -8841,7 +8907,7 @@
      rationals nil)
     (div_distributes formula-decl nil real_props nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
-    (mod_lt_real formula-decl nil reals_mod "reals/")
+    (mod_lt_real formula-decl nil reals_mod reals)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (div_cancel1 formula-decl nil real_props nil)
@@ -8849,16 +8915,16 @@
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    nil (dlat const-decl "posreal" cpr_real nil)
+    (dlat const-decl "posreal" cpr_real nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
     (dlat_surf const-decl "posreal" cpr_real nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (dl const-decl "posreal" abstract_cpr nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -8866,7 +8932,7 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (div_cancel3 formula-decl nil real_props nil)
     (real_parts formula-decl nil floor_ceil nil)
-    (mod_frac formula-decl nil reals_mod "reals/")
+    (mod_frac formula-decl nil reals_mod reals)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
@@ -8875,18 +8941,17 @@
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    nil nil nil nil
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (RLAT const-decl "bool" rlat_spec nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil))
    shostak))
  (local_eq_lon_TCC1 0
@@ -8921,7 +8986,9 @@
     (TRUE const-decl "bool" booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype "(number_fields.-)(60, cpr_int.i)"
+    "{n: integers.posnat | reals.<(n, exponentiation.^(2, 6))}")))
  (local_eq_lon_TCC2 0
   (local_eq_lon_TCC2-1 nil 3743849831
    ("" (skeep)
@@ -8977,26 +9044,31 @@
     (boolean nonempty-type-decl nil booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype "cpr_int.yz"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (local_eq_lon_TCC3 0
   (local_eq_lon_TCC3-1 nil 3743849831
    ("" (skeep) (("" (assert) nil nil)) nil)
    ((int_minus_int_is_int application-judgement "int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype
+    "cpr_int.local_decode((number_fields.-)(60, cpr_int.i), cpr_int.ref_lat, cpr_int.yz)"
+    "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (local_eq_lon_TCC4 0
   (local_eq_lon_TCC4-1 nil 3743849831
    ("" (skeep)
@@ -9032,10 +9104,10 @@
     (bijective? const-decl "bool" functions nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -9073,7 +9145,9 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (below type-eq-decl nil naturalnumbers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype "cpr_int.xz"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (local_eq_lon_TCC5 0
   (local_eq_lon_TCC5-1 nil 3743849831
    ("" (skeep)
@@ -9132,8 +9206,8 @@
     (boolean nonempty-type-decl nil booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
@@ -9144,7 +9218,9 @@
     (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
      real_defs nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype "cpr_int.xz"
+    "naturalnumbers.below(exponentiation.^(2, cpr_int.nb))")))
  (local_eq_lon_TCC6 0
   (local_eq_lon_TCC6-1 nil 3743849831
    ("" (skeep)
@@ -9216,13 +9292,13 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
@@ -9230,7 +9306,9 @@
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype "cpr_int.nz"
+    "{n: integers.posnat | reals.<(n, exponentiation.^(2, 6))}")))
  (local_eq_lon_TCC7 0
   (local_eq_lon_TCC7-1 nil 3743849831
    ("" (skeep)
@@ -9267,10 +9345,10 @@
     nil)
    ((posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -9278,10 +9356,10 @@
      real_defs nil)
     (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
      real_defs nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (bijective? const-decl "bool" functions nil)
@@ -9317,7 +9395,9 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (below type-eq-decl nil naturalnumbers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (local_eq_lon subtype "cpr_int.xz"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (local_eq_lon 0
   (local_eq_lon-1 nil 3743852948
    ("" (skeep)
@@ -10971,7 +11051,7 @@
     (bijective? const-decl "bool" functions nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (nnreal type-eq-decl nil real_types nil)
     (nl_awb const-decl "subrange(1, 59)" nl nil)
@@ -10993,14 +11073,14 @@
     (lon2AWB const-decl "LonAWB" awb32 nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (nl_local formula-decl nil cpr_int nil) nil nil nil
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
+    (nl_local formula-decl nil cpr_int nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
@@ -11009,14 +11089,13 @@
     (div_mult_pos_le1 formula-decl nil real_props nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    nil nil
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (dlon_loc_surf const-decl "posreal" cpr_real nil)
-    (mod_frac formula-decl nil reals_mod "reals/")
+    (mod_frac formula-decl nil reals_mod reals)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (dlon_loc const-decl "posreal" cpr_real nil)
@@ -11049,15 +11128,15 @@
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (nnrat_plus_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
-    (mod_eq formula-decl nil reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
+    (mod_eq formula-decl nil reals_mod reals)
     (nzreal nonempty-type-eq-decl nil reals nil)
     (expt_div formula-decl nil exponentiation nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (div_distributes formula-decl nil real_props nil)
     (div_distributes_minus formula-decl nil real_props nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (div_simp formula-decl nil real_props nil)
     (floor_plus_int formula-decl nil floor_ceil nil)
     (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
@@ -11092,7 +11171,6 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    nil nil
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -11141,24 +11219,24 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (below type-eq-decl nil naturalnumbers nil)
     (subrange type-eq-decl nil integers nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil (global_zone subtype "0" "unsigned_int")))
  (global_zone_TCC2 0
   (global_zone_TCC2-1 nil 3744475827
    ("" (skeep)
@@ -11188,10 +11266,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -11199,7 +11277,7 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil (global_zone subtype "cpr_int.nz" "unsigned_int")))
  (global_zone_TCC3 0
   (global_zone_TCC3-1 nil 3744475827
    ("" (skeep) (("" (eval-formula 2) nil nil)) nil)
@@ -11208,7 +11286,7 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil (global_zone subtype "1" "unsigned_int")))
  (global_zone_TCC4 0
   (global_zone_TCC4-1 nil 3744475827
    ("" (skeep)
@@ -11256,10 +11334,10 @@
      real_defs nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -11269,11 +11347,11 @@
     (int_times_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (posnat_expt application-judgement "posnat" exponentiation nil))
-   nil))
+   nil (global_zone subtype "cpr_int.mes0" "unsigned_int")))
  (global_zone_TCC5 0
   (global_zone_TCC5-1 nil 3744475827
    ("" (skeep)
@@ -11312,7 +11390,10 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (global_zone subtype
+    "exponentiation.^(2, ((number_fields.-)(real_defs.min(cpr_int.nb, 17), 1)))"
+    "unsigned_int")))
  (global_zone_TCC6 0
   (global_zone_TCC6-1 nil 3744475827
    ("" (skeep)
@@ -11348,7 +11429,7 @@
     (int_times_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
@@ -11356,10 +11437,10 @@
      real_defs nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil)
     (number nonempty-type-decl nil numbers nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -11381,7 +11462,7 @@
     (bijective? const-decl "bool" functions nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil))
-   nil))
+   nil (global_zone subtype "cpr_int.mes1" "unsigned_int")))
  (global_zone_TCC7 0
   (global_zone_TCC7-1 nil 3744475827
    ("" (skeep)
@@ -11416,10 +11497,10 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
-   nil))
+   nil (global_zone subtype "cpr_int.i" "unsigned_int")))
  (global_zone_TCC8 0
   (global_zone_TCC8-1 nil 3744475827
    ("" (skeep)
@@ -11462,19 +11543,19 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil (global_zone subtype "exponentiation.^(2, 18)" "unsigned_int")))
  (global_zone_TCC9 0
   (global_zone_TCC9-1 nil 3744475827
    ("" (skeep)
@@ -11487,7 +11568,7 @@
     nil)
    ((real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
@@ -11496,7 +11577,7 @@
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
@@ -11518,7 +11599,9 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (nb formal-const-decl "NumBins" cpr_int nil))
-   nil))
+   nil
+   (global_zone subtype "real_defs.min(cpr_int.nb, 17)"
+    "naturalnumbers.below(33)")))
  (global_zone_TCC10 0
   (global_zone_TCC10-1 nil 3744475827
    ("" (skeep)
@@ -11538,7 +11621,7 @@
     nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -11547,10 +11630,10 @@
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
@@ -11576,7 +11659,9 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (global_zone subtype "(number_fields.-)(cpr_int.nz, cpr_int.i)"
+    "{b: uint32.unsigned_int | b /= 0}")))
  (global_zone_eq_TCC1 0
   (global_zone_eq_TCC1-1 nil 3744538450 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -11611,22 +11696,24 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (/= const-decl "boolean" notequal nil))
-   nil))
+   nil
+   (global_zone_eq subtype "(number_fields.-)(cpr_int.nz, cpr_int.i)"
+    "nonzero_real")))
  (global_zone_eq 0
   (global_zone_eq-1 nil 3744539048
    ("" (skeep)
@@ -12260,21 +12347,21 @@
     (minus const-decl "unsigned_int" uint32 nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (minus_reg1 formula-decl nil uint32 nil)
     (times_reg1 formula-decl nil uint32 nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (plus_reg1 formula-decl nil uint32 nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (subrange type-eq-decl nil integers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (abs_nat_rew formula-decl nil abs_rews ints)
     (lt_times_lt_any1 formula-decl nil extra_real_props nil)
     (posrat_plus_nnrat_is_posrat application-judgement "posrat"
      rationals nil)
@@ -12294,13 +12381,13 @@
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (TRUE const-decl "bool" booleans nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
+    (mod_multiple formula-decl nil reals_mod reals)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (floor_plus_int formula-decl nil floor_ceil nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
@@ -12380,7 +12467,7 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -12390,17 +12477,19 @@
      nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil))
-   nil))
+   nil
+   (global_decode subtype "number_fields.*(4, cpr_int.mes)"
+    "unsigned_int")))
  (global_decode_TCC2 0
   (global_decode_TCC2-1 nil 3744475827
    ("" (skeep)
@@ -12444,7 +12533,7 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -12454,10 +12543,10 @@
      nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
@@ -12467,7 +12556,7 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil (global_decode subtype "cpr_int.mes" "unsigned_int")))
  (global_decode_TCC3 0
   (global_decode_TCC3-1 nil 3744475827
    ("" (skeep)
@@ -12499,10 +12588,10 @@
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -12511,7 +12600,7 @@
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -12541,7 +12630,10 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (global_decode subtype
+    "number_fields.*(4, real_defs.max((number_fields.-)(cpr_int.nz, cpr_int.i), 1))"
+    "unsigned_int")))
  (global_decode_TCC4 0
   (global_decode_TCC4-1 nil 3744475827
    ("" (skeep)
@@ -12576,10 +12668,10 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (boolean nonempty-type-decl nil booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
@@ -12602,7 +12694,10 @@
     (OR const-decl "[bool, bool -> bool]" booleans nil)
     (/= const-decl "boolean" notequal nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (global_decode subtype
+    "real_defs.max((number_fields.-)(cpr_int.nz, cpr_int.i), 1)"
+    "unsigned_int")))
  (global_decode_TCC5 0
   (global_decode_TCC5-1 nil 3744475827
    ("" (skeep)
@@ -12654,10 +12749,10 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (number nonempty-type-decl nil numbers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
@@ -12678,7 +12773,9 @@
     (posnat nonempty-type-eq-decl nil integers nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (nb formal-const-decl "NumBins" cpr_int nil))
-   nil))
+   nil
+   (global_decode subtype "exponentiation.^(2, cpr_int.nb)"
+    "unsigned_int")))
  (global_decode_TCC6 0
   (global_decode_TCC6-1 nil 3744475827
    ("" (assert)
@@ -12730,15 +12827,17 @@
      real_defs nil)
     (rat_max application-judgement "{s: rat | s >= q AND s >= r}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (int_minus_int_is_int application-judgement "int" integers nil))
-   nil))
+   nil
+   (global_decode subtype "cpr_int.nnz"
+    "{den: uint32.unsigned_int | den /= 0}")))
  (global_decode_TCC7 0
   (global_decode_TCC7-1 nil 3744475827
    ("" (skeep)
@@ -12763,12 +12862,12 @@
     nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
@@ -12805,7 +12904,9 @@
     (= const-decl "[T, T -> boolean]" equalities nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (nb formal-const-decl "NumBins" cpr_int nil))
-   nil))
+   nil
+   (global_decode subtype "(number_fields.-)(32, cpr_int.nb)"
+    "{ex: uint32.unsigned_int | reals.<=(ex, 30)}")))
  (global_eq_lat_TCC1 0
   (global_eq_lat_TCC1-1 nil 3744562642 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -12837,21 +12938,23 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (below type-eq-decl nil naturalnumbers nil)
     (subrange type-eq-decl nil integers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lat subtype "cpr_int.mes0"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lat_TCC2 0
   (global_eq_lat_TCC2-1 nil 3744562642 ("" (subtype-tcc) nil nil)
    ((boolean nonempty-type-decl nil booleans nil)
@@ -12883,21 +12986,23 @@
     (nb formal-const-decl "NumBins" cpr_int nil)
     (below type-eq-decl nil naturalnumbers nil)
     (subrange type-eq-decl nil integers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (^ const-decl "real" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lat subtype "cpr_int.mes1"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lat_TCC3 0
   (global_eq_lat_TCC3-1 nil 3744562642
    ("" (skeep)
@@ -12933,10 +13038,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
@@ -12945,7 +13050,7 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -12957,7 +13062,9 @@
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (expt def-decl "real" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lat subtype "cpr_int.mes0"
+    "naturalnumbers.below(exponentiation.^(2, cpr_int.nb))")))
  (global_eq_lat_TCC4 0
   (global_eq_lat_TCC4-1 nil 3744562642
    ("" (skeep)
@@ -13005,21 +13112,23 @@
     (int_times_int_is_int application-judgement "int" integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (expt def-decl "real" exponentiation nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lat subtype "cpr_int.mes1"
+    "naturalnumbers.below(exponentiation.^(2, cpr_int.nb))")))
  (global_eq_lat_TCC5 0
   (global_eq_lat_TCC5-1 nil 3744617574
    ("" (skeep) (("" (eval-formula 1) nil nil)) nil)
@@ -13028,7 +13137,9 @@
     (bijective? const-decl "bool" functions nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil))
-   nil))
+   nil
+   (global_eq_lat subtype "60"
+    "{n: integers.posnat | reals.<(n, exponentiation.^(2, 6))}")))
  (global_eq_lat_TCC6 0
   (global_eq_lat_TCC6-1 nil 3744617574 ("" (subtype-tcc) nil nil)
    ((subrange type-eq-decl nil integers nil)
@@ -13040,18 +13151,18 @@
     (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (< const-decl "bool" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
@@ -13078,13 +13189,13 @@
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
     (dlat_surf const-decl "posreal" cpr_real nil)
-    (^ const-decl "real" exponentiation nil) nil
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (^ const-decl "real" exponentiation nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
     (Rlat_glo_pre_surf const-decl "real" cpr_real nil)
-    (dlat const-decl "posreal" cpr_real nil) nil
+    (dlat const-decl "posreal" cpr_real nil)
     (Rlat_glo_pre const-decl "real" cpr_real nil)
     (Rlat_glo const-decl "real" cpr_real nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
@@ -13110,7 +13221,7 @@
      real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil))
-   nil))
+   nil (global_eq_lat subtype "cpr_int.rl" "Latitude")))
  (global_eq_lat 0
   (global_eq_lat-2 nil 3744638012
    ("" (skeep)
@@ -14199,7 +14310,7 @@
     (Rlat_glo_pre_surf const-decl "real" cpr_real nil)
     (subrange type-eq-decl nil integers nil)
     (IF const-decl "[boolean, T, T -> T]" if_def nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_exp application-judgement "posint" exponentiation nil)
@@ -14207,10 +14318,10 @@
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (global_decode const-decl "unsigned_int" cpr_int nil)
     (numfield nonempty-type-eq-decl nil number_fields nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -14219,7 +14330,7 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (integer nonempty-type-from-decl nil integers nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
@@ -14231,7 +14342,7 @@
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
     (expt def-decl "real" exponentiation nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (Rlat_glo_pre const-decl "real" cpr_real nil) nil
+    (Rlat_glo_pre const-decl "real" cpr_real nil)
     (dlat const-decl "posreal" cpr_real nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -14255,8 +14366,8 @@
     (TRUE const-decl "bool" booleans nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
-    (mod_eq formula-decl nil reals_mod "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
+    (mod_eq formula-decl nil reals_mod reals)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
@@ -14279,22 +14390,21 @@
     (posrat_plus_nnrat_is_posrat application-judgement "posrat"
      rationals nil)
     (div_distributes formula-decl nil real_props nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
+    (mod_multiple formula-decl nil reals_mod reals)
     (nnreal_plus_posreal_is_posreal application-judgement "posreal"
      real_types nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
-    nil
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    (posreal nonempty-type-eq-decl nil real_types nil) nil
+    (posreal nonempty-type-eq-decl nil real_types nil)
     (plus_reg1 formula-decl nil uint32 nil)
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (real_times_real_is_real application-judgement "real" reals nil)
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
@@ -14307,7 +14417,7 @@
     (unsigned_int type-eq-decl nil uint32 nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (lat2AWB const-decl "LatAWB" awb32 nil)
-    (mod_pos formula-decl nil reals_mod "reals/") nil nil
+    (mod_pos formula-decl nil reals_mod reals)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
@@ -14461,7 +14571,9 @@
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (north_lat? subtype "60"
+    "{n: integers.posnat | reals.<(n, exponentiation.^(2, 6))}")))
  (north_lat_eq 0
   (north_lat_eq-1 nil 3745251093
    ("" (skeep)
@@ -15611,7 +15723,7 @@
      nil)
     (int_abs_is_nonneg application-judgement "{j: nonneg_int | j >= i}"
      real_defs nil)
-    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (abs_nat_rew formula-decl nil abs_rews ints)
     (minus_real_is_real application-judgement "real" reals nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -15626,8 +15738,7 @@
     (global_decode const-decl "unsigned_int" cpr_int nil)
     (minus const-decl "unsigned_int" uint32 nil)
     (unsigned_int type-eq-decl nil uint32 nil)
-    (mod_multiple formula-decl nil reals_mod "reals/")
-    (own_lat skolem-const-decl "Latitude" cpr_int nil)
+    (mod_multiple formula-decl nil reals_mod reals) nil
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
     (LatAWB type-eq-decl nil awb32 nil)
@@ -15636,7 +15747,7 @@
      integers nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
@@ -15649,22 +15760,22 @@
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    (j_surf const-decl "int" cpr_real nil)
+    nil
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (both_sides_times_pos_ge1_imp formula-decl nil extra_real_props
      nil)
     (both_sides_div_pos_ge1 formula-decl nil real_props nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -15684,10 +15795,10 @@
     (TRUE const-decl "bool" booleans nil)
     (id const-decl "(bijective?[T, T])" identity nil)
     (bijective? const-decl "bool" functions nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (abs_mult formula-decl nil real_props nil)
@@ -15782,10 +15893,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
@@ -15793,7 +15904,7 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -15806,7 +15917,9 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (expt def-decl "real" exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lat_surf subtype "cpr_int.mes0"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lat_surf_TCC2 0
   (global_eq_lat_surf_TCC2-1 nil 3745255710
    ("" (skeep)
@@ -15842,10 +15955,10 @@
     (NOT const-decl "[bool -> bool]" booleans nil)
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
@@ -15853,7 +15966,7 @@
     (posnat_expt application-judgement "posnat" exponentiation nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (int_times_int_is_int application-judgement "int" integers nil)
@@ -15866,7 +15979,9 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (expt def-decl "real" exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lat_surf subtype "cpr_int.mes1"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lat_surf_TCC3 0
   (global_eq_lat_surf_TCC3-1 nil 3745255710 ("" (subtype-tcc) nil nil)
    ((LatAWB type-eq-decl nil awb32 nil)
@@ -15884,18 +15999,18 @@
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
@@ -15929,8 +16044,8 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (dlat_surf const-decl "posreal" cpr_real nil) nil
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (dlat_surf const-decl "posreal" cpr_real nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
@@ -15967,7 +16082,10 @@
      real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil))
-   nil))
+   nil
+   (global_eq_lat_surf subtype
+    "cpr_real[cpr_int.nb].Rlat_glo_surf(cpr_int.own_lat)(cpr_int.i, cpr_int.mes0, cpr_int.mes1)"
+    "Latitude")))
  (global_eq_lat_surf 0
   (global_eq_lat_surf-2 nil 3778831578
    ("" (skeep)
@@ -16609,7 +16727,7 @@
     (real_plus_real_is_real application-judgement "real" reals nil)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
@@ -16629,7 +16747,7 @@
     (int_plus_int_is_int application-judgement "int" integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
@@ -16646,7 +16764,7 @@
     (both_sides_div_pos_le1 formula-decl nil real_props nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
@@ -16655,16 +16773,13 @@
      nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (dlat_surf const-decl "posreal" cpr_real nil)
-    (j_surf const-decl "int" cpr_real nil)
+    (dlat_surf const-decl "posreal" cpr_real nil) nil
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (posreal nonempty-type-eq-decl nil real_types nil)
-    (mes1 skolem-const-decl "below(2 ^ min(nb, 17))" cpr_int nil)
-    (mes0 skolem-const-decl "below(2 ^ min(nb, 17))" cpr_int nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (posreal nonempty-type-eq-decl nil real_types nil) nil nil
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (MOD const-decl
@@ -16703,10 +16818,10 @@
      integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/"))
+    (le_realorder name-judgement "RealOrder" real_orders reals))
    nil)
   (global_eq_lat_surf-1 nil 3745255710
    ("" (skeep)
@@ -17306,10 +17421,10 @@
         nil))
       nil))
     nil)
-   ((le_realorder name-judgement "RealOrder" real_orders "reals/")
+   ((le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -17348,12 +17463,12 @@
      abstract_cpr nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/") nil
-    nil (posreal nonempty-type-eq-decl nil real_types nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil) nil
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
+    (posreal nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (dlat_surf const-decl "posreal" cpr_real nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -17363,7 +17478,7 @@
      rationals nil)
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (both_sides_div_pos_le1 formula-decl nil real_props nil)
@@ -17381,7 +17496,7 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (even_times_int_is_even application-judgement "even_int" integers
      nil)
     (int_plus_int_is_int application-judgement "int" integers nil)
@@ -17401,7 +17516,7 @@
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
@@ -17939,10 +18054,10 @@
    ((global_zone_eq formula-decl nil cpr_int nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
@@ -17982,7 +18097,7 @@
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (plus_reg1 formula-decl nil uint32 nil)
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
@@ -17991,16 +18106,15 @@
     (times_reg1 formula-decl nil uint32 nil)
     (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
      nil)
-    nil nil nil
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil)
@@ -18008,7 +18122,7 @@
      nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (nnint_plus_posint_is_posint application-judgement "posint"
@@ -18050,13 +18164,16 @@
     (below type-eq-decl nil naturalnumbers nil)
     (unsigned_int type-eq-decl nil uint32 nil)
     (global_decode const-decl "unsigned_int" cpr_int nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (nl_global subtype
+    "(number_fields.+)(cpr_int.global_decode(60, cpr_int.yz0, cpr_int.yz1, cpr_int.i), IF booleans.OR(cpr_int.nb /= 19, (booleans.AND(cpr_int.nb = 19, cpr_int.north_lat?(cpr_int.i, cpr_int.yz0, cpr_int.yz1, cpr_int.own)))) THEN 0 ELSE number_fields.*(3, exponentiation.^(2, 30)) ENDIF)"
+    "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (nl_global 0
   (nl_global-2 nil 3778831691
    ("" (skeep)
@@ -19666,10 +19783,10 @@
       nil))
     nil)
    ((posint_exp application-judgement "posint" exponentiation nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -19689,22 +19806,19 @@
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (yz0 skolem-const-decl "below(2 ^ min(nb, 17))" cpr_int nil)
-    (yz1 skolem-const-decl "below(2 ^ min(nb, 17))" cpr_int nil)
-    (i skolem-const-decl "subrange(0, 1)" cpr_int nil)
-    (minus_rat_is_rat application-judgement "rat" rationals nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals) nil nil
+    nil (minus_rat_is_rat application-judgement "rat" rationals nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
@@ -19733,11 +19847,10 @@
      real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
-    (j_surf const-decl "int" cpr_real nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    nil (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (dlat_surf const-decl "posreal" cpr_real nil)
@@ -19749,16 +19862,13 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (RLAT const-decl "bool" rlat_spec nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    (own_lat skolem-const-decl "Latitude" cpr_int nil)
-    (norlat? const-decl "bool" cpr_real nil)
-    (yz skolem-const-decl "below(2 ^ min(nb, 17))" cpr_int nil)
-    (J skolem-const-decl "{k | abs(k) < abs(60 - i)}" cpr_int nil)
+    nil (norlat? const-decl "bool" cpr_real nil) nil nil
     (integer nonempty-type-from-decl nil integers nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (real_parts formula-decl nil floor_ceil nil)
-    (mod_frac formula-decl nil reals_mod "reals/")
+    (mod_frac formula-decl nil reals_mod reals)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (div_distributes formula-decl nil real_props nil)
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
@@ -19767,8 +19877,7 @@
     (Rlat_glo_pre const-decl "real" cpr_real nil)
     (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
-    (j const-decl "int" cpr_real nil)
-    (dlat const-decl "posreal" cpr_real nil)
+    nil (dlat const-decl "posreal" cpr_real nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -19800,21 +19909,20 @@
     (posrat_plus_nnrat_is_posrat application-judgement "posrat"
      rationals nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
-    (mod_lt_real formula-decl nil reals_mod "reals/")
+    (mod_lt_real formula-decl nil reals_mod reals)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (div_cancel1 formula-decl nil real_props nil)
     (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
     (div_cancel3 formula-decl nil real_props nil)
-    (times_div2 formula-decl nil real_props nil)
-    (rl skolem-const-decl "real" cpr_int nil)
+    (times_div2 formula-decl nil real_props nil) nil
     (nl_awb_equiv formula-decl nil nl nil)
     (global_eq_lat_surf formula-decl nil cpr_int nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (number nonempty-type-decl nil numbers nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
@@ -21490,20 +21598,20 @@
      nil)
     (boolean nonempty-type-decl nil booleans nil)
     (number nonempty-type-decl nil numbers nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (global_eq_lat_surf formula-decl nil cpr_int nil)
-    (nl_awb_equiv formula-decl nil nl nil) nil
+    (nl_awb_equiv formula-decl nil nl nil)
     (times_div2 formula-decl nil real_props nil)
     (div_cancel3 formula-decl nil real_props nil)
     (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
     (div_cancel1 formula-decl nil real_props nil)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
-    (mod_lt_real formula-decl nil reals_mod "reals/")
+    (mod_lt_real formula-decl nil reals_mod reals)
     (minus_even_is_even application-judgement "even_int" integers nil)
     (posrat_plus_nnrat_is_posrat application-judgement "posrat"
      rationals nil)
@@ -21535,7 +21643,7 @@
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
-    (dlat const-decl "posreal" cpr_real nil) nil
+    (dlat const-decl "posreal" cpr_real nil)
     (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
     (Rlat_glo_pre const-decl "real" cpr_real nil)
@@ -21544,13 +21652,13 @@
     (both_sides_times1_imp formula-decl nil extra_real_props nil)
     (div_distributes formula-decl nil real_props nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (mod_frac formula-decl nil reals_mod "reals/")
+    (mod_frac formula-decl nil reals_mod reals)
     (real_parts formula-decl nil floor_ceil nil)
     (integer nonempty-type-from-decl nil integers nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (norlat? const-decl "bool" cpr_real nil) nil nil
+    (norlat? const-decl "bool" cpr_real nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
     (RLAT const-decl "bool" rlat_spec nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
@@ -21562,10 +21670,10 @@
     (dlat_surf const-decl "posreal" cpr_real nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
-    (nonneg_real nonempty-type-eq-decl nil real_types nil) nil
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
     (nnreal_div_posreal_is_nnreal application-judgement "nnreal"
@@ -21594,19 +21702,19 @@
      rationals nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
      nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
-    (minus_rat_is_rat application-judgement "rat" rationals nil) nil
-    nil nil (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (minus_rat_is_rat application-judgement "rat" rationals nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
@@ -21629,10 +21737,10 @@
      integers nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (posint_exp application-judgement "posint" exponentiation nil))
    shostak))
  (global_eq_lon_TCC1 0
@@ -22188,7 +22296,7 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -22196,16 +22304,15 @@
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    nil nil nil
     (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
      nil)
     (times_reg1 formula-decl nil uint32 nil)
@@ -22214,7 +22321,7 @@
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
     (plus_reg1 formula-decl nil uint32 nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
@@ -22247,21 +22354,23 @@
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (global_zone_eq formula-decl nil cpr_int nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (int_times_int_is_int application-judgement "int" integers nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.gd_lat(0)"
+    "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (global_eq_lon_TCC2 0
   (global_eq_lon_TCC2-1 nil 3745935423
    ("" (skeep)
@@ -22772,7 +22881,7 @@
         nil))
       nil))
     nil)
-   ((le_realorder name-judgement "RealOrder" real_orders "reals/")
+   ((le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
@@ -22818,7 +22927,7 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (int_minus_int_is_int application-judgement "int" integers nil)
     (even_times_int_is_even application-judgement "even_int" integers
@@ -22826,16 +22935,15 @@
     (mult_divides2 application-judgement "(divides(m))" divides nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    nil nil nil
     (both_sides_times_pos_le1_imp formula-decl nil extra_real_props
      nil)
     (times_reg1 formula-decl nil uint32 nil)
@@ -22844,7 +22952,7 @@
     (even_minus_even_is_even application-judgement "even_int" integers
      nil)
     (plus_reg1 formula-decl nil uint32 nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (nil application-judgement "below(m)" reals_mod reals)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
@@ -22877,15 +22985,17 @@
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (rat_plus_rat_is_rat application-judgement "rat" rationals nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (global_zone_eq formula-decl nil cpr_int nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.gd_lat(1)"
+    "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (global_eq_lon_TCC3 0
   (global_eq_lon_TCC3-1 nil 3745935423
    ("" (skeep)
@@ -22932,7 +23042,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.xz0"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lon_TCC4 0
   (global_eq_lon_TCC4-1 nil 3745935423
    ("" (skeep)
@@ -22979,7 +23091,9 @@
     (bool nonempty-type-eq-decl nil booleans nil)
     (boolean nonempty-type-decl nil booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.xz1"
+    "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lon_TCC5 0
   (global_eq_lon_TCC5-1 nil 3745935423
    ("" (skeep)
@@ -23044,23 +23158,25 @@
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (expt def-decl "real" exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.xz0"
+    "naturalnumbers.below(exponentiation.^(2, cpr_int.nb))")))
  (global_eq_lon_TCC6 0
   (global_eq_lon_TCC6-1 nil 3745935423
    ("" (skeep)
@@ -23125,23 +23241,25 @@
     (rat_div_nzrat_is_rat application-judgement "rat" rationals nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
      real_defs nil)
     (posnat_expt application-judgement "posnat" exponentiation nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil)
     (expt def-decl "real" exponentiation nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.xz1"
+    "naturalnumbers.below(exponentiation.^(2, cpr_int.nb))")))
  (global_eq_lon_TCC7 0
   (global_eq_lon_TCC7-1 nil 3745935423
    ("" (skeep)
@@ -23175,15 +23293,15 @@
     (boolean nonempty-type-decl nil booleans nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (^ const-decl "real" exponentiation nil)
     (>= const-decl "bool" reals nil)
     (/= const-decl "boolean" notequal nil)
@@ -23193,7 +23311,9 @@
     (id const-decl "(bijective?[T, T])" identity nil)
     (TRUE const-decl "bool" booleans nil)
     (posint_exp application-judgement "posint" exponentiation nil))
-   nil))
+   nil
+   (global_eq_lon subtype "cpr_int.nl0"
+    "{n: integers.posnat | reals.<(n, exponentiation.^(2, 6))}")))
  (global_eq_lon 0
   (global_eq_lon-2 nil 3778832095
    ("" (skeep)
@@ -24623,7 +24743,7 @@
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (NL const-decl "subrange(1, 59)" nl nil)
@@ -24633,7 +24753,7 @@
      real_defs nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (global_zone const-decl "unsigned_int" cpr_int nil)
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
@@ -24643,17 +24763,13 @@
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (integer nonempty-type-from-decl nil integers nil)
     (le_times_le_any1 formula-decl nil extra_real_props nil)
-    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (abs_nat_rew formula-decl nil abs_rews ints)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (plus_reg1 formula-decl nil uint32 nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    (nl0 skolem-const-decl "subrange(1, 59)" cpr_int nil)
-    (i skolem-const-decl "subrange(0, 1)" cpr_int nil)
-    (nli skolem-const-decl "{k: int | nl0 - i <= k AND 1 <= k}" cpr_int
-     nil)
-    (nzreal nonempty-type-eq-decl nil reals nil)
+    nil nil nil (nzreal nonempty-type-eq-decl nil reals nil)
     (expt_div formula-decl nil exponentiation nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -24661,14 +24777,12 @@
      rationals nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (NL_match const-decl "bool" cpr_real nil)
-    (m const-decl "int" cpr_real nil)
+    (NL_match const-decl "bool" cpr_real nil) nil
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    (NL_match_surf const-decl "bool" cpr_real nil)
-    (m_surf const-decl "int" cpr_real nil)
-    (nil application-judgement "below(m)" reals_mod "reals/")
+    (NL_match_surf const-decl "bool" cpr_real nil) nil
+    (nil application-judgement "below(m)" reals_mod reals)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
@@ -24688,10 +24802,9 @@
      rationals nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (floor_int formula-decl nil floor_ceil nil)
-    (mod_eq formula-decl nil reals_mod "reals/")
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (posrat_exp application-judgement "posrat" exponentiation nil)
-    (xzi skolem-const-decl "below(2 ^ min(nb, 17))" cpr_int nil)
+    (mod_eq formula-decl nil reals_mod reals)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (posrat_exp application-judgement "posrat" exponentiation nil) nil
     (global_zone_eq formula-decl nil cpr_int nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
@@ -24700,10 +24813,10 @@
     (int_max application-judgement "{k: int | i <= k AND j <= k}"
      real_defs nil)
     (nl_global formula-decl nil cpr_int nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (lon2AWB const-decl "LonAWB" awb32 nil)
@@ -26236,7 +26349,7 @@
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (Latitude type-eq-decl nil rlat_spec nil) nil
+    (Latitude type-eq-decl nil rlat_spec nil)
     (AWB2lat const-decl "Latitude" awb32 nil)
     (Rlon_glo_surf const-decl "real" cpr_real nil)
     (Rlon_glo const-decl "real" cpr_real nil)
@@ -26246,10 +26359,10 @@
     (lon2AWB const-decl "LonAWB" awb32 nil)
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (ge_realorder name-judgement "RealOrder" real_orders "reals/")
+    (ge_realorder name-judgement "RealOrder" real_orders reals)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (lt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (lt_realorder name-judgement "RealOrder" real_orders reals)
     (nl_global formula-decl nil cpr_int nil)
     (int_max application-judgement "{k: int | i <= k AND j <= k}"
      real_defs nil)
@@ -26257,10 +26370,10 @@
      real_defs nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (global_zone_eq formula-decl nil cpr_int nil) nil
+    (global_zone_eq formula-decl nil cpr_int nil)
     (posrat_exp application-judgement "posrat" exponentiation nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod "reals/")
-    (mod_eq formula-decl nil reals_mod "reals/")
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (mod_eq formula-decl nil reals_mod reals)
     (floor_int formula-decl nil floor_ceil nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (posrat_plus_nnrat_is_posrat application-judgement "posrat"
@@ -26280,12 +26393,12 @@
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
     (real_plus_real_is_real application-judgement "real" reals nil)
-    (nil application-judgement "below(m)" reals_mod "reals/") nil
+    (nil application-judgement "below(m)" reals_mod reals)
     (NL_match_surf const-decl "bool" cpr_real nil)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    nil (NL_match const-decl "bool" cpr_real nil)
+    (NL_match const-decl "bool" cpr_real nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (posrat_times_posrat_is_posrat application-judgement "posrat"
@@ -26293,13 +26406,13 @@
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
     (expt_div formula-decl nil exponentiation nil)
-    (nzreal nonempty-type-eq-decl nil reals nil) nil nil nil
+    (nzreal nonempty-type-eq-decl nil reals nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (plus_reg1 formula-decl nil uint32 nil)
-    (mod_pos formula-decl nil reals_mod "reals/")
+    (mod_pos formula-decl nil reals_mod reals)
     (minus_odd_is_odd application-judgement "odd_int" integers nil)
-    (abs_nat_rew formula-decl nil abs_rews "ints/")
+    (abs_nat_rew formula-decl nil abs_rews ints)
     (le_times_le_any1 formula-decl nil extra_real_props nil)
     (integer nonempty-type-from-decl nil integers nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
@@ -26309,7 +26422,7 @@
     (int_times_even_is_even application-judgement "even_int" integers
      nil)
     (global_zone const-decl "unsigned_int" cpr_int nil)
-    (gt_realorder name-judgement "RealOrder" real_orders "reals/")
+    (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (posint_min application-judgement "{k: posint | k <= i AND k <= j}"
@@ -26319,7 +26432,7 @@
     (NL const-decl "subrange(1, 59)" nl nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (le_realorder name-judgement "RealOrder" real_orders "reals/")
+    (le_realorder name-judgement "RealOrder" real_orders reals)
     (posrat_div_posrat_is_posrat application-judgement "posrat"
      rationals nil)
     (rat_times_rat_is_rat application-judgement "rat" rationals nil)

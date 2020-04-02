@@ -34,7 +34,7 @@ the PVS theories shared by all of them.
 
 # Re-running the PVS Proofs
 
-[PVS version 6.0](http://pvs.csl.sri.com) and the development version
+[PVS version 7.1](http://pvs.csl.sri.com) and the development version
 of the [NASA PVS Library](https://github.com/nasa/pvslib) are required
 to type-check and prove these formalizations. 
 
@@ -52,13 +52,13 @@ The output of that command is
 Processing all-theories. Output in ./all-theories.grandtotals
 CPR_fp                   [OK: 281 proofs]
 CPR                      [OK: 290 proofs]
-framac_wp                [OK: 14 proofs]
+framac_wp                [OK: 10 proofs]
 vc_nb_12                 [OK: 80 proofs]
 vc_nb_14                 [OK: 80 proofs]
 vc_nb_17                 [OK: 80 proofs]
 vc_nb_19                 [OK: 80 proofs]
 
-*** Grand Totals: 905 proofs / 905 formulas. Missed: 0 formulas.
+*** Grand Totals: 901 proofs / 901 formulas. Missed: 0 formulas.
 *** Number of libraries: 7
 ```
 

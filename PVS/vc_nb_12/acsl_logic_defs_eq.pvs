@@ -2,8 +2,13 @@ acsl_logic_defs_eq: THEORY
 BEGIN
 
   IMPORTING interface
+  IMPORTING CPR@cpr_defs
+  IMPORTING A_params
 
-  IMPORTING CPR@cpr_int
+  NB: MACRO NumBins = L_nb
+  nb: NumBins
+
+  IMPORTING CPR@cpr_int[NB]
 
   mod__eq
   : LEMMA
@@ -81,9 +86,6 @@ BEGIN
   %
 
   IMPORTING A_encode
-  IMPORTING A_params
-
-  NB: MACRO NumBins = L_nb
 
   encoding__eq
   : LEMMA
