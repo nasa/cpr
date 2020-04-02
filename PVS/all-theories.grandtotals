@@ -1,32 +1,32 @@
 Processing CPR_fp. Writing output to file summaries/CPR_fp.summary
 Logging PVS information in summaries/CPR_fp.log
-Grand Totals: 281 proofs, 281 attempted, 281 succeeded (366.74 s)
+Grand Totals: 281 proofs, 281 attempted, 281 succeeded (411.33 s)
 
 Processing CPR. Writing output to file summaries/CPR.summary
 Logging PVS information in summaries/CPR.log
-Grand Totals: 290 proofs, 290 attempted, 290 succeeded (1897.29 s)
+Grand Totals: 290 proofs, 290 attempted, 290 succeeded (2094.52 s)
 
 Processing framac_wp. Writing output to file summaries/framac_wp.summary
 Logging PVS information in summaries/framac_wp.log
-Grand Totals: 10 proofs, 10 attempted, 10 succeeded (0.65 s)
+Grand Totals: 10 proofs, 10 attempted, 10 succeeded (0.62 s)
 
 Processing vc_nb_12. Writing output to file summaries/vc_nb_12.summary
 Logging PVS information in summaries/vc_nb_12.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (42.40 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (40.30 s)
 
 Processing vc_nb_14. Writing output to file summaries/vc_nb_14.summary
 Logging PVS information in summaries/vc_nb_14.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (38.83 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (39.38 s)
 
 Processing vc_nb_17. Writing output to file summaries/vc_nb_17.summary
 Logging PVS information in summaries/vc_nb_17.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (39.85 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (40.76 s);;; GC:;;; Finished GC
 
 Processing vc_nb_19. Writing output to file summaries/vc_nb_19.summary
 Logging PVS information in summaries/vc_nb_19.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (49.94 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (52.60 s)
 
-PVS_LIBRARY_PATH=/Users/mmoscato/Workspace/Workbench/pvs/cpr_7a1218/Users/mmoscato/pvs/pvs/nasalib:/Users/mmoscato/Workspace/Workbench/pvs/cpr_7a1218/Users/mmoscato/nasa/polycarp/polycarp/PVS:/Users/mmoscato/Workspace/Workbench/pvs/cpr_7a1218/Users/mmoscato/nasa/precisa/precisa/PVS:/Users/mmoscato/Workspace/Workbench/pvs/cpr_7a1218/Users/mmoscato/.opam/default/.opam-switch/sources/why3.1.2.1/lib/pvs:/Users/mmoscato/Workspace/Workbench/pvs/cpr_7a1218/Users/mmoscato/nasa/wellclear/PVS:/Users/mmoscato/Workspace/Workbench/pvs/cpr_7a1218/Users/mmoscato/nasa/cpr/cpr/PVS
+PVS_LIBRARY_PATH=/Users/cmunoz/src/CPR/CPR.gitrelease/PVS:/Users/cmunoz/local/PVS/nasalib
 CPR_fp                   [OK: 281 proofs]
 CPR                      [OK: 290 proofs]
 framac_wp                [OK: 10 proofs]

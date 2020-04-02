@@ -1,3 +1,7 @@
+pvsbin/
+orphaned-proofs.prf
+*.tptp
+*.dep
 .pvscontext
 *.bin
 *.log
