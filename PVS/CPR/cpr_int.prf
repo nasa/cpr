@@ -2184,10 +2184,8 @@
     (RLAT const-decl "bool" rlat_spec nil)
     (- const-decl "[numfield -> numfield]" number_fields nil)
     (Latitude type-eq-decl nil rlat_spec nil)
-    (Rlat const-decl "real" cpr_real nil)
-    (i skolem-const-decl "subrange(0, 1)" cpr_int nil)
-    (AWB2lat const-decl "Latitude" awb32 nil)
-    (awb_lat skolem-const-decl "LatAWB" cpr_int nil)
+    (Rlat const-decl "real" cpr_real nil) nil
+    (AWB2lat const-decl "Latitude" awb32 nil) nil
     (nb formal-const-decl "NumBins" cpr_int nil)
     (NumBins type-eq-decl nil cpr_defs nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -15738,7 +15736,7 @@
     (global_decode const-decl "unsigned_int" cpr_int nil)
     (minus const-decl "unsigned_int" uint32 nil)
     (unsigned_int type-eq-decl nil uint32 nil)
-    (mod_multiple formula-decl nil reals_mod reals) nil
+    (mod_multiple formula-decl nil reals_mod reals)
     (minus_nzint_is_nzint application-judgement "nzint" integers nil)
     (minus_even_is_even application-judgement "even_int" integers nil)
     (LatAWB type-eq-decl nil awb32 nil)
@@ -15760,7 +15758,6 @@
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    nil
     (nnreal_plus_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (nnint_times_nnint_is_nnint application-judgement "nonneg_int"
@@ -16773,9 +16770,9 @@
      nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (dlat_surf const-decl "posreal" cpr_real nil) nil
+    (dlat_surf const-decl "posreal" cpr_real nil)
     (nonneg_real nonempty-type-eq-decl nil real_types nil)
-    (posreal nonempty-type-eq-decl nil real_types nil) nil nil
+    (posreal nonempty-type-eq-decl nil real_types nil)
     (gt_realorder name-judgement "RealOrder" real_orders reals)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
@@ -19810,8 +19807,8 @@
     (nonzero_real nonempty-type-eq-decl nil reals nil)
     (abs const-decl "{n: nonneg_real | n >= m AND n >= -m}" real_defs
          nil)
-    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals) nil nil
-    nil (minus_rat_is_rat application-judgement "rat" rationals nil)
+    (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
+    (minus_rat_is_rat application-judgement "rat" rationals nil)
     (odd_minus_odd_is_even application-judgement "even_int" integers
      nil)
     (even_minus_odd_is_odd application-judgement "odd_int" integers
@@ -19847,7 +19844,7 @@
      real_types nil)
     (posreal_plus_nnreal_is_posreal application-judgement "posreal"
      real_types nil)
-    nil (nonneg_real nonempty-type-eq-decl nil real_types nil)
+    (nonneg_real nonempty-type-eq-decl nil real_types nil)
     (posreal nonempty-type-eq-decl nil real_types nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (gt_realorder name-judgement "RealOrder" real_orders reals)
@@ -19862,7 +19859,7 @@
     (int_minus_int_is_int application-judgement "int" integers nil)
     (RLAT const-decl "bool" rlat_spec nil)
     (real_div_nzreal_is_real application-judgement "real" reals nil)
-    nil (norlat? const-decl "bool" cpr_real nil) nil nil
+    (norlat? const-decl "bool" cpr_real nil)
     (integer nonempty-type-from-decl nil integers nil)
     (floor const-decl "{i | i <= x & x < i + 1}" floor_ceil nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
@@ -19877,7 +19874,7 @@
     (Rlat_glo_pre const-decl "real" cpr_real nil)
     (nzrat_times_nzrat_is_nzrat application-judgement "nzrat" rationals
      nil)
-    nil (dlat const-decl "posreal" cpr_real nil)
+    (dlat const-decl "posreal" cpr_real nil)
     (nnreal_times_nnreal_is_nnreal application-judgement "nnreal"
      real_types nil)
     (IFF const-decl "[bool, bool -> bool]" booleans nil)
@@ -19915,7 +19912,7 @@
     (div_cancel1 formula-decl nil real_props nil)
     (fractional const-decl "{x | 0 <= x & x < 1}" floor_ceil nil)
     (div_cancel3 formula-decl nil real_props nil)
-    (times_div2 formula-decl nil real_props nil) nil
+    (times_div2 formula-decl nil real_props nil)
     (nl_awb_equiv formula-decl nil nl nil)
     (global_eq_lat_surf formula-decl nil cpr_int nil)
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
@@ -22998,98 +22995,68 @@
     "{awb: real_types.nnreal | reals.<=(awb, exponentiation.^(2, 32))}")))
  (global_eq_lon_TCC3 0
   (global_eq_lon_TCC3-1 nil 3745935423
-   ("" (skeep)
-    (("" (skeep)
-      (("" (skeep)
-        (("" (skeep)
-          (("" (hide-all-but (-4 1))
-            (("" (typepred "xz0")
-              (("" (replace -2)
-                (("" (expand "min") (("" (propax) nil nil)) nil)) nil))
-              nil))
-            nil))
-          nil))
-        nil))
+   ("" (skeep :preds? t)
+    (("" (case "nb = 19")
+      (("1" (replace -1 :hide? t)
+        (("1" (expand "min") (("1" (propax) nil nil)) nil)) nil)
+       ("2" (propax) nil nil))
       nil))
     nil)
-   ((below type-eq-decl nil naturalnumbers nil)
-    (nb formal-const-decl "NumBins" cpr_int nil)
+   ((nb formal-const-decl "NumBins" cpr_int nil)
     (NumBins type-eq-decl nil cpr_defs nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (^ const-decl "real" exponentiation nil)
-    (/= const-decl "boolean" notequal nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (< const-decl "bool" reals nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
     (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (posint_exp application-judgement "posint" exponentiation nil))
    nil
    (global_eq_lon subtype "cpr_int.xz0"
     "naturalnumbers.below(exponentiation.^(2, 17))")))
  (global_eq_lon_TCC4 0
   (global_eq_lon_TCC4-1 nil 3745935423
-   ("" (skeep)
-    (("" (skeep)
-      (("" (skeep)
-        (("" (skeep)
-          (("" (hide-all-but (-4 1))
-            (("" (typepred "xz1")
-              (("" (replace -2)
-                (("" (expand "min") (("" (propax) nil nil)) nil)) nil))
-              nil))
-            nil))
-          nil))
-        nil))
+   ("" (skeep :preds? t)
+    (("" (case "nb = 19")
+      (("1" (replace -1 :hide? t)
+        (("1" (expand "min") (("1" (propax) nil nil)) nil)) nil)
+       ("2" (propax) nil nil))
       nil))
     nil)
-   ((below type-eq-decl nil naturalnumbers nil)
-    (nb formal-const-decl "NumBins" cpr_int nil)
+   ((nb formal-const-decl "NumBins" cpr_int nil)
     (NumBins type-eq-decl nil cpr_defs nil)
-    (= const-decl "[T, T -> boolean]" equalities nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
     (posnat nonempty-type-eq-decl nil integers nil)
     (> const-decl "bool" reals nil)
     (nonneg_int nonempty-type-eq-decl nil integers nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (<= const-decl "bool" reals nil)
-    (AND const-decl "[bool, bool -> bool]" booleans nil)
-    (^ const-decl "real" exponentiation nil)
-    (/= const-decl "boolean" notequal nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
     (>= const-decl "bool" reals nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
     (rational nonempty-type-from-decl nil rationals nil)
     (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (< const-decl "bool" reals nil)
     (real nonempty-type-from-decl nil reals nil)
     (real_pred const-decl "[number_field -> boolean]" reals nil)
     (number_field nonempty-type-from-decl nil number_fields nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (number nonempty-type-decl nil numbers nil)
-    (NOT const-decl "[bool -> bool]" booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
+    (= const-decl "[T, T -> boolean]" equalities nil)
     (boolean nonempty-type-decl nil booleans nil)
+    (number nonempty-type-decl nil numbers nil)
+    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
     (posint_exp application-judgement "posint" exponentiation nil))
    nil
    (global_eq_lon subtype "cpr_int.xz1"
@@ -24769,7 +24736,7 @@
     (plus_reg1 formula-decl nil uint32 nil)
     (nnrat_exp application-judgement "nnrat" exponentiation nil)
     (rat_minus_rat_is_rat application-judgement "rat" rationals nil)
-    nil nil nil (nzreal nonempty-type-eq-decl nil reals nil)
+    (nzreal nonempty-type-eq-decl nil reals nil)
     (expt_div formula-decl nil exponentiation nil)
     (nnrat_times_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -24777,11 +24744,11 @@
      rationals nil)
     (nnrat_plus_nnrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
-    (NL_match const-decl "bool" cpr_real nil) nil
+    (NL_match const-decl "bool" cpr_real nil)
     (MOD const-decl
      "{r: real | r >= 0 AND r < y AND r = x - y * floor(x / y)}"
      abstract_cpr nil)
-    (NL_match_surf const-decl "bool" cpr_real nil) nil
+    (NL_match_surf const-decl "bool" cpr_real nil)
     (nil application-judgement "below(m)" reals_mod reals)
     (real_plus_real_is_real application-judgement "real" reals nil)
     (nzrat_div_nzrat_is_nzrat application-judgement "nzrat" rationals
@@ -24804,7 +24771,7 @@
     (floor_int formula-decl nil floor_ceil nil)
     (mod_eq formula-decl nil reals_mod reals)
     (mod const-decl "{k | abs(k) < abs(j)}" reals_mod reals)
-    (posrat_exp application-judgement "posrat" exponentiation nil) nil
+    (posrat_exp application-judgement "posrat" exponentiation nil)
     (global_zone_eq formula-decl nil cpr_int nil)
     (- const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (max const-decl "{p: real | p >= m AND p >= n}" real_defs nil)
