@@ -64,7 +64,7 @@ vc_nb_19                 [OK: 80 proofs]
 `PVS_LIBRARY_PATH`.  Depending upon your shell, one of the following lines
 has to be added to your startup script.  In C shell (csh or tcsh), put this line in
 `~/.cshrc`, where `<cprpvsdir>` is the absolute path to the local
-directory `PVS`:
+directory `PVS` in the CPR distribution:
 
 ~~~
 setenv PVS_LIBRARY_PATH "<cprpvsdir>:$PVS_LIBRARY_PATH"
