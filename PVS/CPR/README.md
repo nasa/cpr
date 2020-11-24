@@ -1,4 +1,4 @@
-# PolyCARP
+# CPR
 
 # Contributors
 * [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA
@@ -8,4 +8,4 @@
 
 # Dependencies
 
-![dependency graph](./PolyCARP.svg "Dependency Graph")
+![dependency graph](./CPR.svg "Dependency Graph")
