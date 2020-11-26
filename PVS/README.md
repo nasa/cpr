@@ -27,8 +27,7 @@ The theories in the `CPR` folder include a formalization of CPR in
 ACSL logic description used in the verification of the unsigned
 integer C implementation for every possible value of NB, found in the
 folders `vc_nb_12` (coarse), `vc_nb_14` (intent), `vc_nb_17`
-(airborne),  and `vc_nb_19` (surface). The folder `vc_shared` contains
-the PVS theories shared by all of them.
+(airborne),  and `vc_nb_19` (surface). 
 * The PVS  definitions used by the Frama-C/WP plugin, which are found
   in the `framac_wp` folder.
 
