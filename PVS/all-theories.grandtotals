@@ -1,10 +1,10 @@
 Processing CPR_fp. Writing output to file summaries/CPR_fp.summary
 Logging PVS information in summaries/CPR_fp.log
-Grand Totals: 281 proofs, 281 attempted, 281 succeeded (372.27 s)
+Grand Totals: 281 proofs, 281 attempted, 281 succeeded (385.19 s)
 
 Processing CPR. Writing output to file summaries/CPR.summary
 Logging PVS information in summaries/CPR.log
-Grand Totals: 290 proofs, 290 attempted, 290 succeeded (1982.73 s)
+Grand Totals: 290 proofs, 290 attempted, 290 succeeded (1915.77 s)
 
 Processing framac_wp. Writing output to file summaries/framac_wp.summary
 Logging PVS information in summaries/framac_wp.log
@@ -12,19 +12,19 @@ Grand Totals: 10 proofs, 10 attempted, 10 succeeded (0.59 s)
 
 Processing vc_nb_12. Writing output to file summaries/vc_nb_12.summary
 Logging PVS information in summaries/vc_nb_12.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (48.87 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (48.79 s)
 
 Processing vc_nb_14. Writing output to file summaries/vc_nb_14.summary
 Logging PVS information in summaries/vc_nb_14.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (47.69 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (48.83 s)
 
 Processing vc_nb_17. Writing output to file summaries/vc_nb_17.summary
 Logging PVS information in summaries/vc_nb_17.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (48.37 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (49.72 s)
 
 Processing vc_nb_19. Writing output to file summaries/vc_nb_19.summary
 Logging PVS information in summaries/vc_nb_19.log
-Grand Totals: 80 proofs, 80 attempted, 80 succeeded (58.87 s)
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (64.27 s)
 
 CPR_fp                   [OK: 281 proofs]
 CPR                      [OK: 290 proofs]
