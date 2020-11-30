@@ -1,7 +1,8 @@
 # vc_nb_14
 
 # Contributors
-* [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA
+* Aaron Dutle, NASA, USA
+* Mariano M. Moscato, NIA, USA
 
 ## Maintainer
 * [César Muñoz](http://shemesh.larc.nasa.gov/people/cam), NASA, USA
