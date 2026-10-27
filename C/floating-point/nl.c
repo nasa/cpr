@@ -16,9 +16,11 @@
 #include <math.h>
 
 // Precalculated NL Table.
+// DO-260B §A.1.7.2: NL(87°) = 2, NL(lat > 87°) = 1. The threshold must be
+// exactly 87.0 so that the boundary point itself returns 2, not 1.
 int nl_double(double lat) {
  double abslat = fabs(lat);
- return abslat > 86.99999999999998578914? 1 :
+ return abslat > 87.0? 1 :
         abslat > 86.53536997512100015228? 2 :
         abslat > 85.75541620944417786631? 3 :
         abslat > 84.89166190702084691110? 4 :
