@@ -31,8 +31,8 @@ BEGIN
 
   latlondeg_str(pos: LatLonDeg): string
   = format("( lat: ~a [deg], lon: ~a [deg])",
-           (rat2decstr(pos`lat_deg, 20),
-	    rat2decstr(pos`lon_deg, 20)))
+           (real2decstr(pos`lat_deg, 20, Truncate),
+	    real2decstr(pos`lon_deg, 20, Truncate)))
 
   % (Power of 2 that determines) number of bins for airborne case.
   AirborneNB: NB = 17
@@ -118,12 +118,12 @@ BEGIN
        	   	          - decoded_pos`lat_deg),
 	   lon_diff = abs(one_position_test__position`lon_deg
        	   	          - decoded_pos`lon_deg)
-       IN printf("Lat. difference    : ~a degrees~%",rat2decstr(lat_diff,20)) &
-          printf("Lon. difference    : ~a degrees~%",rat2decstr(lon_diff,20)) &
+       IN printf("Lat. difference    : ~a degrees~%",real2decstr(lat_diff,20,Truncate)) &
+          printf("Lon. difference    : ~a degrees~%",real2decstr(lon_diff,20,Truncate)) &
           printf("~%") &
 	  printf("Great circle dist. : ~a meters~%",
-	         rat2decstr(distance_rad(latlondeg_to_latlonrad(one_position_test__position),
-					 latlondeg_to_latlonrad(decoded_pos)),20))
+	         real2decstr(distance_rad(latlondeg_to_latlonrad(one_position_test__position),
+					 latlondeg_to_latlonrad(decoded_pos)),20,Truncate))
 
   main: void
   = set(cpr_funs.AlgebOpMode,SinglePrecision) &
