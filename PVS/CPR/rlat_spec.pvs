@@ -29,7 +29,7 @@ BEGIN
 
   trans_comp( P:[nnreal->bool], i, (n:nat| 2^32/360*dl(60-i, 360)*n/2^19 <2^32) , it:below(n+1), (awblat: nnreal | awblat = 2^32/360*dl(60-i, 360)*it/2^19)): RECURSIVE 
     bool = 
-     IF NOT P(awblat)  THEN print(awblat) AND FALSE 
+     IF NOT P(awblat)  THEN FALSE 
      ELSIF it = n THEN TRUE 
      ELSE trans_comp(P, i, n, it+1, (awblat+ 8192/(60-i)))
      ENDIF
