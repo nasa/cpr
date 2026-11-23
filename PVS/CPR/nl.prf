@@ -7346,7 +7346,7 @@
                        (then (lemma "trans_calc" (n str)) (assert))))
                     (("2"
                       (apply (let ((l (fromto 2 59)))
-                               (mapstep@ #'(lambda (n) `(tcn ,n)) l)))
+                               (mapstep@ #'(lambda (n) (list 'tcn n)) l)))
                       (("2" (eval-expr "87 * 2 ^ 32 / 360")
                         (("2" (replaces -1)
                           (("2"
@@ -7359,7 +7359,7 @@
                               (apply (let
                                       ((l (fromto 2 59)))
                                       (mapstep@
-                                       #'(lambda (n) `(calceq ,n))
+                                       #'(lambda (n) (list 'calceq n))
                                        l)))
                               (("2"
                                 (eval-expr "2^32/360")
@@ -7412,8 +7412,7 @@
                                                       (mapstep@
                                                        #'(lambda
                                                           (n)
-                                                          `(stepper
-                                                            ,n))
+                                                          (list 'stepper n))
                                                        l)))
                                                     (("2"
                                                       (expand
