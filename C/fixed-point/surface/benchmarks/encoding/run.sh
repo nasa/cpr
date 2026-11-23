@@ -2,7 +2,12 @@
 
 for csvfile in *.csv
 do
-   if [ -e "$csvfile" ]; then 
+   # MOPS-table-2-140.csv is the input of verify-lat-trans-points, not of encode.
+   if [ "$csvfile" = "MOPS-table-2-140.csv" ]; then
+      continue
+   fi
+
+   if [ -e "$csvfile" ]; then
       ./encode $csvfile > $csvfile.out
 
       ./check-encoding $csvfile $csvfile.out
