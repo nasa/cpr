@@ -569,7 +569,7 @@
                                                          -1)
                                                         (("2"
                                                           (replace
-                                                           dlat
+                                                           "dlat"
                                                            :dir
                                                            rl)
                                                           (("2"
@@ -2116,7 +2116,7 @@
    shostak))
  (lon_decomp_TCC1 0
   (lon_decomp_TCC1-1 nil 3673776717
-   ("" (skeep) (("" (typepred (dl)) (("" (assert) nil nil)) nil)) nil)
+   ("" (skeep) (("" (typepred "dl") (("" (assert) nil nil)) nil)) nil)
    ((<= const-decl "bool" reals nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (< const-decl "bool" reals nil)

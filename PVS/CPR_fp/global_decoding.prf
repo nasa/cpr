@@ -153,7 +153,7 @@
               nil))
             nil)
            ("2" (flatten)
-            (("2" (typepred (i))
+            (("2" (typepred "i")
               (("2" (ground)
                 (("2" (replace -1)
                   (("2" (expand "rlat_g")

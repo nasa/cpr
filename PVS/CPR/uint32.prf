@@ -2,14 +2,14 @@
  (div_shift_TCC1 0
   (div_shift_TCC1-2 nil 3735312133
    ("" (skeep)
-    (("" (typepred (a))
+    (("" (typepred "a")
       (("" (case "a/2^n<2^32")
         (("1" (assert) nil nil)
          ("2" (cross-mult 1)
           (("2" (case "1<=2^n")
             (("1" (mult-ineq -1 -2) (("1" (assert) nil nil)) nil)
              ("2" (assert)
-              (("2" (typepred (n))
+              (("2" (typepred "n")
                 (("2" (lemma "both_sides_expt_gt1_le")
                   (("2" (inst -1 "2" "0" "n")
                     (("2" (flatten)

@@ -749,7 +749,7 @@
                         nil)
                        ("2" (inst 2 "k" "m")
                         (("1" (assert) nil nil)
-                         ("2" (typepred (m))
+                         ("2" (typepred "m")
                           (("2" (reveal "int_ineq")
                             (("2" (inst -1 "m" "2^nb")
                               (("2"
@@ -770,7 +770,7 @@
                           nil)
                          ("2" (inst 2 "k!1" "m!1")
                           (("1" (assert) nil nil)
-                           ("2" (typepred (m!1))
+                           ("2" (typepred "m!1")
                             (("2" (reveal "int_ineq")
                               (("2"
                                 (inst -1 "m!1" "2^nb")
@@ -897,9 +897,9 @@
                                                     (case
                                                      "NOT (-2^nb+1<=me-mo AND me-mo<=2^nb-1)")
                                                     (("1"
-                                                      (typepred (me))
+                                                      (typepred "me")
                                                       (("1"
-                                                        (typepred (mo))
+                                                        (typepred "mo")
                                                         (("1"
                                                           (assert)
                                                           nil

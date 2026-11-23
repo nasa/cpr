@@ -2239,13 +2239,13 @@
                                                                                                                                   -2))
                                                                                                                                 (("2"
                                                                                                                                   (hide
-                                                                                                                                   dnl_lon)
+                                                                                                                                   "dnl_lon")
                                                                                                                                   (("2"
                                                                                                                                     (hide
-                                                                                                                                     mod_lon)
+                                                                                                                                     "mod_lon")
                                                                                                                                     (("2"
                                                                                                                                       (hide
-                                                                                                                                       lat_eq)
+                                                                                                                                       "lat_eq")
                                                                                                                                       (("2"
                                                                                                                                         (lemma
                                                                                                                                          "global_decode_correct_alt")
@@ -2288,7 +2288,7 @@
                                                                                                                                                            "NL_match")
                                                                                                                                                           (("2"
                                                                                                                                                             (reveal
-                                                                                                                                                             lat_eq)
+                                                                                                                                                             "lat_eq")
                                                                                                                                                             (("2"
                                                                                                                                                               (hide
                                                                                                                                                                (-3
@@ -2335,7 +2335,7 @@
                                                                                                                                               nil)
                                                                                                                                              ("2"
                                                                                                                                               (label
-                                                                                                                                               dnl_lon
+                                                                                                                                               "dnl_lon"
                                                                                                                                                -1)
                                                                                                                                               (("2"
                                                                                                                                                 (replaces
@@ -2649,10 +2649,10 @@
                                                                                                                                                                                      "Rlon_glo")
                                                                                                                                                                                     (("1"
                                                                                                                                                                                       (reveal
-                                                                                                                                                                                       dnl_lon)
+                                                                                                                                                                                       "dnl_lon")
                                                                                                                                                                                       (("1"
                                                                                                                                                                                         (reveal
-                                                                                                                                                                                         lat_eq)
+                                                                                                                                                                                         "lat_eq")
                                                                                                                                                                                         (("1"
                                                                                                                                                                                           (replace
                                                                                                                                                                                            -1
@@ -2693,10 +2693,10 @@
                                                                                                                                                                                                1)
                                                                                                                                                                                               (("2"
                                                                                                                                                                                                 (hide
-                                                                                                                                                                                                 dnl_lon)
+                                                                                                                                                                                                 "dnl_lon")
                                                                                                                                                                                                 (("2"
                                                                                                                                                                                                   (hide
-                                                                                                                                                                                                   lat_eq)
+                                                                                                                                                                                                   "lat_eq")
                                                                                                                                                                                                   (("2"
                                                                                                                                                                                                     (expand
                                                                                                                                                                                                      "m")
@@ -2708,7 +2708,7 @@
                                                                                                                                                                                                          -1)
                                                                                                                                                                                                         (("2"
                                                                                                                                                                                                           (hide
-                                                                                                                                                                                                           lat_eq)
+                                                                                                                                                                                                           "lat_eq")
                                                                                                                                                                                                           (("2"
                                                                                                                                                                                                             (case
                                                                                                                                                                                                              "NOT NL(Rlat(0, lat0)) = dnl0")
@@ -2825,7 +2825,7 @@
                                                                                                                                                                                            -2)
                                                                                                                                                                                           (("2"
                                                                                                                                                                                             (reveal
-                                                                                                                                                                                             mod_lon)
+                                                                                                                                                                                             "mod_lon")
                                                                                                                                                                                             (("2"
                                                                                                                                                                                               (propax)
                                                                                                                                                                                               nil
@@ -2850,7 +2850,7 @@
                                                                                                                                                                                     (flatten)
                                                                                                                                                                                     (("2"
                                                                                                                                                                                       (reveal
-                                                                                                                                                                                       mod_lon)
+                                                                                                                                                                                       "mod_lon")
                                                                                                                                                                                       (("2"
                                                                                                                                                                                         (assert)
                                                                                                                                                                                         nil
@@ -2893,7 +2893,7 @@
                                                                                                                                                                                       (skeep)
                                                                                                                                                                                       (("2"
                                                                                                                                                                                         (label
-                                                                                                                                                                                         mod_lon
+                                                                                                                                                                                         "mod_lon"
                                                                                                                                                                                          -2)
                                                                                                                                                                                         (("2"
                                                                                                                                                                                           (hide
@@ -3001,7 +3001,7 @@
                                                                                                                                                                                                                                    -1)
                                                                                                                                                                                                                                   (("1"
                                                                                                                                                                                                                                     (reveal
-                                                                                                                                                                                                                                     dnl_lon)
+                                                                                                                                                                                                                                     "dnl_lon")
                                                                                                                                                                                                                                     (("1"
                                                                                                                                                                                                                                       (assert)
                                                                                                                                                                                                                                       (("1"
@@ -3030,7 +3030,7 @@
                                                                                                                                                                                                                                       (assert)
                                                                                                                                                                                                                                       (("2"
                                                                                                                                                                                                                                         (reveal
-                                                                                                                                                                                                                                         dnl_lon)
+                                                                                                                                                                                                                                         "dnl_lon")
                                                                                                                                                                                                                                         (("2"
                                                                                                                                                                                                                                           (assert)
                                                                                                                                                                                                                                           (("2"
@@ -3528,7 +3528,7 @@
                                                                                                                                             nil)
                                                                                                                                            ("2"
                                                                                                                                             (reveal
-                                                                                                                                             dnl_lon)
+                                                                                                                                             "dnl_lon")
                                                                                                                                             (("2"
                                                                                                                                               (assert)
                                                                                                                                               nil
@@ -5107,13 +5107,13 @@
                                                                                                                                   -2))
                                                                                                                                 (("2"
                                                                                                                                   (hide
-                                                                                                                                   dnl_lon)
+                                                                                                                                   "dnl_lon")
                                                                                                                                   (("2"
                                                                                                                                     (hide
-                                                                                                                                     mod_lon)
+                                                                                                                                     "mod_lon")
                                                                                                                                     (("2"
                                                                                                                                       (hide
-                                                                                                                                       lat_eq)
+                                                                                                                                       "lat_eq")
                                                                                                                                       (("2"
                                                                                                                                         (lemma
                                                                                                                                          "global_decode_correct_alt")
@@ -5156,7 +5156,7 @@
                                                                                                                                                            "NL_match")
                                                                                                                                                           (("2"
                                                                                                                                                             (reveal
-                                                                                                                                                             lat_eq)
+                                                                                                                                                             "lat_eq")
                                                                                                                                                             (("2"
                                                                                                                                                               (hide
                                                                                                                                                                (-3
@@ -5203,7 +5203,7 @@
                                                                                                                                               nil)
                                                                                                                                              ("2"
                                                                                                                                               (label
-                                                                                                                                               dnl_lon
+                                                                                                                                               "dnl_lon"
                                                                                                                                                -1)
                                                                                                                                               (("2"
                                                                                                                                                 (replaces
@@ -5517,10 +5517,10 @@
                                                                                                                                                                                      "Rlon_glo")
                                                                                                                                                                                     (("1"
                                                                                                                                                                                       (reveal
-                                                                                                                                                                                       dnl_lon)
+                                                                                                                                                                                       "dnl_lon")
                                                                                                                                                                                       (("1"
                                                                                                                                                                                         (reveal
-                                                                                                                                                                                         lat_eq)
+                                                                                                                                                                                         "lat_eq")
                                                                                                                                                                                         (("1"
                                                                                                                                                                                           (replace
                                                                                                                                                                                            -1
@@ -5561,10 +5561,10 @@
                                                                                                                                                                                                1)
                                                                                                                                                                                               (("2"
                                                                                                                                                                                                 (hide
-                                                                                                                                                                                                 dnl_lon)
+                                                                                                                                                                                                 "dnl_lon")
                                                                                                                                                                                                 (("2"
                                                                                                                                                                                                   (hide
-                                                                                                                                                                                                   lat_eq)
+                                                                                                                                                                                                   "lat_eq")
                                                                                                                                                                                                   (("2"
                                                                                                                                                                                                     (expand
                                                                                                                                                                                                      "m")
@@ -5576,7 +5576,7 @@
                                                                                                                                                                                                          -1)
                                                                                                                                                                                                         (("2"
                                                                                                                                                                                                           (hide
-                                                                                                                                                                                                           lat_eq)
+                                                                                                                                                                                                           "lat_eq")
                                                                                                                                                                                                           (("2"
                                                                                                                                                                                                             (case
                                                                                                                                                                                                              "NOT NL(Rlat(0, lat0)) = dnl0")
@@ -5693,7 +5693,7 @@
                                                                                                                                                                                            -2)
                                                                                                                                                                                           (("2"
                                                                                                                                                                                             (reveal
-                                                                                                                                                                                             mod_lon)
+                                                                                                                                                                                             "mod_lon")
                                                                                                                                                                                             (("2"
                                                                                                                                                                                               (propax)
                                                                                                                                                                                               nil
@@ -5718,7 +5718,7 @@
                                                                                                                                                                                     (flatten)
                                                                                                                                                                                     (("2"
                                                                                                                                                                                       (reveal
-                                                                                                                                                                                       mod_lon)
+                                                                                                                                                                                       "mod_lon")
                                                                                                                                                                                       (("2"
                                                                                                                                                                                         (assert)
                                                                                                                                                                                         nil
@@ -5761,7 +5761,7 @@
                                                                                                                                                                                       (skeep)
                                                                                                                                                                                       (("2"
                                                                                                                                                                                         (label
-                                                                                                                                                                                         mod_lon
+                                                                                                                                                                                         "mod_lon"
                                                                                                                                                                                          -2)
                                                                                                                                                                                         (("2"
                                                                                                                                                                                           (hide
@@ -5869,7 +5869,7 @@
                                                                                                                                                                                                                                    -1)
                                                                                                                                                                                                                                   (("1"
                                                                                                                                                                                                                                     (reveal
-                                                                                                                                                                                                                                     dnl_lon)
+                                                                                                                                                                                                                                     "dnl_lon")
                                                                                                                                                                                                                                     (("1"
                                                                                                                                                                                                                                       (assert)
                                                                                                                                                                                                                                       (("1"
@@ -5898,7 +5898,7 @@
                                                                                                                                                                                                                                       (assert)
                                                                                                                                                                                                                                       (("2"
                                                                                                                                                                                                                                         (reveal
-                                                                                                                                                                                                                                         dnl_lon)
+                                                                                                                                                                                                                                         "dnl_lon")
                                                                                                                                                                                                                                         (("2"
                                                                                                                                                                                                                                           (assert)
                                                                                                                                                                                                                                           (("2"
@@ -6396,7 +6396,7 @@
                                                                                                                                             nil)
                                                                                                                                            ("2"
                                                                                                                                             (reveal
-                                                                                                                                             dnl_lon)
+                                                                                                                                             "dnl_lon")
                                                                                                                                             (("2"
                                                                                                                                               (assert)
                                                                                                                                               nil
@@ -7712,13 +7712,13 @@
                                                                                                                                   -2))
                                                                                                                                 (("2"
                                                                                                                                   (hide
-                                                                                                                                   dnl_lon)
+                                                                                                                                   "dnl_lon")
                                                                                                                                   (("2"
                                                                                                                                     (hide
-                                                                                                                                     mod_lon)
+                                                                                                                                     "mod_lon")
                                                                                                                                     (("2"
                                                                                                                                       (hide
-                                                                                                                                       lat_eq)
+                                                                                                                                       "lat_eq")
                                                                                                                                       (("2"
                                                                                                                                         (lemma
                                                                                                                                          "global_decode_correct_alt")
@@ -7760,7 +7760,7 @@
                                                                                                                                                            "NL_match")
                                                                                                                                                           (("2"
                                                                                                                                                             (reveal
-                                                                                                                                                             lat_eq)
+                                                                                                                                                             "lat_eq")
                                                                                                                                                             (("2"
                                                                                                                                                               (hide
                                                                                                                                                                (-3
@@ -7790,7 +7790,7 @@
                                                                                                                                                                             nil)))))))))))))))))))))))))))))))
                                                                                                                                              ("2"
                                                                                                                                               (label
-                                                                                                                                               dnl_lon
+                                                                                                                                               "dnl_lon"
                                                                                                                                                -1)
                                                                                                                                               (("2"
                                                                                                                                                 (replaces
@@ -8010,7 +8010,7 @@
                                                                                                                                                     nil)))))))))
                                                                                                                                            ("2"
                                                                                                                                             (reveal
-                                                                                                                                             dnl_lon)
+                                                                                                                                             "dnl_lon")
                                                                                                                                             (("2"
                                                                                                                                               (assert)
                                                                                                                                               nil)))))))))))))))))))))))))
@@ -9284,13 +9284,13 @@
                                                                                                                                   -2))
                                                                                                                                 (("2"
                                                                                                                                   (hide
-                                                                                                                                   dnl_lon)
+                                                                                                                                   "dnl_lon")
                                                                                                                                   (("2"
                                                                                                                                     (hide
-                                                                                                                                     mod_lon)
+                                                                                                                                     "mod_lon")
                                                                                                                                     (("2"
                                                                                                                                       (hide
-                                                                                                                                       lat_eq)
+                                                                                                                                       "lat_eq")
                                                                                                                                       (("2"
                                                                                                                                         (lemma
                                                                                                                                          "global_decode_correct_alt")
@@ -9333,7 +9333,7 @@
                                                                                                                                                            "NL_match")
                                                                                                                                                           (("2"
                                                                                                                                                             (reveal
-                                                                                                                                                             lat_eq)
+                                                                                                                                                             "lat_eq")
                                                                                                                                                             (("2"
                                                                                                                                                               (hide
                                                                                                                                                                (-3
@@ -9380,7 +9380,7 @@
                                                                                                                                               nil)
                                                                                                                                              ("2"
                                                                                                                                               (label
-                                                                                                                                               dnl_lon
+                                                                                                                                               "dnl_lon"
                                                                                                                                                -1)
                                                                                                                                               (("2"
                                                                                                                                                 (replaces
@@ -9670,7 +9670,7 @@
                                                                                                                                             nil)
                                                                                                                                            ("2"
                                                                                                                                             (reveal
-                                                                                                                                             dnl_lon)
+                                                                                                                                             "dnl_lon")
                                                                                                                                             (("2"
                                                                                                                                               (assert)
                                                                                                                                               nil
@@ -10197,7 +10197,7 @@
                                     (("2"
                                       (label "mod_lon" (-1 -2))
                                       (("2"
-                                        (hide mod_lon)
+                                        (hide "mod_lon")
                                         (("2"
                                           (case
                                            "NOT Decode`1 = Rlat(i, lat)")
@@ -10334,12 +10334,12 @@
                                                                   (assert)
                                                                   (("1"
                                                                     (reveal
-                                                                     mod_lon)
+                                                                     "mod_lon")
                                                                     (("1"
                                                                       (assert)
                                                                       (("1"
                                                                         (hide
-                                                                         mod_lon)
+                                                                         "mod_lon")
                                                                         (("1"
                                                                           (replace
                                                                            -1
@@ -10757,12 +10757,12 @@
                                                                                       (assert)
                                                                                       (("2"
                                                                                         (reveal
-                                                                                         mod_lon)
+                                                                                         "mod_lon")
                                                                                         (("2"
                                                                                           (assert)
                                                                                           (("2"
                                                                                             (hide
-                                                                                             mod_lon)
+                                                                                             "mod_lon")
                                                                                             (("2"
                                                                                               (case
                                                                                                "NOT dlon(i, lat) / 2 ^ 20 = dl(max(NL(Decode`1) - i, 1), 360) / 2 ^ 20")
@@ -10846,7 +10846,7 @@
                                                                    1)
                                                                   (("2"
                                                                     (reveal
-                                                                     mod_lon)
+                                                                     "mod_lon")
                                                                     (("2"
                                                                       (hide
                                                                        -2)
@@ -11216,7 +11216,7 @@
                                     (("2"
                                       (label "mod_lon" (-1 -2))
                                       (("2"
-                                        (hide mod_lon)
+                                        (hide "mod_lon")
                                         (("2"
                                           (case
                                            "NOT Decode`1 = Rlat(i, lat)")
@@ -11353,12 +11353,12 @@
                                                                   (assert)
                                                                   (("1"
                                                                     (reveal
-                                                                     mod_lon)
+                                                                     "mod_lon")
                                                                     (("1"
                                                                       (assert)
                                                                       (("1"
                                                                         (hide
-                                                                         mod_lon)
+                                                                         "mod_lon")
                                                                         (("1"
                                                                           (replace
                                                                            -1
@@ -11562,7 +11562,7 @@
                                                                    1)
                                                                   (("2"
                                                                     (reveal
-                                                                     mod_lon)
+                                                                     "mod_lon")
                                                                     (("2"
                                                                       (hide
                                                                        -2)
@@ -13117,7 +13117,7 @@
                         (("2"
                           (inst-cp -13 "i" "lats0" "lats1" "own_lat")
                           (("2" (label "lat_eq" -13)
-                            (("2" (hide lat_eq)
+                            (("2" (hide "lat_eq")
                               (("2"
                                 (skoletin)
                                 (("2"
@@ -13228,7 +13228,7 @@
                                                                  -21)
                                                                 (("2"
                                                                   (hide
-                                                                   enc_lat)
+                                                                   "enc_lat")
                                                                   (("2"
                                                                     (hide
                                                                      (-2
@@ -13262,7 +13262,7 @@
                                                                                   (assert)
                                                                                   (("1"
                                                                                     (reveal
-                                                                                     lat_eq)
+                                                                                     "lat_eq")
                                                                                     (("1"
                                                                                       (case
                                                                                        "NOT (NL(Rlat_glo_surf(own_lat)(0, YZ0, YZ1)) = NL(Rlat(0, lats0)) AND
@@ -13334,7 +13334,7 @@
                                                                             -5))
                                                                           (("2"
                                                                             (hide
-                                                                             NL_val)
+                                                                             "NL_val")
                                                                             (("2"
                                                                               (lemma
                                                                                "close_mod_lt_to_close")
@@ -13363,7 +13363,7 @@
                                                                                           -2))
                                                                                         (("2"
                                                                                           (hide
-                                                                                           mod_lon)
+                                                                                           "mod_lon")
                                                                                           (("2"
                                                                                             (lemma
                                                                                              "global_decode_correct")
@@ -13400,7 +13400,7 @@
                                                                                                               (flatten)
                                                                                                               (("1"
                                                                                                                 (reveal
-                                                                                                                 NL_val)
+                                                                                                                 "NL_val")
                                                                                                                 (("1"
                                                                                                                   (expand
                                                                                                                    "lon_enc_bound_surf")
@@ -13426,7 +13426,7 @@
                                                                                                                  2)
                                                                                                                 (("2"
                                                                                                                   (reveal
-                                                                                                                   NL_val)
+                                                                                                                   "NL_val")
                                                                                                                   (("2"
                                                                                                                     (assert)
                                                                                                                     (("2"
@@ -13703,12 +13703,12 @@
                                                                                                                                           (assert)
                                                                                                                                           (("1"
                                                                                                                                             (reveal
-                                                                                                                                             mod_lon)
+                                                                                                                                             "mod_lon")
                                                                                                                                             (("1"
                                                                                                                                               (assert)
                                                                                                                                               (("1"
                                                                                                                                                 (hide
-                                                                                                                                                 mod_lon)
+                                                                                                                                                 "mod_lon")
                                                                                                                                                 (("1"
                                                                                                                                                   (replaces
                                                                                                                                                    -1
@@ -13759,7 +13759,7 @@
                                                                                                                                                                         (assert)
                                                                                                                                                                         (("1"
                                                                                                                                                                           (hide
-                                                                                                                                                                           NL_val)
+                                                                                                                                                                           "NL_val")
                                                                                                                                                                           (("1"
                                                                                                                                                                             (expand
                                                                                                                                                                              "MOD")
@@ -13840,12 +13840,12 @@
                                                                                                                                              "360")
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               mod_lon)
+                                                                                                                                               "mod_lon")
                                                                                                                                               (("1"
                                                                                                                                                 (assert)
                                                                                                                                                 (("1"
                                                                                                                                                   (hide
-                                                                                                                                                   mod_lon)
+                                                                                                                                                   "mod_lon")
                                                                                                                                                   (("1"
                                                                                                                                                     (replaces
                                                                                                                                                      -1
@@ -13896,7 +13896,7 @@
                                                                                                                                                                           (assert)
                                                                                                                                                                           (("1"
                                                                                                                                                                             (hide
-                                                                                                                                                                             NL_val)
+                                                                                                                                                                             "NL_val")
                                                                                                                                                                             (("1"
                                                                                                                                                                               (expand
                                                                                                                                                                                "MOD")
@@ -14030,7 +14030,7 @@
                                                                                                                                       1))
                                                                                                                                     (("1"
                                                                                                                                       (reveal
-                                                                                                                                       mod_lon)
+                                                                                                                                       "mod_lon")
                                                                                                                                       (("1"
                                                                                                                                         (case
                                                                                                                                          "NOT MOD(loni - pos, 360) =0")
@@ -14056,7 +14056,7 @@
                                                                                                                                           nil)
                                                                                                                                          ("2"
                                                                                                                                           (label
-                                                                                                                                           mod_lon
+                                                                                                                                           "mod_lon"
                                                                                                                                            -1)
                                                                                                                                           (("2"
                                                                                                                                             (hide
@@ -14287,7 +14287,7 @@
                                                                                                                                              +)
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               NL_val)
+                                                                                                                                               "NL_val")
                                                                                                                                               (("1"
                                                                                                                                                 (replace
                                                                                                                                                  -4
@@ -14381,7 +14381,7 @@
                                                                                                                                                    "dlon")
                                                                                                                                                   (("1"
                                                                                                                                                     (reveal
-                                                                                                                                                     NL_val)
+                                                                                                                                                     "NL_val")
                                                                                                                                                     (("1"
                                                                                                                                                       (replace
                                                                                                                                                        -1
@@ -16302,7 +16302,7 @@
                         (("2"
                           (inst-cp -13 "i" "lats0" "lats1" "own_lat")
                           (("2" (label "lat_eq" -13)
-                            (("2" (hide lat_eq)
+                            (("2" (hide "lat_eq")
                               (("2"
                                 (skoletin)
                                 (("2"
@@ -16413,7 +16413,7 @@
                                                                  -21)
                                                                 (("2"
                                                                   (hide
-                                                                   enc_lat)
+                                                                   "enc_lat")
                                                                   (("2"
                                                                     (hide
                                                                      (-2
@@ -16447,7 +16447,7 @@
                                                                                   (assert)
                                                                                   (("1"
                                                                                     (reveal
-                                                                                     lat_eq)
+                                                                                     "lat_eq")
                                                                                     (("1"
                                                                                       (case
                                                                                        "NOT (NL(Rlat_glo_surf(own_lat)(0, YZ0, YZ1)) = NL(Rlat(0, lats0)) AND
@@ -16519,7 +16519,7 @@
                                                                             -5))
                                                                           (("2"
                                                                             (hide
-                                                                             NL_val)
+                                                                             "NL_val")
                                                                             (("2"
                                                                               (lemma
                                                                                "close_mod_lt_to_close")
@@ -16548,7 +16548,7 @@
                                                                                           -2))
                                                                                         (("2"
                                                                                           (hide
-                                                                                           mod_lon)
+                                                                                           "mod_lon")
                                                                                           (("2"
                                                                                             (lemma
                                                                                              "global_decode_correct")
@@ -16585,7 +16585,7 @@
                                                                                                               (flatten)
                                                                                                               (("1"
                                                                                                                 (reveal
-                                                                                                                 NL_val)
+                                                                                                                 "NL_val")
                                                                                                                 (("1"
                                                                                                                   (expand
                                                                                                                    "lon_enc_bound_surf")
@@ -16611,7 +16611,7 @@
                                                                                                                  2)
                                                                                                                 (("2"
                                                                                                                   (reveal
-                                                                                                                   NL_val)
+                                                                                                                   "NL_val")
                                                                                                                   (("2"
                                                                                                                     (assert)
                                                                                                                     (("2"
@@ -16888,12 +16888,12 @@
                                                                                                                                           (assert)
                                                                                                                                           (("1"
                                                                                                                                             (reveal
-                                                                                                                                             mod_lon)
+                                                                                                                                             "mod_lon")
                                                                                                                                             (("1"
                                                                                                                                               (assert)
                                                                                                                                               (("1"
                                                                                                                                                 (hide
-                                                                                                                                                 mod_lon)
+                                                                                                                                                 "mod_lon")
                                                                                                                                                 (("1"
                                                                                                                                                   (replaces
                                                                                                                                                    -1
@@ -16944,7 +16944,7 @@
                                                                                                                                                                         (assert)
                                                                                                                                                                         (("1"
                                                                                                                                                                           (hide
-                                                                                                                                                                           NL_val)
+                                                                                                                                                                           "NL_val")
                                                                                                                                                                           (("1"
                                                                                                                                                                             (expand
                                                                                                                                                                              "MOD")
@@ -17025,12 +17025,12 @@
                                                                                                                                              "360")
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               mod_lon)
+                                                                                                                                               "mod_lon")
                                                                                                                                               (("1"
                                                                                                                                                 (assert)
                                                                                                                                                 (("1"
                                                                                                                                                   (hide
-                                                                                                                                                   mod_lon)
+                                                                                                                                                   "mod_lon")
                                                                                                                                                   (("1"
                                                                                                                                                     (replaces
                                                                                                                                                      -1
@@ -17081,7 +17081,7 @@
                                                                                                                                                                           (assert)
                                                                                                                                                                           (("1"
                                                                                                                                                                             (hide
-                                                                                                                                                                             NL_val)
+                                                                                                                                                                             "NL_val")
                                                                                                                                                                             (("1"
                                                                                                                                                                               (expand
                                                                                                                                                                                "MOD")
@@ -17215,7 +17215,7 @@
                                                                                                                                       1))
                                                                                                                                     (("1"
                                                                                                                                       (reveal
-                                                                                                                                       mod_lon)
+                                                                                                                                       "mod_lon")
                                                                                                                                       (("1"
                                                                                                                                         (case
                                                                                                                                          "NOT MOD(loni - pos, 360) =0")
@@ -17241,7 +17241,7 @@
                                                                                                                                           nil)
                                                                                                                                          ("2"
                                                                                                                                           (label
-                                                                                                                                           mod_lon
+                                                                                                                                           "mod_lon"
                                                                                                                                            -1)
                                                                                                                                           (("2"
                                                                                                                                             (hide
@@ -17472,7 +17472,7 @@
                                                                                                                                              +)
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               NL_val)
+                                                                                                                                               "NL_val")
                                                                                                                                               (("1"
                                                                                                                                                 (replace
                                                                                                                                                  -4
@@ -17566,7 +17566,7 @@
                                                                                                                                                    "dlon")
                                                                                                                                                   (("1"
                                                                                                                                                     (reveal
-                                                                                                                                                     NL_val)
+                                                                                                                                                     "NL_val")
                                                                                                                                                     (("1"
                                                                                                                                                       (replace
                                                                                                                                                        -1
@@ -19146,7 +19146,7 @@
                       (("2" (flatten)
                         (("2" (inst-cp -13 "i" "lats0" "lats1")
                           (("2" (label "lat_eq" -13)
-                            (("2" (hide lat_eq)
+                            (("2" (hide "lat_eq")
                               (("2"
                                 (skoletin)
                                 (("2"
@@ -19242,7 +19242,7 @@
                                                                  -21)
                                                                 (("2"
                                                                   (hide
-                                                                   enc_lat)
+                                                                   "enc_lat")
                                                                   (("2"
                                                                     (hide
                                                                      (-2
@@ -19276,7 +19276,7 @@
                                                                                   (assert)
                                                                                   (("1"
                                                                                     (reveal
-                                                                                     lat_eq)
+                                                                                     "lat_eq")
                                                                                     (("1"
                                                                                       (case
                                                                                        "NOT (NL(Rlat_glo_surf(own_lat)(0, YZ0, YZ1)) = NL(Rlat(0, lats0)) AND
@@ -19328,7 +19328,7 @@
                                                                             -5))
                                                                           (("2"
                                                                             (hide
-                                                                             NL_val)
+                                                                             "NL_val")
                                                                             (("2"
                                                                               (lemma
                                                                                "close_mod_lt_to_close")
@@ -19357,7 +19357,7 @@
                                                                                           -2))
                                                                                         (("2"
                                                                                           (hide
-                                                                                           mod_lon)
+                                                                                           "mod_lon")
                                                                                           (("2"
                                                                                             (lemma
                                                                                              "global_decode_correct")
@@ -19394,7 +19394,7 @@
                                                                                                               (flatten)
                                                                                                               (("1"
                                                                                                                 (reveal
-                                                                                                                 NL_val)
+                                                                                                                 "NL_val")
                                                                                                                 (("1"
                                                                                                                   (expand
                                                                                                                    "lon_enc_bound_surf")
@@ -19414,7 +19414,7 @@
                                                                                                                  2)
                                                                                                                 (("2"
                                                                                                                   (reveal
-                                                                                                                   NL_val)
+                                                                                                                   "NL_val")
                                                                                                                   (("2"
                                                                                                                     (assert)
                                                                                                                     (("2"
@@ -19638,12 +19638,12 @@
                                                                                                                                           (assert)
                                                                                                                                           (("1"
                                                                                                                                             (reveal
-                                                                                                                                             mod_lon)
+                                                                                                                                             "mod_lon")
                                                                                                                                             (("1"
                                                                                                                                               (assert)
                                                                                                                                               (("1"
                                                                                                                                                 (hide
-                                                                                                                                                 mod_lon)
+                                                                                                                                                 "mod_lon")
                                                                                                                                                 (("1"
                                                                                                                                                   (replaces
                                                                                                                                                    -1
@@ -19694,7 +19694,7 @@
                                                                                                                                                                         (assert)
                                                                                                                                                                         (("1"
                                                                                                                                                                           (hide
-                                                                                                                                                                           NL_val)
+                                                                                                                                                                           "NL_val")
                                                                                                                                                                           (("1"
                                                                                                                                                                             (expand
                                                                                                                                                                              "MOD")
@@ -19747,12 +19747,12 @@
                                                                                                                                              "360")
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               mod_lon)
+                                                                                                                                               "mod_lon")
                                                                                                                                               (("1"
                                                                                                                                                 (assert)
                                                                                                                                                 (("1"
                                                                                                                                                   (hide
-                                                                                                                                                   mod_lon)
+                                                                                                                                                   "mod_lon")
                                                                                                                                                   (("1"
                                                                                                                                                     (replaces
                                                                                                                                                      -1
@@ -19803,7 +19803,7 @@
                                                                                                                                                                           (assert)
                                                                                                                                                                           (("1"
                                                                                                                                                                             (hide
-                                                                                                                                                                             NL_val)
+                                                                                                                                                                             "NL_val")
                                                                                                                                                                             (("1"
                                                                                                                                                                               (expand
                                                                                                                                                                                "MOD")
@@ -19889,7 +19889,7 @@
                                                                                                                                       1))
                                                                                                                                     (("1"
                                                                                                                                       (reveal
-                                                                                                                                       mod_lon)
+                                                                                                                                       "mod_lon")
                                                                                                                                       (("1"
                                                                                                                                         (case
                                                                                                                                          "NOT MOD(loni - pos, 360) =0")
@@ -19910,7 +19910,7 @@
                                                                                                                                               nil)))))
                                                                                                                                          ("2"
                                                                                                                                           (label
-                                                                                                                                           mod_lon
+                                                                                                                                           "mod_lon"
                                                                                                                                            -1)
                                                                                                                                           (("2"
                                                                                                                                             (hide
@@ -20091,7 +20091,7 @@
                                                                                                                                              +)
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               NL_val)
+                                                                                                                                               "NL_val")
                                                                                                                                               (("1"
                                                                                                                                                 (replace
                                                                                                                                                  -4
@@ -20169,7 +20169,7 @@
                                                                                                                                                    "dlon")
                                                                                                                                                   (("1"
                                                                                                                                                     (reveal
-                                                                                                                                                     NL_val)
+                                                                                                                                                     "NL_val")
                                                                                                                                                     (("1"
                                                                                                                                                       (replace
                                                                                                                                                        -1
@@ -21420,7 +21420,7 @@
                       (("2" (flatten)
                         (("2" (inst-cp -13 "i" "lats0" "lats1")
                           (("2" (label "lat_eq" -13)
-                            (("2" (hide lat_eq)
+                            (("2" (hide "lat_eq")
                               (("2"
                                 (skoletin)
                                 (("2"
@@ -21516,7 +21516,7 @@
                                                                  -21)
                                                                 (("2"
                                                                   (hide
-                                                                   enc_lat)
+                                                                   "enc_lat")
                                                                   (("2"
                                                                     (hide
                                                                      (-2
@@ -21550,7 +21550,7 @@
                                                                                   (assert)
                                                                                   (("1"
                                                                                     (reveal
-                                                                                     lat_eq)
+                                                                                     "lat_eq")
                                                                                     (("1"
                                                                                       (case
                                                                                        "NOT (NL(Rlat_glo_surf(own_lat)(0, YZ0, YZ1)) = NL(Rlat(0, lats0)) AND
@@ -21602,7 +21602,7 @@
                                                                             -5))
                                                                           (("2"
                                                                             (hide
-                                                                             NL_val)
+                                                                             "NL_val")
                                                                             (("2"
                                                                               (lemma
                                                                                "close_mod_lt_to_close")
@@ -21631,7 +21631,7 @@
                                                                                           -2))
                                                                                         (("2"
                                                                                           (hide
-                                                                                           mod_lon)
+                                                                                           "mod_lon")
                                                                                           (("2"
                                                                                             (lemma
                                                                                              "global_decode_correct")
@@ -21668,7 +21668,7 @@
                                                                                                               (flatten)
                                                                                                               (("1"
                                                                                                                 (reveal
-                                                                                                                 NL_val)
+                                                                                                                 "NL_val")
                                                                                                                 (("1"
                                                                                                                   (expand
                                                                                                                    "lon_enc_bound_surf")
@@ -21688,7 +21688,7 @@
                                                                                                                  2)
                                                                                                                 (("2"
                                                                                                                   (reveal
-                                                                                                                   NL_val)
+                                                                                                                   "NL_val")
                                                                                                                   (("2"
                                                                                                                     (assert)
                                                                                                                     (("2"
@@ -21912,12 +21912,12 @@
                                                                                                                                           (assert)
                                                                                                                                           (("1"
                                                                                                                                             (reveal
-                                                                                                                                             mod_lon)
+                                                                                                                                             "mod_lon")
                                                                                                                                             (("1"
                                                                                                                                               (assert)
                                                                                                                                               (("1"
                                                                                                                                                 (hide
-                                                                                                                                                 mod_lon)
+                                                                                                                                                 "mod_lon")
                                                                                                                                                 (("1"
                                                                                                                                                   (replaces
                                                                                                                                                    -1
@@ -21968,7 +21968,7 @@
                                                                                                                                                                         (assert)
                                                                                                                                                                         (("1"
                                                                                                                                                                           (hide
-                                                                                                                                                                           NL_val)
+                                                                                                                                                                           "NL_val")
                                                                                                                                                                           (("1"
                                                                                                                                                                             (expand
                                                                                                                                                                              "MOD")
@@ -22021,12 +22021,12 @@
                                                                                                                                              "360")
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               mod_lon)
+                                                                                                                                               "mod_lon")
                                                                                                                                               (("1"
                                                                                                                                                 (assert)
                                                                                                                                                 (("1"
                                                                                                                                                   (hide
-                                                                                                                                                   mod_lon)
+                                                                                                                                                   "mod_lon")
                                                                                                                                                   (("1"
                                                                                                                                                     (replaces
                                                                                                                                                      -1
@@ -22077,7 +22077,7 @@
                                                                                                                                                                           (assert)
                                                                                                                                                                           (("1"
                                                                                                                                                                             (hide
-                                                                                                                                                                             NL_val)
+                                                                                                                                                                             "NL_val")
                                                                                                                                                                             (("1"
                                                                                                                                                                               (expand
                                                                                                                                                                                "MOD")
@@ -22163,7 +22163,7 @@
                                                                                                                                       1))
                                                                                                                                     (("1"
                                                                                                                                       (reveal
-                                                                                                                                       mod_lon)
+                                                                                                                                       "mod_lon")
                                                                                                                                       (("1"
                                                                                                                                         (case
                                                                                                                                          "NOT MOD(loni - pos, 360) =0")
@@ -22184,7 +22184,7 @@
                                                                                                                                               nil)))))
                                                                                                                                          ("2"
                                                                                                                                           (label
-                                                                                                                                           mod_lon
+                                                                                                                                           "mod_lon"
                                                                                                                                            -1)
                                                                                                                                           (("2"
                                                                                                                                             (hide
@@ -22365,7 +22365,7 @@
                                                                                                                                              +)
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               NL_val)
+                                                                                                                                               "NL_val")
                                                                                                                                               (("1"
                                                                                                                                                 (replace
                                                                                                                                                  -4
@@ -22443,7 +22443,7 @@
                                                                                                                                                    "dlon")
                                                                                                                                                   (("1"
                                                                                                                                                     (reveal
-                                                                                                                                                     NL_val)
+                                                                                                                                                     "NL_val")
                                                                                                                                                     (("1"
                                                                                                                                                       (replace
                                                                                                                                                        -1
@@ -24026,7 +24026,7 @@
                       (("2" (flatten)
                         (("2" (inst-cp -13 "i" "lats0" "lats1")
                           (("2" (label "lat_eq" -13)
-                            (("2" (hide lat_eq)
+                            (("2" (hide "lat_eq")
                               (("2"
                                 (skoletin)
                                 (("2"
@@ -24137,7 +24137,7 @@
                                                                  -21)
                                                                 (("2"
                                                                   (hide
-                                                                   enc_lat)
+                                                                   "enc_lat")
                                                                   (("2"
                                                                     (hide
                                                                      (-2
@@ -24171,7 +24171,7 @@
                                                                                   (assert)
                                                                                   (("1"
                                                                                     (reveal
-                                                                                     lat_eq)
+                                                                                     "lat_eq")
                                                                                     (("1"
                                                                                       (case
                                                                                        "NOT (NL(Rlat_glo_surf(0, YZ0, YZ1)) = NL(Rlat(0, lats0)) AND
@@ -24241,7 +24241,7 @@
                                                                             -5))
                                                                           (("2"
                                                                             (hide
-                                                                             NL_val)
+                                                                             "NL_val")
                                                                             (("2"
                                                                               (lemma
                                                                                "close_mod_lt_to_close")
@@ -24270,7 +24270,7 @@
                                                                                           -2))
                                                                                         (("2"
                                                                                           (hide
-                                                                                           mod_lon)
+                                                                                           "mod_lon")
                                                                                           (("2"
                                                                                             (lemma
                                                                                              "global_decode_correct")
@@ -24307,7 +24307,7 @@
                                                                                                               (flatten)
                                                                                                               (("1"
                                                                                                                 (reveal
-                                                                                                                 NL_val)
+                                                                                                                 "NL_val")
                                                                                                                 (("1"
                                                                                                                   (expand
                                                                                                                    "lon_enc_bound_surf")
@@ -24333,7 +24333,7 @@
                                                                                                                  2)
                                                                                                                 (("2"
                                                                                                                   (reveal
-                                                                                                                   NL_val)
+                                                                                                                   "NL_val")
                                                                                                                   (("2"
                                                                                                                     (assert)
                                                                                                                     (("2"
@@ -24610,12 +24610,12 @@
                                                                                                                                           (assert)
                                                                                                                                           (("1"
                                                                                                                                             (reveal
-                                                                                                                                             mod_lon)
+                                                                                                                                             "mod_lon")
                                                                                                                                             (("1"
                                                                                                                                               (assert)
                                                                                                                                               (("1"
                                                                                                                                                 (hide
-                                                                                                                                                 mod_lon)
+                                                                                                                                                 "mod_lon")
                                                                                                                                                 (("1"
                                                                                                                                                   (replaces
                                                                                                                                                    -1
@@ -24666,7 +24666,7 @@
                                                                                                                                                                         (assert)
                                                                                                                                                                         (("1"
                                                                                                                                                                           (hide
-                                                                                                                                                                           NL_val)
+                                                                                                                                                                           "NL_val")
                                                                                                                                                                           (("1"
                                                                                                                                                                             (expand
                                                                                                                                                                              "MOD")
@@ -24747,12 +24747,12 @@
                                                                                                                                              "360")
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               mod_lon)
+                                                                                                                                               "mod_lon")
                                                                                                                                               (("1"
                                                                                                                                                 (assert)
                                                                                                                                                 (("1"
                                                                                                                                                   (hide
-                                                                                                                                                   mod_lon)
+                                                                                                                                                   "mod_lon")
                                                                                                                                                   (("1"
                                                                                                                                                     (replaces
                                                                                                                                                      -1
@@ -24803,7 +24803,7 @@
                                                                                                                                                                           (assert)
                                                                                                                                                                           (("1"
                                                                                                                                                                             (hide
-                                                                                                                                                                             NL_val)
+                                                                                                                                                                             "NL_val")
                                                                                                                                                                             (("1"
                                                                                                                                                                               (expand
                                                                                                                                                                                "MOD")
@@ -24937,7 +24937,7 @@
                                                                                                                                       1))
                                                                                                                                     (("1"
                                                                                                                                       (reveal
-                                                                                                                                       mod_lon)
+                                                                                                                                       "mod_lon")
                                                                                                                                       (("1"
                                                                                                                                         (case
                                                                                                                                          "NOT MOD(loni - pos, 360) =0")
@@ -24963,7 +24963,7 @@
                                                                                                                                           nil)
                                                                                                                                          ("2"
                                                                                                                                           (label
-                                                                                                                                           mod_lon
+                                                                                                                                           "mod_lon"
                                                                                                                                            -1)
                                                                                                                                           (("2"
                                                                                                                                             (hide
@@ -25194,7 +25194,7 @@
                                                                                                                                              +)
                                                                                                                                             (("1"
                                                                                                                                               (reveal
-                                                                                                                                               NL_val)
+                                                                                                                                               "NL_val")
                                                                                                                                               (("1"
                                                                                                                                                 (replace
                                                                                                                                                  -4
@@ -25288,7 +25288,7 @@
                                                                                                                                                    "dlon")
                                                                                                                                                   (("1"
                                                                                                                                                     (reveal
-                                                                                                                                                     NL_val)
+                                                                                                                                                     "NL_val")
                                                                                                                                                     (("1"
                                                                                                                                                       (replace
                                                                                                                                                        -1

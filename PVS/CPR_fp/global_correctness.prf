@@ -52,7 +52,7 @@
         ((""
           (case "not mod(a * floor(x * (a - 1)) - (a - 1) * floor(y * a), a - i) = floor(z * (a-i)) - (a-i)*floor( floor(z*(a-i))/(a-i)) ")
           (("1" (hide 2)
-            (("1" (typepred (i))
+            (("1" (typepred "i")
               (("1" (split -1)
                 (("1" (replace -1)
                   (("1" (assert)
@@ -77,7 +77,7 @@
             nil)
            ("2" (replaces -1)
             (("2" (label "zz" -3)
-              (("2" (hide zz)
+              (("2" (hide "zz")
                 (("2" (lift-if 1)
                   (("2" (name "c" "a-i")
                     (("2" (replaces -1)
@@ -88,7 +88,7 @@
                               (("1"
                                 (expand "c")
                                 (("1"
-                                  (typepred (i))
+                                  (typepred "i")
                                   (("1" (grind) nil nil))
                                   nil))
                                 nil))
@@ -233,7 +233,7 @@
                                                         (expand "c")
                                                         (("2"
                                                           (typepred
-                                                           (i))
+                                                           "i")
                                                           (("2"
                                                             (ground)
                                                             nil
@@ -286,7 +286,7 @@
                                               (("2"
                                                 (grind)
                                                 (("2"
-                                                  (typepred (i))
+                                                  (typepred "i")
                                                   (("2"
                                                     (expand "c")
                                                     (("2"
@@ -656,7 +656,7 @@
                                                                                      1)
                                                                                     (("1"
                                                                                       (typepred
-                                                                                       (fr))
+                                                                                       "fr")
                                                                                       (("1"
                                                                                         (hide-all-but
                                                                                          (-1
@@ -832,7 +832,7 @@
                                                                                        "dlat(i)")
                                                                                       (("1"
                                                                                         (typepred
-                                                                                         (fr))
+                                                                                         "fr")
                                                                                         (("1"
                                                                                           (case
                                                                                            "NOT dlat(i)*fr < 4")
@@ -966,7 +966,7 @@
                                                                                         (grind)
                                                                                         (("2"
                                                                                           (typepred
-                                                                                           (i))
+                                                                                           "i")
                                                                                           (("2"
                                                                                             (grind)
                                                                                             nil
@@ -1053,7 +1053,7 @@
                                          ("2"
                                           (flatten)
                                           (("2"
-                                            (typepred (i))
+                                            (typepred "i")
                                             (("2"
                                               (assert)
                                               (("2"
@@ -1243,7 +1243,7 @@
                                                                                                    1)
                                                                                                   (("1"
                                                                                                     (typepred
-                                                                                                     (i))
+                                                                                                     "i")
                                                                                                     (("1"
                                                                                                       (ground)
                                                                                                       (("1"
@@ -1385,7 +1385,7 @@
                                                                                                "latepl")
                                                                                               (("1"
                                                                                                 (typepred
-                                                                                                 (late))
+                                                                                                 "late")
                                                                                                 (("1"
                                                                                                   (expand
                                                                                                    "dlat")
@@ -2381,7 +2381,7 @@
                               nil)
                              ("2" (assert)
                               (("2"
-                                (typepred (i))
+                                (typepred "i")
                                 (("2" (assert) nil nil))
                                 nil))
                               nil)
@@ -2720,7 +2720,7 @@
                                                                     (flatten)
                                                                     (("2"
                                                                       (typepred
-                                                                       (i))
+                                                                       "i")
                                                                       (("2"
                                                                         (assert)
                                                                         (("2"
@@ -2885,7 +2885,7 @@
                                                              "mod(j(nb)(ence`elat, enco`elat), 60 - i)< 60-i")
                                                             (("1"
                                                               (typepred
-                                                               (yz))
+                                                               "yz")
                                                               (("1"
                                                                 (replace
                                                                  -8)
@@ -2967,7 +2967,7 @@
                                                                                                      "NZ")
                                                                                                     (("1"
                                                                                                       (typepred
-                                                                                                       (i))
+                                                                                                       "i")
                                                                                                       (("1"
                                                                                                         (ground)
                                                                                                         nil)))))))))))))))))))))
@@ -3118,7 +3118,7 @@
                                                              "mod(j(nb)(ence`elat, enco`elat), 60 - i)< 60-i")
                                                             (("1"
                                                               (typepred
-                                                               (yz))
+                                                               "yz")
                                                               (("1"
                                                                 (replace
                                                                  -8)
@@ -3204,7 +3204,7 @@
                                                                                                      "NZ")
                                                                                                     (("1"
                                                                                                       (typepred
-                                                                                                       (i))
+                                                                                                       "i")
                                                                                                       (("1"
                                                                                                         (ground)
                                                                                                         nil
@@ -3430,7 +3430,7 @@
                                                              "mod(j(nb)(ence`elat, enco`elat), 60 - i)< 60-i")
                                                             (("1"
                                                               (typepred
-                                                               (yz))
+                                                               "yz")
                                                               (("1"
                                                                 (replace
                                                                  -8)
@@ -3516,7 +3516,7 @@
                                                                                                      "NZ")
                                                                                                     (("1"
                                                                                                       (typepred
-                                                                                                       (i))
+                                                                                                       "i")
                                                                                                       (("1"
                                                                                                         (ground)
                                                                                                         (("1"
@@ -3713,7 +3713,7 @@
                               nil)
                              ("2" (flatten)
                               (("2"
-                                (typepred (i))
+                                (typepred "i")
                                 (("2"
                                   (assert)
                                   (("2"
@@ -3753,7 +3753,7 @@
                                ("2"
                                 (flatten)
                                 (("2"
-                                  (typepred (i))
+                                  (typepred "i")
                                   (("2"
                                     (assert)
                                     (("2"
@@ -3987,7 +3987,7 @@
                                                                                                                  1)
                                                                                                                 (("1"
                                                                                                                   (typepred
-                                                                                                                   (i))
+                                                                                                                   "i")
                                                                                                                   (("1"
                                                                                                                     (grind)
                                                                                                                     nil
@@ -4225,7 +4225,7 @@
                                                                                                                                                                                                          "lat")
                                                                                                                                                                                                         (("1"
                                                                                                                                                                                                           (typepred
-                                                                                                                                                                                                           (i))
+                                                                                                                                                                                                           "i")
                                                                                                                                                                                                           (("1"
                                                                                                                                                                                                             (lift-if
                                                                                                                                                                                                              1)
@@ -5533,7 +5533,7 @@
                                                                   (flatten)
                                                                   (("2"
                                                                     (typepred
-                                                                     (i))
+                                                                     "i")
                                                                     (("2"
                                                                       (ground)
                                                                       (("2"
@@ -5687,7 +5687,7 @@
                                                                            "NOT max(nl-i, 1) = nli")
                                                                           (("1"
                                                                             (typepred
-                                                                             (i))
+                                                                             "i")
                                                                             (("1"
                                                                               (expand
                                                                                "max")
@@ -5745,7 +5745,7 @@
                                                                                                  "nli")
                                                                                                 (("2"
                                                                                                   (typepred
-                                                                                                   (i))
+                                                                                                   "i")
                                                                                                   (("2"
                                                                                                     (ground)
                                                                                                     nil
@@ -6395,7 +6395,7 @@
                                                                                                                                                -1)
                                                                                                                                               (("1"
                                                                                                                                                 (typepred
-                                                                                                                                                 (i))
+                                                                                                                                                 "i")
                                                                                                                                                 (("1"
                                                                                                                                                   (ground)
                                                                                                                                                   nil
@@ -6410,7 +6410,7 @@
                                                                                                                                          -1)
                                                                                                                                         (("2"
                                                                                                                                           (typepred
-                                                                                                                                           (i))
+                                                                                                                                           "i")
                                                                                                                                           (("2"
                                                                                                                                             (ground)
                                                                                                                                             (("2"
@@ -6524,7 +6524,7 @@
                                                                                                                                     nil)
                                                                                                                                    ("2"
                                                                                                                                     (typepred
-                                                                                                                                     (i))
+                                                                                                                                     "i")
                                                                                                                                     (("2"
                                                                                                                                       (ground)
                                                                                                                                       (("2"
@@ -6586,7 +6586,7 @@
                                                                                                                 nil)
                                                                                                                ("3"
                                                                                                                 (typepred
-                                                                                                                 (i))
+                                                                                                                 "i")
                                                                                                                 (("3"
                                                                                                                   (ground)
                                                                                                                   nil
@@ -7979,7 +7979,7 @@
                                                             (assert)
                                                             (("3"
                                                               (typepred
-                                                               (i))
+                                                               "i")
                                                               (("3"
                                                                 (assert)
                                                                 nil
@@ -9010,7 +9010,7 @@
                                                                 (flatten)
                                                                 (("2"
                                                                   (typepred
-                                                                   (i))
+                                                                   "i")
                                                                   (("2"
                                                                     (ground)
                                                                     (("2"
@@ -9164,7 +9164,7 @@
                                                                          "NOT max(nl-i, 1) = nli")
                                                                         (("1"
                                                                           (typepred
-                                                                           (i))
+                                                                           "i")
                                                                           (("1"
                                                                             (expand
                                                                              "max")
@@ -9222,7 +9222,7 @@
                                                                                                "nli")
                                                                                               (("2"
                                                                                                 (typepred
-                                                                                                 (i))
+                                                                                                 "i")
                                                                                                 (("2"
                                                                                                   (ground)
                                                                                                   nil
@@ -9872,7 +9872,7 @@
                                                                                                                                              -1)
                                                                                                                                             (("1"
                                                                                                                                               (typepred
-                                                                                                                                               (i))
+                                                                                                                                               "i")
                                                                                                                                               (("1"
                                                                                                                                                 (ground)
                                                                                                                                                 nil
@@ -9887,7 +9887,7 @@
                                                                                                                                        -1)
                                                                                                                                       (("2"
                                                                                                                                         (typepred
-                                                                                                                                         (i))
+                                                                                                                                         "i")
                                                                                                                                         (("2"
                                                                                                                                           (ground)
                                                                                                                                           (("2"
@@ -10001,7 +10001,7 @@
                                                                                                                                   nil)
                                                                                                                                  ("2"
                                                                                                                                   (typepred
-                                                                                                                                   (i))
+                                                                                                                                   "i")
                                                                                                                                   (("2"
                                                                                                                                     (ground)
                                                                                                                                     (("2"
@@ -10063,7 +10063,7 @@
                                                                                                               nil)
                                                                                                              ("3"
                                                                                                               (typepred
-                                                                                                               (i))
+                                                                                                               "i")
                                                                                                               (("3"
                                                                                                                 (ground)
                                                                                                                 nil
@@ -11456,7 +11456,7 @@
                                                           (assert)
                                                           (("3"
                                                             (typepred
-                                                             (i))
+                                                             "i")
                                                             (("3"
                                                               (assert)
                                                               nil

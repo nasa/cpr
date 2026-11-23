@@ -9420,7 +9420,7 @@
                                 (("1"
                                   (typepred "nl")
                                   (("1"
-                                    (typepred i)
+                                    (typepred "i")
                                     (("1"
                                       (assert)
                                       (("1"
@@ -16388,7 +16388,7 @@
                                                     (("1"
                                                       (label "xs" -3)
                                                       (("1"
-                                                        (hide xs)
+                                                        (hide "xs")
                                                         (("1"
                                                           (hide -5)
                                                           (("1"
@@ -17124,7 +17124,7 @@
                                                     (("1"
                                                       (label "xs" -3)
                                                       (("1"
-                                                        (hide xs)
+                                                        (hide "xs")
                                                         (("1"
                                                           (hide -5)
                                                           (("1"
