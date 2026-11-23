@@ -151,17 +151,15 @@ description of all features."
    (spread
     (split -2)
     ((then
-      (lemma "Q_global_zone__def_0")
       (safe-match - "L_global_zone(nz, %2, %3, %4)" step
-	     (inst -1 "%2" "%3" "%4"))
+	     (then (lemma "Q_global_zone__def_0") (inst -1 "%2" "%3" "%4")))
       (assert)
       (flatten)
       (assert))
      (then
       (flatten)
-      (lemma "Q_global_zone__def_1")
       (safe-match - "L_global_zone(nz, %2, %3, %4)" step
-	     (inst -1 "nz" "%2" "%3" "%4"))
+	     (then (lemma "Q_global_zone__def_1") (inst -1 "nz" "%2" "%3" "%4")))
       (assert)
       (branch
        (split -1)
@@ -441,7 +439,12 @@ description of all features."
                        (name-replace name
                         "L_global_zone(%1, %2, %3, %4)")))
               (spread (acsl-to-c 4)
-               ((assert) (eval-formula) (eval-formula) (eval-formula)
+               ((then
+                 (safe-match "to_uint32(%1{number})" step
+                        (then (eval-expr "to_uint32(%1)")
+                         (replace -1 :hide? t)))
+                 (assert))
+                (eval-formula) (eval-formula) (eval-formula)
                 (eval-formula))))
              (assert)))))))))))))
  "Proves the global_decode_post.goal lemma."
@@ -603,13 +606,14 @@ description of all features."
 	 (spread
 	  (case "to_uint32(59) = 59")
 	  ((then
-	    (assert)
+	    (replace -1 :hide? t) (assert)
 	    (safe-match "L_closest_mult_div_shift(%1, %2)" step
 		   (let ((name (freshname "cpr")))
 		     (name-replace name "L_closest_mult_div_shift(%1, %2)")))
 	    (spread
 	     (acsl-to-c 2)
-	     ((assert) (eval-formula) (assert) (assert))))
+	     ((then (eval-formula) (assert)) (then (eval-formula) (assert))
+	      (then (eval-formula) (assert)) (then (eval-formula) (assert)))))
 	   (eval-formula)))))))
      (grind :exclude
 	    ("L_closest_mult_div_shift"
