@@ -90,8 +90,8 @@ proved: no formula is `unfinished`, `untried` or `unchecked`. PVS lists each pro
 of two ways:
 
 - `proved - complete`: the proof succeeds, and every formula that the proof uses is also proved in
-  this installation. These are the lemmas, TCCs and judgements that the proof uses, and the formulas that
-  their proofs use, through the whole chain.
+  this installation. These are the lemmas, TCCs and judgements that the proof uses, and the
+  formulas that their proofs use, through the whole chain.
 - `proved - incomplete`: the proof succeeds, but its chain contains a formula that is not proved in
   this installation, for example a NASALib lemma, TCC or judgement.
 
