@@ -5,6 +5,6 @@ orphaned-proofs.prf
 .pvscontext
 *.bin
 *.log
-*.summary
 *.dump
 *.out
+*.grandtotals-tc
