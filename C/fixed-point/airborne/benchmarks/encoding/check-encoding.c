@@ -21,19 +21,40 @@
 
 #define INPUT_LINE_MAX_LENGTH 270
 
+/* Reads the encoded latitude and longitude (fields 4 and 5) of a CSV line.
+ * Returns 0 if the line has fewer than 5 fields, and 1 otherwise. */
+static int read_encoding(const char* line, int_type* encoded_lat, int_type* encoded_lon) {
+    int found = 0;
+    char* tmp = strdup(line);
+    const char* token = strtok(tmp, ",");      // format
+    if (token != NULL) token = strtok(NULL, ","); // awb_lat
+    if (token != NULL) token = strtok(NULL, ","); // awb_lon
+    if (token != NULL) token = strtok(NULL, ","); // encoded latitude
+    if (token != NULL) {
+        *encoded_lat = (int_type) strtoul(token,NULL,16);
+        token = strtok(NULL, ",");                 // encoded longitude
+        if (token != NULL) {
+            *encoded_lon = (int_type) strtoul(token,NULL,16);
+            found = 1;
+        }
+    }
+    free(tmp);
+    return found;
+}
+
 int main(int argc, char * argv[]){
     int result = 0; // OK
-    int i;
     unsigned int line_number = 0;
     FILE *original_data_file ;
     FILE *result_data_file ;
-    char line[INPUT_LINE_MAX_LENGTH] ;
-    const char* token = NULL;
+    char original_line[INPUT_LINE_MAX_LENGTH] ;
+    char result_line[INPUT_LINE_MAX_LENGTH] ;
     int_type expected_encoded_lat, expected_encoded_lon;
     int_type result_encoded_lat, result_encoded_lon;
 
-    if(argc <= 1) {
+    if(argc <= 2) {
         fprintf(stderr, "Error: Missing input file names.\n");
+        fprintf(stderr, "USAGE: %s <input CSV file> <result CSV file>\n", argv[0]);
         return 1;
     }
 
@@ -46,56 +67,48 @@ int main(int argc, char * argv[]){
     result_data_file = fopen(argv[2], "r");
     if(result_data_file == NULL) {
         fprintf(stderr, "Error: File %s not found.\n", argv[2]);
+        fclose(original_data_file);
         return 1;
     }
 
-    char* tmp = NULL;
-    while( result != 0 && fgets ( line, INPUT_LINE_MAX_LENGTH, original_data_file ) != NULL ) {
-        tmp = strdup(line);
+    while( fgets ( original_line, INPUT_LINE_MAX_LENGTH, original_data_file ) != NULL ) {
+        line_number++;
 
-        token = strtok(tmp, ",");
-        // format 
-        token = strtok(NULL, ",");
-        // awb_lat
-        token = strtok(NULL, ",");
-        // awb_lon
-        token = strtok(NULL, ",");
-        expected_encoded_lat = (int_type) strtoul(token,NULL,16);
-        token = strtok(NULL, ",");
-        expected_encoded_lon = (int_type) strtoul(token,NULL,16);
-
-        if ( fgets ( line, INPUT_LINE_MAX_LENGTH, result_data_file ) != NULL ) {
-
-            token = strtok(tmp, ",");
-            // format 
-            token = strtok(NULL, ",");
-            // awb_lat
-            token = strtok(NULL, ",");
-            // awb_lon
-            token = strtok(NULL, ",");
-            result_encoded_lat = (int_type) strtoul(token,NULL,16);
-            token = strtok(NULL, ",");
-            result_encoded_lon = (int_type) strtoul(token,NULL,16);
-
-            line_number++;
-
-            if(expected_encoded_lat != result_encoded_lat) {
-                printf("Error in line %d: expected latitude is %X but computed latitude is %X.\n",line_number,expected_encoded_lat,result_encoded_lat);
-                result=1; // ERROR
-            }
-
-            if(expected_encoded_lon != result_encoded_lon) {
-                printf("Error in line %d: expected longitude is %X but computed longitude is %X.\n",line_number,expected_encoded_lon,result_encoded_lon);
-                result=1; // ERROR
-            }
-
-        } else {
+        if ( fgets ( result_line, INPUT_LINE_MAX_LENGTH, result_data_file ) == NULL ) {
             printf("File %s has more rows than %s.\n",argv[1],argv[2]);
             result = 1; // ERROR
+            break;
         }
 
-        free(tmp);
+        if ( !read_encoding(original_line, &expected_encoded_lat, &expected_encoded_lon) ) {
+            printf("Error in line %d of %s: fewer than 5 fields.\n",line_number,argv[1]);
+            result = 1; // ERROR
+            continue;
+        }
+
+        if ( !read_encoding(result_line, &result_encoded_lat, &result_encoded_lon) ) {
+            printf("Error in line %d of %s: fewer than 5 fields.\n",line_number,argv[2]);
+            result = 1; // ERROR
+            continue;
+        }
+
+        if(expected_encoded_lat != result_encoded_lat) {
+            printf("Error in line %d: expected latitude in %s is %X but computed latitude in %s is %X.\n",line_number,argv[1],expected_encoded_lat,argv[2],result_encoded_lat);
+            result=1; // ERROR
+        }
+
+        if(expected_encoded_lon != result_encoded_lon) {
+            printf("Error in line %d: expected longitude in %s is %X but computed longitude in %s is %X.\n",line_number,argv[1],expected_encoded_lon,argv[2],result_encoded_lon);
+            result=1; // ERROR
+        }
     }
+
+    if ( result == 0 && fgets ( result_line, INPUT_LINE_MAX_LENGTH, result_data_file ) != NULL ) {
+        printf("File %s has more rows than %s.\n",argv[2],argv[1]);
+        result = 1; // ERROR
+    }
+
     fclose(original_data_file) ;
+    fclose(result_data_file) ;
     return result;
 }

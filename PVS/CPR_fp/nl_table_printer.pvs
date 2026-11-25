@@ -36,7 +36,7 @@ nl_table_printer: THEORY
 BEGIN
 
   IMPORTING nl,
-  	    PVSioChecker@csv_writerow,
+  	    PVSioCSV@csv_writerow,
 	    PVSioChecker@pvsio_checker
 
   % prec_to_show: how many decimals of each number are expected to be printed.
@@ -59,7 +59,7 @@ BEGIN
     ELSE LET csv: CSVWriter = csv_writer(filename, SQCOMMA_DIALECT) IN
          write_row(csv,("Degree","NL")) &
          (FORALL (i:subrange(1,59)):
-           write_row(csv,(real2str(transitions(i),print_prec,TowardsZero),i))) &
+           write_row(csv,(real2decstr(transitions(i),print_prec,TowardsZero),i))) &
          fclose(csv`outs) ENDIF
 
   pvs_file: void =

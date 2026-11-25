@@ -52,20 +52,21 @@
     (fopenout const-decl "OStream" stdio nil)
     (NZ const-decl "int" basic_defs nil))
    nil))
- (pvs_file_TCC2 0
-  (pvs_file_TCC2-1 nil 3673199381
-   ("" (skeep*) (("" (inst + "(1,0)") nil nil)) nil)
-   ((number nonempty-type-decl nil numbers nil)
-    (number_field_pred const-decl "[number -> boolean]" number_fields
-     nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (> const-decl "bool" reals nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (TRUE const-decl "bool" booleans nil))
-   nil))
+ (|pvs_file_TCC2| 0
+  (|pvs_file_TCC2-1| NIL 3673199381 ("" (SUBTYPE-TCC) NIL)
+   ((NZ CONST-DECL "int" |basic_defs| NIL)
+    (|fopenout| CONST-DECL "[[(output_mode?), string] -> OStream]" |stdio| NIL)
+    (|strconcat| CONST-DECL "[[string, string] -> string]" |stdstr| NIL)
+    (|real2str| CONST-DECL "string" |stdstr| NIL)
+    (|real2decstr| CONST-DECL "string" |stdstr| NIL)
+    (|rat2decstr| CONST-DECL "string" |stdstr| NIL)
+    (ROUNDING CONST-DECL "Global[RoundingMode]" |stdmath| NIL)
+    (|list2finseq| CONST-DECL "[list[T] -> finseq[T]]" |list2finseq| NIL)
+    (|val| CONST-DECL "[Mutable -> T]" |stdprog| NIL))
+   NIL
+   (|pvs_file| SUBTYPE "2"
+    "subrange(1, (number_fields.-)(number_fields.*(4, basic_defs.NZ), 1))"
+    (102 66 102 67))))
  (pvs_file_TCC3 0
   (pvs_file_TCC3-1 nil 3673199381 ("" (subtype-tcc) nil nil)
    ((list2finseq const-decl "finseq[T]" list2finseq nil)

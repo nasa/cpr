@@ -1122,7 +1122,7 @@
                                         (("1"
                                           (hide-all-but 1)
                                           (("1"
-                                            (typepred i)
+                                            (typepred "i")
                                             (("1"
                                               (cross-mult 1)
                                               nil

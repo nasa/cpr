@@ -5067,7 +5067,7 @@
                                                                             (assert)
                                                                             (("1"
                                                                               (typepred
-                                                                               (nnl))
+                                                                               "nnl")
                                                                               (("1"
                                                                                 (expand
                                                                                  "nnl")

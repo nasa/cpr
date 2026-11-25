@@ -33,47 +33,112 @@ folders `vc_nb_12` (coarse), `vc_nb_14` (intent), `vc_nb_17`
 
 # Re-running the PVS Proofs
 
-[PVS version 7.1](http://pvs.csl.sri.com) and the development version
-of the [NASA PVS Library](https://github.com/nasa/pvslib) are required
-to type-check and prove the CPR development in PVS. Type the following
-command in a Unix shell within the local directory `PVS`.
+[PVS version 8.1.3](https://github.com/SRI-CSL/PVS/releases/tag/pvs8.1.3) and
+[NASALib](https://github.com/nasa/pvslib) are required to type-check and prove the CPR
+development in PVS. Install NASALib as its README says.
+
+## Checked versions
+
+All 910 formulas are proved with these versions:
+
+| Tool | Version |
+|---|---|
+| PVS | 8.1.3, the release of 2026-10-28 (tag [`pvs8.1.3`](https://github.com/SRI-CSL/PVS/releases/tag/pvs8.1.3), commit `50a70e713`) |
+| NASALib | `master` at commit [`d70ebfc8`](https://github.com/nasa/pvslib/commit/d70ebfc8fcd562699aea4bcccbaf3d2c4d66796f) (2026-10-28) |
+
+## Check the formalization
+
+Run this command in the local directory `PVS`:
 
 ```
-$ provethem --addpath 
+$ provethem --proveit-option 'add-path .' all-libraries
 ```
 
-The output of that command is
+The option `add-path .` adds the directory `PVS` to the library path for this run. Thus the
+libraries `vc_nb_12`, `vc_nb_14`, `vc_nb_17` and `vc_nb_19` find the libraries `CPR` and
+`framac_wp`, and no other setting is necessary. The file `all-libraries` lists the libraries in
+the order in which they are checked.
+
+The output of that command should be
 
 ```
-Processing all-theories. Output in ./all-theories.grandtotals
-CPR_fp                   [OK: 281 proofs]
-CPR                      [OK: 290 proofs]
-framac_wp                [OK: 10 proofs]
-vc_nb_12                 [OK: 80 proofs]
-vc_nb_14                 [OK: 80 proofs]
-vc_nb_17                 [OK: 80 proofs]
-vc_nb_19                 [OK: 80 proofs]
+CPR_fp      Proving... [OK: 282 proofs]
+CPR         Proving... [OK: 295 proofs]
+framac_wp   Proving... [OK: 10 proofs]
+vc_nb_12    Proving... [OK: 81 proofs]
+vc_nb_14    Proving... [OK: 81 proofs]
+vc_nb_17    Proving... [OK: 81 proofs]
+vc_nb_19    Proving... [OK: 80 proofs]
 
-*** Grand Totals: 901 proofs / 901 formulas. Missed: 0 formulas.
+*** Grand Totals: 910 proofs / 910 formulas. Missed: 0 formulas
 *** Number of libraries: 7
 ```
 
- To include CPR in other PVS developments, the local directory
-`PVS` has to be added to the Unix environment variable
-`PVS_LIBRARY_PATH`.  Depending upon your shell, one of the following lines
-has to be added to your startup script.  In C shell (csh or tcsh), put this line in
-`~/.cshrc`, where `<cprpvsdir>` is the absolute path to the local
-directory `PVS` in the CPR distribution:
+On a MacBook with Apple silicon, the command took 38 minutes. The library `CPR` takes the
+longest, about 16 minutes.
 
-~~~
-setenv PVS_LIBRARY_PATH "<cprpvsdir>:$PVS_LIBRARY_PATH"
-~~~
+To type-check without proving, add the option `-T`:
 
-In Borne shell (bash or sh), put this line in either `~/.bashrc or ~/.profile`:
+```
+$ provethem -T --proveit-option 'add-path .' all-libraries
+```
 
-~~~
-export PVS_LIBRARY_PATH="<cprpvsdir>/nasalib:$PVS_LIBRARY_PATH"
-~~~
+## Complete and incomplete proofs
+
+The directory `summaries` holds the summary of each library from the run above. Every formula is
+proved: no formula is `unfinished`, `untried` or `unchecked`. PVS lists each proved formula in one
+of two ways:
+
+- `proved - complete`: the proof succeeds, and every formula that the proof uses is also proved in
+  this installation. These are the lemmas, TCCs and judgements that the proof uses, and the
+  formulas that their proofs use, through the whole chain.
+- `proved - incomplete`: the proof succeeds, but its chain contains a formula that is not proved in
+  this installation, for example a NASALib lemma, TCC or judgement.
+
+NASALib is fully proved, but its proofs take several hours, so the check above does not run them.
+Thus `proved - incomplete` does not mean that a proof failed or is missing. After NASALib is proved
+in the same installation, for example with its script `prove-all`, the check lists these formulas
+as `proved - complete`.
+
+## Use CPR as a library in another development
+
+To import CPR in another PVS development, PVS must find the directory `PVS` of this repository
+in the Unix environment variable `PVS_LIBRARY_PATH`, together with NASALib.
+
+1. Clone this repository. In the commands below, replace `<cprdir>` with the absolute path of the
+   local clone, and `<nasalibdir>` with the absolute path of the local directory where NASALib was
+   cloned.
+
+2. Add both directories to `PVS_LIBRARY_PATH`.
+
+   In Bourne shell (bash or sh) or zsh:
+
+   ~~~
+   export PVS_LIBRARY_PATH="<nasalibdir>:<cprdir>/PVS:$PVS_LIBRARY_PATH"
+   ~~~
+
+   In C shell (csh or tcsh):
+
+   ~~~
+   setenv PVS_LIBRARY_PATH "<nasalibdir>:<cprdir>/PVS:$PVS_LIBRARY_PATH"
+   ~~~
+
+   If `PVS_LIBRARY_PATH` already contains NASALib, add only `<cprdir>/PVS`. To keep the setting,
+   add the line to your shell startup file (for example `~/.bashrc`, `~/.zshrc` or `~/.cshrc`).
+   Start PVS after you set the variable.
+
+3. Import the theories with the library name as a prefix. To import all of CPR, import its `top`
+   theory:
+
+   ~~~
+   IMPORTING CPR@top
+   ~~~
+
+   You can also import one theory, for example `IMPORTING CPR@cpr_int`. The library `CPR_fp` is
+   imported in the same way, for example `IMPORTING CPR_fp@top`.
+
+4. Type-check your development once with the command `M-x typecheck` in PVS, or with
+   `proveit -T <your theory file>`, to make sure that PVS finds CPR.
 
 # Bibliography
 

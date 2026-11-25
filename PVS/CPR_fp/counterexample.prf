@@ -56,7 +56,7 @@
                                                          rl)
                                                         (("2"
                                                           (typepred
-                                                           (nn))
+                                                           "nn")
                                                           (("2"
                                                             (case
                                                              "NOT forall (ii, jj:int): ii<jj IMPLIES ii<=jj-1")
@@ -233,11 +233,11 @@
       (("1" (ground)
         (("1" (expand "encode")
           (("1" (assert)
-            (("1" (typepred (i)) (("1" (grind) nil nil)) nil)) nil))
+            (("1" (typepred "i") (("1" (grind) nil nil)) nil)) nil))
           nil))
         nil)
-       ("2" (typepred (i)) (("2" (grind) nil nil)) nil)
-       ("3" (typepred (i)) (("3" (grind) nil nil)) nil))
+       ("2" (typepred "i") (("2" (grind) nil nil)) nil)
+       ("3" (typepred "i") (("3" (grind) nil nil)) nil))
       nil))
     nil)
    ((real_le_is_total_order name-judgement "(total_order?[real])"
@@ -1052,7 +1052,7 @@
         (("" (skeep)
           (("" (skeep)
             (("" (skeep)
-              (("" (typepred (n))
+              (("" (typepred "n")
                 (("" (eval-expr "2 ^ 17")
                   (("" (eval-expr "2 ^ 18")
                     (("" (eval-expr "2 ^ 128")
@@ -1125,7 +1125,7 @@
           (("" (skeep)
             (("" (skeep)
               (("" (skeep)
-                (("" (typepred (n))
+                (("" (typepred "n")
                   (("" (assert)
                     (("" (eval-expr "2 ^ 128")
                       (("" (eval-expr "2 ^ 18")
@@ -1268,7 +1268,7 @@
                                   ((""
                                     (assert)
                                     ((""
-                                      (typepred (n))
+                                      (typepred "n")
                                       ((""
                                         (eval-expr "2 ^ 17")
                                         ((""
@@ -1364,7 +1364,7 @@
           (("" (skeep)
             (("" (skeep)
               (("" (skeep)
-                (("" (typepred (n))
+                (("" (typepred "n")
                   (("" (eval-expr "2 ^ 17")
                     (("" (eval-expr "2 ^ 128")
                       (("" (eval-expr "2 ^ 18")

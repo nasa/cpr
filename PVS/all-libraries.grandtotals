@@ -1,0 +1,31 @@
+Processing CPR_fp. Writing CPR_fp.summary, CPR_fp.log, CPR_fp.dep into ./summaries
+Grand Totals: 282 proofs, 282 attempted, 282 succeeded (0.20 s)
+
+Processing CPR. Writing CPR.summary, CPR.log, CPR.dep into ./summaries
+Grand Totals: 295 proofs, 295 attempted, 295 succeeded (0.87 s)
+
+Processing framac_wp. Writing framac_wp.summary, framac_wp.log, framac_wp.dep into ./summaries
+Grand Totals: 10 proofs, 10 attempted, 10 succeeded (0.00 s)
+
+Processing vc_nb_12. Writing vc_nb_12.summary, vc_nb_12.log, vc_nb_12.dep into ./summaries
+Grand Totals: 81 proofs, 81 attempted, 81 succeeded (0.04 s)
+
+Processing vc_nb_14. Writing vc_nb_14.summary, vc_nb_14.log, vc_nb_14.dep into ./summaries
+Grand Totals: 81 proofs, 81 attempted, 81 succeeded (0.04 s)
+
+Processing vc_nb_17. Writing vc_nb_17.summary, vc_nb_17.log, vc_nb_17.dep into ./summaries
+Grand Totals: 81 proofs, 81 attempted, 81 succeeded (0.04 s)
+
+Processing vc_nb_19. Writing vc_nb_19.summary, vc_nb_19.log, vc_nb_19.dep into ./summaries
+Grand Totals: 80 proofs, 80 attempted, 80 succeeded (0.05 s)
+
+CPR_fp      Proving... [OK: 282 proofs]
+CPR         Proving... [OK: 295 proofs]
+framac_wp   Proving... [OK: 10 proofs]
+vc_nb_12    Proving... [OK: 81 proofs]
+vc_nb_14    Proving... [OK: 81 proofs]
+vc_nb_17    Proving... [OK: 81 proofs]
+vc_nb_19    Proving... [OK: 80 proofs]
+
+*** Grand Totals: 910 proofs / 910 formulas. Missed: 0 formulas
+*** Number of libraries: 7

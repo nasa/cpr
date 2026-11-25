@@ -1015,7 +1015,7 @@
                                                                                "nl")
                                                                               (("1"
                                                                                 (typepred
-                                                                                 (i))
+                                                                                 "i")
                                                                                 (("1"
                                                                                   (ground)
                                                                                   nil
@@ -1282,7 +1282,7 @@
                                              ("2"
                                               (typepred "nl")
                                               (("2"
-                                                (typepred (i))
+                                                (typepred "i")
                                                 (("2"
                                                   (ground)
                                                   nil
@@ -1298,7 +1298,7 @@
                                             (("2"
                                               (typepred "nl")
                                               (("2"
-                                                (typepred (i))
+                                                (typepred "i")
                                                 (("2"
                                                   (ground)
                                                   nil
@@ -1365,9 +1365,9 @@
                                                   (("1"
                                                     (flatten)
                                                     (("1"
-                                                      (typepred (nl))
+                                                      (typepred "nl")
                                                       (("1"
-                                                        (typepred (i))
+                                                        (typepred "i")
                                                         (("1"
                                                           (assert)
                                                           nil
@@ -1896,9 +1896,9 @@
                                 (("2"
                                   (case "not nl-i>=0")
                                   (("1"
-                                    (typepred (nl))
+                                    (typepred "nl")
                                     (("1"
-                                      (typepred (i))
+                                      (typepred "i")
                                       (("1" (ground) nil nil))
                                       nil))
                                     nil)
